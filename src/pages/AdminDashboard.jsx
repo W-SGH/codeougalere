@@ -36,7 +36,6 @@ export default function AdminDashboard() {
         .select('*, profiles(first_name, last_name)')
         .order('created_at', { ascending: false });
 
-      console.log('[Admin] purchases:', purchases, 'error:', purchasesError);
 
       if (purchases) {
         setSales(purchases);

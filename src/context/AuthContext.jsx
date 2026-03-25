@@ -19,7 +19,6 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      console.log('[Auth] onAuthStateChange :', _event, session?.user?.email ?? 'aucun user')
 
       if (_event === 'INITIAL_SESSION') {
         // Toujours traiter INITIAL_SESSION (chargement initial de la page)
@@ -92,11 +91,9 @@ export function AuthProvider({ children }) {
   async function fetchProfile(userId) {
     // Éviter les appels simultanés
     if (fetchingRef.current) {
-      console.log('[Auth] fetchProfile ignoré (déjà en cours)')
       return
     }
     fetchingRef.current = true
-    console.log('[Auth] fetchProfile appelé pour:', userId)
     try {
       const { data, error } = await supabase
         .from('profiles')
@@ -104,7 +101,6 @@ export function AuthProvider({ children }) {
         .eq('id', userId)
         .single()
       if (error) console.error('[Auth] fetchProfile error:', error.message, error.code)
-      console.log('[Auth] Profil chargé :', data ? `is_admin=${data.is_admin} has_access=${data.has_access}` : 'null')
       // Ne pas mettre à jour si l'utilisateur s'est déconnecté entre-temps
       if (data && currentUserIdRef.current === userId) setProfile(data)
     } catch (err) {
