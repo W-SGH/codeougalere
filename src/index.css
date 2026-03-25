@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Animations d'entrée ───────────────────────────────────────── */
+.reveal-fadeInUp {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal-fadeIn {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.reveal-scaleIn {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal-visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Flottement léger sur l'image hero */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Pulse subtil sur le bouton CTA */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.3); }
+  50%       { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+}
+.animate-glow {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+@layer base {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  body {
+    min-height: max(884px, 100dvh);
+  }
+}
