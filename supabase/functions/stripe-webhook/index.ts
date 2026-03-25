@@ -18,9 +18,9 @@ async function sendPaymentConfirmationEmail(email: string, firstName: string) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'Permis ou Galère <noreply@votredomaine.com>', // ← remplace par ton domaine vérifié Resend
+      from: 'Code ou Galère <noreply@votredomaine.com>', // ← remplace par ton domaine vérifié Resend
       to: email,
-      subject: '✅ Votre accès est activé — Permis ou Galère',
+      subject: '✅ Votre accès est activé — Code ou Galère',
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
           <h1 style="color: #FFD700; font-size: 28px; margin-bottom: 8px;">Bienvenue ${firstName} ! 🎉</h1>

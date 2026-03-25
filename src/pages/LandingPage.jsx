@@ -53,7 +53,7 @@ const LandingPage = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
               <span className="text-primary"><span className="material-symbols-outlined">directions_car</span></span>
-              <span className="text-xl font-bold tracking-tight">Permis ou galère <span className="text-primary"><span className="material-symbols-outlined">directions_car</span></span></span>
+              <span className="text-xl font-bold tracking-tight">Code ou galère <span className="text-primary"><span className="material-symbols-outlined">directions_car</span></span></span>
             </div>
             <div className="hidden md:flex items-center gap-8">
               <a className="text-sm font-medium hover:text-primary transition-colors" href="#formats">Apprentissage</a>
@@ -517,7 +517,7 @@ const LandingPage = () => {
             <div className="col-span-1">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-primary"><span className="material-symbols-outlined text-2xl">directions_car</span></span>
-                <span className="text-lg font-bold tracking-tight">Permis ou galère <span className="text-primary"><span className="material-symbols-outlined">directions_car</span></span></span>
+                <span className="text-lg font-bold tracking-tight">Code ou galère <span className="text-primary"><span className="material-symbols-outlined">directions_car</span></span></span>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed">
                 Apprendre à conduire n'a jamais été aussi simple. Rejoignez la communauté et passez votre code sereinement.

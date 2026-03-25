@@ -60,7 +60,7 @@ const DashboardPage = () => {
         <div className="p-6 border-b border-slate-200 dark:border-slate-800">
           <Link to="/" className="flex items-center gap-2">
             <span className="text-primary"><span className="material-symbols-outlined">directions_car</span></span>
-            <span className="text-xl font-bold tracking-tight">Permis ou galère</span>
+            <span className="text-xl font-bold tracking-tight">Code ou galère</span>
           </Link>
         </div>
         <nav className="flex-1 p-4 space-y-1">
@@ -107,7 +107,7 @@ const DashboardPage = () => {
         <div className="md:hidden flex justify-between items-center mb-6">
           <Link to="/" className="flex items-center gap-2">
             <span className="text-primary"><span className="material-symbols-outlined">directions_car</span></span>
-            <span className="text-lg font-bold">Permis ou galère</span>
+            <span className="text-lg font-bold">Code ou galère</span>
           </Link>
           <ThemeToggle />
         </div>
@@ -189,7 +189,7 @@ const DashboardPage = () => {
               <div className="flex-1">
                 <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Formation terminée</div>
                 <h2 className="text-xl font-black mb-1">Félicitations, {firstName} !</h2>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Tu as complété l'intégralité de la formation <strong>Permis ou Galère</strong>. Tu es prêt(e) pour l'examen.</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">Tu as complété l'intégralité de la formation <strong>Code ou Galère</strong>. Tu es prêt(e) pour l'examen.</p>
               </div>
               <button
                 onClick={() => window.print()}

@@ -21,7 +21,7 @@ function getEmailContent(type: string, firstName: string): { subject: string; ht
       html: `
         <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#111">
           <h2 style="margin:0 0 16px">Hey ${name} 👋</h2>
-          <p style="margin:0 0 16px;line-height:1.6">Tu t'es inscrit sur <strong>Permis ou Galère</strong> hier mais tu n'as pas encore accès aux vidéos.</p>
+          <p style="margin:0 0 16px;line-height:1.6">Tu t'es inscrit sur <strong>Code ou Galère</strong> hier mais tu n'as pas encore accès aux vidéos.</p>
           <p style="margin:0 0 24px;line-height:1.6">7 thèmes complets, 14 vidéos HD et 70+ questions t'attendent pour réussir ton code du premier coup.</p>
           <a href="${ctaUrl}" style="display:inline-block;background:#f5c400;color:#111;font-weight:700;padding:14px 28px;border-radius:12px;text-decoration:none;font-size:16px">
             Accéder aux vidéos — 49€
@@ -39,7 +39,7 @@ function getEmailContent(type: string, firstName: string): { subject: string; ht
         <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#111">
           <h2 style="margin:0 0 16px">Salut ${name},</h2>
           <p style="margin:0 0 16px;line-height:1.6">Beaucoup de gens ratent le code parce qu'ils le préparent mal — trop de par cœur, pas assez de méthode.</p>
-          <p style="margin:0 0 16px;line-height:1.6"><strong>Permis ou Galère</strong> c'est une approche différente : des vidéos courtes qui expliquent vraiment la logique derrière chaque règle.</p>
+          <p style="margin:0 0 16px;line-height:1.6"><strong>Code ou Galère</strong> c'est une approche différente : des vidéos courtes qui expliquent vraiment la logique derrière chaque règle.</p>
           <a href="${ctaUrl}" style="display:inline-block;background:#f5c400;color:#111;font-weight:700;padding:14px 28px;border-radius:12px;text-decoration:none;font-size:16px">
             Voir le programme — 49€
           </a>
@@ -120,7 +120,7 @@ Deno.serve(async (req) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Permis ou Galère <onboarding@resend.dev>',
+          from: 'Code ou Galère <onboarding@resend.dev>',
           to: user.email,
           subject,
           html,

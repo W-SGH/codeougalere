@@ -43,12 +43,12 @@ Deno.serve(async (req) => {
     const personalizedHtml = `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#111">
         <div style="margin-bottom:24px">
-          <span style="font-weight:700;font-size:18px">Permis ou Galère</span>
+          <span style="font-weight:700;font-size:18px">Code ou Galère</span>
         </div>
         ${user.first_name ? `<p style="margin:0 0 16px;color:#555">Salut ${user.first_name},</p>` : ''}
         <div style="line-height:1.7;white-space:pre-wrap">${message.replace(/\n/g, '<br>')}</div>
         <hr style="margin:32px 0;border:none;border-top:1px solid #eee">
-        <p style="font-size:12px;color:#999">Tu reçois cet email car tu as accès à Permis ou Galère.</p>
+        <p style="font-size:12px;color:#999">Tu reçois cet email car tu as accès à Code ou Galère.</p>
       </div>
     `
 
@@ -59,7 +59,7 @@ Deno.serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Permis ou Galère <onboarding@resend.dev>',
+        from: 'Code ou Galère <onboarding@resend.dev>',
         to: user.email,
         subject,
         html: personalizedHtml,
