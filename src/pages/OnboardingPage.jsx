@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
+import { Navigate } from 'react-router-dom';
 
 const OnboardingPage = () => {
   const { user, refreshProfile } = useAuth();
@@ -11,6 +12,8 @@ const OnboardingPage = () => {
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  if (!user) return <Navigate to="/login" replace />;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -30,6 +33,8 @@ const OnboardingPage = () => {
       return;
     }
     await refreshProfile();
+    // Email de bienvenue — fire and forget
+    supabase.functions.invoke('send-welcome-email').catch(() => {});
     navigate('/dashboard', { replace: true });
   }
 
