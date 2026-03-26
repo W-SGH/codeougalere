@@ -8,11 +8,13 @@ const SuccessPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const sessionId = searchParams.get('session_id');
-  const { user, refreshProfile } = useAuth();
+  const { user, hasAccess, refreshProfile } = useAuth();
+  const { hasAccess } = useAuth();
   const [accessReady, setAccessReady] = useState(false);
   const pollingRef = useRef(null);
 
   useEffect(() => {
+    if (hasAccess) { setAccessReady(true); return; }
     if (!sessionId || !user) return;
 
     // Lancer verify-payment en arrière-plan
@@ -32,8 +34,8 @@ const SuccessPage = () => {
 
       if (data?.has_access) {
         clearInterval(pollingRef.current);
-        await refreshProfile();
         setAccessReady(true);
+        await refreshProfile();
       }
 
       // Arrêter après 30s (15 tentatives)
