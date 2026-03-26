@@ -18,7 +18,7 @@ async function sendPaymentConfirmationEmail(email: string, firstName: string) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'Code ou Galère <noreply@votredomaine.com>', // ← remplace par ton domaine vérifié Resend
+      from: 'Code ou Galère <onboarding@resend.dev>',
       to: email,
       subject: '✅ Votre accès est activé — Code ou Galère',
       html: `
@@ -35,7 +35,7 @@ async function sendPaymentConfirmationEmail(email: string, firstName: string) {
             <li>✅ 14 vidéos HD commentées par un expert</li>
             <li>✅ 70+ questions d'entraînement avec corrections</li>
           </ul>
-          <a href="https://votresite.com/dashboard"
+          <a href="https://codeougalere.fr/dashboard"
              style="display: inline-block; margin-top: 24px; padding: 14px 32px; background: #FFD700; color: #000; font-weight: bold; text-decoration: none; border-radius: 8px; font-size: 16px;">
             Accéder à mes cours →
           </a>
