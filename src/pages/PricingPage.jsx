@@ -4,6 +4,9 @@ import { Check, ArrowRight, AlertCircle, Eye, EyeOff, Lock } from 'lucide-react'
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 
+// Passer à true dans Vercel (VITE_PROMO_PHASE=true) pour bloquer les inscriptions sans code promo
+const PROMO_PHASE = import.meta.env.VITE_PROMO_PHASE === 'true'
+
 const PricingPage = () => {
   const { user, hasAccess, signUp, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
@@ -174,6 +177,49 @@ const PricingPage = () => {
 
           {/* Form Checkout */}
           <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700">
+
+            {/* === PHASE PROMO : accès réservé aux détenteurs d'un code === */}
+            {PROMO_PHASE && !user && !promoDiscount ? (
+              <div className="flex flex-col items-center text-center py-4">
+                <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center mb-4">
+                  <Lock className="w-7 h-7 text-slate-500" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Inscriptions en avant-première</h3>
+                <p className="text-slate-500 text-sm mb-8 max-w-xs">
+                  L'accès est réservé aux personnes disposant d'un code promo de lancement.
+                  Entrez votre code pour débloquer l'inscription.
+                </p>
+                <div className="w-full space-y-3">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={promoCode}
+                      onChange={e => { setPromoCode(e.target.value.toUpperCase()); setPromoDiscount(null); setPromoError(''); }}
+                      onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), applyPromo())}
+                      placeholder="Votre code promo"
+                      className="flex-1 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary uppercase tracking-widest"
+                    />
+                    <button
+                      type="button"
+                      onClick={applyPromo}
+                      disabled={promoLoading || !promoCode.trim()}
+                      className="px-5 py-3 rounded-xl bg-primary text-black text-sm font-bold hover:bg-primary-dark disabled:opacity-50 transition-colors shrink-0"
+                    >
+                      {promoLoading ? '...' : 'Valider'}
+                    </button>
+                  </div>
+                  {promoError && <p className="text-xs text-red-500 text-left">{promoError}</p>}
+                </div>
+                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 w-full text-center text-sm text-slate-500">
+                  Pas encore de code ?{' '}
+                  <Link to="/preinscription" className="font-bold text-primary hover:text-primary-dark transition-colors">
+                    Préinscrivez-vous →
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              /* === FORMULAIRE NORMAL === */
+              <>
             <h3 className="text-2xl font-bold mb-2">
               {user ? 'Finaliser le paiement' : 'Créer votre compte'}
             </h3>
@@ -338,6 +384,8 @@ const PricingPage = () => {
                 Se connecter
               </Link>
             </div>
+              </>
+            )}
           </div>
         </div>
       </div>

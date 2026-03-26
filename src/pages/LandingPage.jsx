@@ -48,6 +48,15 @@ const LandingPage = () => {
 
   return (
     <>
+      {/* Bandeau campagne de lancement */}
+      {!hasAccess && (
+        <div className="bg-primary text-black text-center text-xs sm:text-sm font-bold py-2.5 px-4 flex items-center justify-center gap-2 flex-wrap">
+          <span>⚡ Offre de lancement — Les 50 premiers inscrits bénéficient de <strong>−30%</strong></span>
+          <Link to="/preinscription" className="underline underline-offset-2 hover:no-underline whitespace-nowrap">
+            Réserver ma place →
+          </Link>
+        </div>
+      )}
       <nav className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 border-b-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -131,10 +140,16 @@ const LandingPage = () => {
                       <span className="material-symbols-outlined">arrow_forward</span>
                     </Link>
                   ) : (
-                    <Link to="/tarifs" className="animate-glow bg-primary text-black px-8 py-3.5 rounded-xl text-lg font-bold shadow-lg hover:bg-primary-dark transition-all flex items-center justify-center gap-2">
-                      Commencer maintenant
-                      <span className="material-symbols-outlined">arrow_forward</span>
-                    </Link>
+                    <>
+                      <Link to="/tarifs" className="animate-glow bg-primary text-black px-8 py-3.5 rounded-xl text-lg font-bold shadow-lg hover:bg-primary-dark transition-all flex items-center justify-center gap-2">
+                        Commencer maintenant
+                        <span className="material-symbols-outlined">arrow_forward</span>
+                      </Link>
+                      <Link to="/preinscription" className="text-sm font-bold text-primary hover:text-primary-dark transition-colors flex items-center justify-center gap-1">
+                        ⚡ Offre de lancement — 50 places à −30%
+                        <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                      </Link>
+                    </>
                   )}
                   <button onClick={() => setShowDemo(true)} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-8 py-3.5 rounded-xl text-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2 md:hidden">
                     <span className="material-symbols-outlined text-lg">play_circle</span>
@@ -505,6 +520,7 @@ const LandingPage = () => {
                 <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Support pédagogique</li>
               </ul>
               <Link to="/tarifs" className="w-full py-4 rounded-xl bg-black text-white text-center text-lg font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-black/20 block">Commencer la formation</Link>
+              <Link to="/preinscription" className="w-full mt-3 py-3 rounded-xl border-2 border-white/30 text-white text-center text-sm font-bold hover:border-primary hover:text-primary transition-colors block">⚡ Offre de lancement −30% →</Link>
             </div>
             </Reveal>
           </div>
