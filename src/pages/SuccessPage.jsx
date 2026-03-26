@@ -103,12 +103,12 @@ const SuccessPage = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {accessReady ? (
-                <Link
-                  to="/dashboard"
+                <a
+                  href="/dashboard"
                   className="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors shadow-lg"
                 >
                   Accéder à mes cours →
-                </Link>
+                </a>
               ) : (
                 <div className="flex items-center gap-3 px-8 py-4 bg-slate-100 dark:bg-slate-800 rounded-xl text-slate-500 font-medium">
                   <Loader className="w-4 h-4 animate-spin" />
