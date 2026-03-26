@@ -18,6 +18,7 @@ import PolitiqueConfidentialitePage from './pages/PolitiqueConfidentialitePage';
 import CGVPage from './pages/CGVPage';
 import PreRegistrationPage from './pages/PreRegistrationPage';
 import ConsentNotice from './components/ConsentNotice';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
             />
           </Routes>
           <ConsentNotice />
+          <Analytics />
         </Router>
       </ProgressProvider>
     </CoursesProvider>
