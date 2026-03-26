@@ -16,6 +16,7 @@ import MentionsLegalesPage from './pages/MentionsLegalesPage';
 import ExamPage from './pages/ExamPage';
 import PolitiqueConfidentialitePage from './pages/PolitiqueConfidentialitePage';
 import CGVPage from './pages/CGVPage';
+import PreRegistrationPage from './pages/PreRegistrationPage';
 import ConsentNotice from './components/ConsentNotice';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
             <Route path="/politique-de-confidentialite" element={<PolitiqueConfidentialitePage />} />
             <Route path="/cgv" element={<CGVPage />} />
+            <Route path="/preinscription" element={<PreRegistrationPage />} />
             <Route
               path="/dashboard"
               element={
