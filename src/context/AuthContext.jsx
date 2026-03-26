@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
         if (session?.user) {
           currentUserIdRef.current = session.user.id
           setUser(session.user)
-          await fetchProfile(session.user.id)
+          setTimeout(() => fetchProfile(session.user.id), 0)
         } else {
           // Si un redirect OAuth est en cours, attendre le SIGNED_IN
           if (oauthRedirectRef.current) return
@@ -40,14 +40,14 @@ export function AuthProvider({ children }) {
         if (session?.user && session.user.id !== currentUserIdRef.current) {
           currentUserIdRef.current = session.user.id
           setUser(session.user)
-          await fetchProfile(session.user.id)
+          setTimeout(() => fetchProfile(session.user.id), 0)
         }
       } else if (_event === 'TOKEN_REFRESHED') {
         // Token rafraîchi après sommeil/inactivité — mettre à jour user et profil si nécessaire
         if (session?.user) {
           currentUserIdRef.current = session.user.id
           setUser(session.user)
-          await fetchProfile(session.user.id)
+          setTimeout(() => fetchProfile(session.user.id), 0)
         }
       } else if (_event === 'SIGNED_OUT') {
         currentUserIdRef.current = null
