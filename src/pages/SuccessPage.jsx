@@ -9,7 +9,6 @@ const SuccessPage = () => {
   const navigate = useNavigate();
   const sessionId = searchParams.get('session_id');
   const { user, hasAccess, refreshProfile } = useAuth();
-  const { hasAccess } = useAuth();
   const [accessReady, setAccessReady] = useState(false);
   const pollingRef = useRef(null);
 
