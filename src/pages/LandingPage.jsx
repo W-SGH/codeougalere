@@ -21,7 +21,7 @@ const LandingPage = () => {
     'WhatsApp Image 2026-03-18 at 18.20.47.jpeg',
     'WhatsApp Image 2026-03-18 at 18.22.10.jpeg',
     'WhatsApp Image 2026-03-18 at 18.28.14.jpeg',
-    'image.jpeg',
+    'Image.jpeg',
   ];
 
   const lightboxPrev = useCallback(() => setLightboxIndex(i => (i - 1 + testimonialImgs.length) % testimonialImgs.length), []);
