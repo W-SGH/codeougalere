@@ -31,3 +31,10 @@ $$ LANGUAGE SQL SECURITY DEFINER;
 INSERT INTO public.promo_codes (code, active, discount_percent, max_uses)
 VALUES ('LANCEMENT', true, 30, 50)
 ON CONFLICT (code) DO NOTHING;
+
+-- Table de rate limiting pour les edge functions
+CREATE TABLE IF NOT EXISTS public.rate_limits (
+  key TEXT PRIMARY KEY,
+  count INTEGER DEFAULT 1,
+  window_start TIMESTAMPTZ DEFAULT NOW()
+);

@@ -10,6 +10,31 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+// Rate limiting : max 10 sessions de paiement par userId sur 60 minutes
+async function checkRateLimit(supabaseAdmin: any, userId: string): Promise<boolean> {
+  const key = `checkout:${userId}`
+  const windowMs = 60 * 60 * 1000 // 1h
+  const maxRequests = 10
+
+  const { data } = await supabaseAdmin
+    .from('rate_limits')
+    .select('count, window_start')
+    .eq('key', key)
+    .single()
+
+  const now = new Date()
+
+  if (!data || (now.getTime() - new Date(data.window_start).getTime()) > windowMs) {
+    await supabaseAdmin.from('rate_limits').upsert({ key, count: 1, window_start: now.toISOString() })
+    return true
+  }
+
+  if (data.count >= maxRequests) return false
+
+  await supabaseAdmin.from('rate_limits').update({ count: data.count + 1 }).eq('key', key)
+  return true
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
@@ -26,6 +51,15 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     )
+
+    // Rate limiting par userId
+    const allowed = await checkRateLimit(supabaseAdmin, userId)
+    if (!allowed) {
+      return new Response(
+        JSON.stringify({ error: 'Trop de tentatives. Réessayez dans une heure.' }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
 
     let finalAmount = amount || 4900
     let promoData: any = null

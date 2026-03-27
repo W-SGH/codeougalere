@@ -9,6 +9,31 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+// Rate limiting : max 5 requêtes par IP sur 60 minutes
+async function checkRateLimit(supabaseAdmin: any, ip: string): Promise<boolean> {
+  const key = `preregister:${ip}`
+  const windowMs = 60 * 60 * 1000 // 1h
+  const maxRequests = 5
+
+  const { data } = await supabaseAdmin
+    .from('rate_limits')
+    .select('count, window_start')
+    .eq('key', key)
+    .single()
+
+  const now = new Date()
+
+  if (!data || (now.getTime() - new Date(data.window_start).getTime()) > windowMs) {
+    await supabaseAdmin.from('rate_limits').upsert({ key, count: 1, window_start: now.toISOString() })
+    return true
+  }
+
+  if (data.count >= maxRequests) return false
+
+  await supabaseAdmin.from('rate_limits').update({ count: data.count + 1 }).eq('key', key)
+  return true
+}
+
 function earlyBirdEmail(email: string) {
   return {
     from: 'Code ou Galère <noreply@codeougalere.fr>',
@@ -21,25 +46,21 @@ function earlyBirdEmail(email: string) {
           Vous faites partie des <strong style="color: #fff;">50 premiers inscrits</strong> sur Code ou Galère.
           Voici votre avantage exclusif :
         </p>
-
         <div style="background: #1e293b; border: 2px solid #FFD700; border-radius: 12px; padding: 24px; text-align: center; margin: 32px 0;">
           <p style="color: #94a3b8; font-size: 13px; margin: 0 0 8px;">Votre code promo</p>
           <p style="color: #FFD700; font-size: 36px; font-weight: 900; letter-spacing: 4px; margin: 0;">${PROMO_CODE}</p>
           <p style="color: #fff; font-size: 18px; font-weight: bold; margin: 8px 0 0;">−30% sur la formation complète</p>
         </div>
-
         <a href="${SITE_URL}/tarifs?promo=${PROMO_CODE}"
            style="display: block; text-align: center; padding: 16px 32px; background: #FFD700; color: #000; font-weight: bold; text-decoration: none; border-radius: 10px; font-size: 16px; margin-bottom: 32px;">
           Démarrer ma formation →
         </a>
-
         <ul style="color: #94a3b8; font-size: 14px; line-height: 2; padding-left: 20px;">
           <li>7 thèmes complets du code de la route</li>
           <li>14 vidéos HD commentées par un expert</li>
           <li>70+ questions d'entraînement avec corrections</li>
           <li>Accès à vie, sans abonnement</li>
         </ul>
-
         <p style="color: #64748b; font-size: 12px; margin-top: 32px; border-top: 1px solid #1e293b; padding-top: 16px;">
           Code valable dans la limite des 50 premières utilisations.<br>
           En cas de problème, répondez à cet email.
@@ -59,9 +80,6 @@ function waitlistEmail(email: string) {
         <h1 style="color: #FFD700; font-size: 26px; margin-bottom: 8px;">C'est noté !</h1>
         <p style="color: #cbd5e1; font-size: 16px; line-height: 1.6;">
           Votre email est bien enregistré. Nous vous enverrons un message dès l'ouverture officielle de la plateforme.
-        </p>
-        <p style="color: #cbd5e1; font-size: 16px; line-height: 1.6;">
-          En attendant, voici ce qui vous attend :
         </p>
         <ul style="color: #94a3b8; font-size: 14px; line-height: 2; padding-left: 20px;">
           <li>7 thèmes complets du code de la route</li>
@@ -105,6 +123,16 @@ Deno.serve(async (req) => {
 
   // POST: inscription
   if (req.method === 'POST') {
+    // Rate limiting par IP
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+    const allowed = await checkRateLimit(supabaseAdmin, ip)
+    if (!allowed) {
+      return new Response(
+        JSON.stringify({ error: 'Trop de tentatives. Réessayez dans une heure.' }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
     const { email } = await req.json()
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -116,7 +144,6 @@ Deno.serve(async (req) => {
 
     const normalizedEmail = email.toLowerCase().trim()
 
-    // Déjà inscrit ?
     const { data: existing } = await supabaseAdmin
       .from('preregistrations')
       .select('is_early_bird')
@@ -130,14 +157,12 @@ Deno.serve(async (req) => {
       )
     }
 
-    // Compter les inscrits actuels pour savoir si early bird
     const { count } = await supabaseAdmin
       .from('preregistrations')
       .select('*', { count: 'exact', head: true })
 
     const isEarlyBird = (count ?? 0) < EARLY_BIRD_LIMIT
 
-    // Insérer
     const { error: insertError } = await supabaseAdmin
       .from('preregistrations')
       .insert({ email: normalizedEmail, is_early_bird: isEarlyBird })
@@ -149,16 +174,12 @@ Deno.serve(async (req) => {
       )
     }
 
-    // Envoyer l'email
     const resendKey = Deno.env.get('RESEND_API_KEY')
     if (resendKey) {
       const emailPayload = isEarlyBird ? earlyBirdEmail(normalizedEmail) : waitlistEmail(normalizedEmail)
       await fetch('https://api.resend.com/emails', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${resendKey}`,
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Authorization': `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(emailPayload),
       })
     }
