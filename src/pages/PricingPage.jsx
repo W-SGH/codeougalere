@@ -109,21 +109,39 @@ const PricingPage = () => {
   }
 
   async function redirectToCheckout(userId, userEmail) {
-    // Appel à la Supabase Edge Function pour créer une session Stripe Checkout
-    const { data, error: fnError } = await supabase.functions.invoke('create-checkout', {
-      body: {
-        userId,
-        email: userEmail,
-        productName: 'Pack Vidéo Intégral - Code de la Route',
-        amount: 4900,
-        successUrl: `${window.location.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancelUrl: `${window.location.origin}/tarifs`,
-        promoCode: promoDiscount?.code || null,
-      }
-    });
+    // Utiliser fetch direct avec la clé anon : supabase.functions.invoke envoie le token
+    // ES256 de la session Google, rejeté par le gateway Supabase (incompatibilité de format JWT).
+    const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 
-    if (fnError || !data?.url) {
-      setError('Impossible de démarrer le paiement. Vérifiez la configuration Stripe.');
+    let data;
+    try {
+      const res = await fetch(`${supabaseUrl}/functions/v1/create-checkout`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${anonKey}`,
+          'apikey': anonKey,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId,
+          email: userEmail,
+          productName: 'Pack Vidéo Intégral - Code de la Route',
+          amount: 4900,
+          successUrl: `${window.location.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancelUrl: `${window.location.origin}/tarifs`,
+          promoCode: promoDiscount?.code || null,
+        }),
+      });
+      data = await res.json();
+      if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
+    } catch (err) {
+      const msg = err.message || '';
+      if (msg.toLowerCase().includes('tentatives')) {
+        setError('Trop de tentatives. Réessayez dans une heure.');
+      } else {
+        setError('Impossible de démarrer le paiement. Réessayez ou contactez le support.');
+      }
       setLoading(false);
       return;
     }
