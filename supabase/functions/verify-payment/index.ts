@@ -18,8 +18,11 @@ Deno.serve(async (req) => {
   try {
     const { sessionId, userId } = await req.json()
 
-    if (!sessionId || !userId) {
-      throw new Error('sessionId et userId sont requis')
+    // Valider le format du sessionId Stripe (protection contre les appels arbitraires)
+    if (!sessionId || !sessionId.startsWith('cs_') || !userId) {
+      return new Response(JSON.stringify({ success: false, error: 'Paramètres invalides' }), {
+        status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      })
     }
 
     const session = await stripe.checkout.sessions.retrieve(sessionId)
@@ -36,7 +39,7 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     )
 
-    // Vérifier que la session appartient bien à cet utilisateur
+    // Vérifier que la session appartient bien à l'utilisateur authentifié
     const { data: purchase } = await supabaseAdmin
       .from('purchases')
       .select('*')

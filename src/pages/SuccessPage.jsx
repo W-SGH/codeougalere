@@ -14,11 +14,21 @@ const SuccessPage = () => {
 
   useEffect(() => {
     if (hasAccess) { setAccessReady(true); return; }
-    if (!sessionId || !user) return;
+    // Valider le format Stripe avant d'appeler l'edge function
+    if (!sessionId || !sessionId.startsWith('cs_') || !user) return;
 
-    // Lancer verify-payment en arrière-plan
-    supabase.functions.invoke('verify-payment', {
-      body: { sessionId, userId: user.id }
+    // Lancer verify-payment en arrière-plan avec fetch + clé anon (même fix que create-checkout :
+    // supabase.functions.invoke envoie le token ES256 Google rejeté par le gateway Supabase)
+    const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    fetch(`${supabaseUrl}/functions/v1/verify-payment`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${anonKey}`,
+        'apikey': anonKey,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ sessionId, userId: user.id }),
     }).catch(() => {});
 
     // Interroger la DB toutes les 2s jusqu'à has_access = true
