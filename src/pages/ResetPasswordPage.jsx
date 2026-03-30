@@ -95,6 +95,12 @@ const ResetPasswordPage = () => {
   return (
     <div className="min-h-screen bg-background-dark flex items-center justify-center px-4">
       <div className="bg-slate-800 rounded-3xl p-8 w-full max-w-md border border-slate-700">
+        <button
+          onClick={() => navigate('/')}
+          className="flex items-center gap-1 text-sm text-slate-400 hover:text-white transition-colors mb-6"
+        >
+          ← Retour à l'accueil
+        </button>
         <h1 className="text-2xl font-black text-white mb-1">Nouveau mot de passe</h1>
         <p className="text-slate-400 text-sm mb-8">Choisissez un mot de passe sécurisé pour votre compte.</p>
 
