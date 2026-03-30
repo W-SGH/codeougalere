@@ -229,16 +229,13 @@ Deno.serve(async (req) => {
         .update({ has_access: true })
         .eq('id', userId)
 
-      // Récupérer le profil complet pour l'email du contrat
-      const { data: profile } = await supabaseAdmin
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single()
+      // Récupérer le profil complet + email depuis auth.users en parallèle
+      const [{ data: profile }, { data: authData }] = await Promise.all([
+        supabaseAdmin.from('profiles').select('*').eq('id', userId).single(),
+        supabaseAdmin.auth.admin.getUserById(userId),
+      ])
 
-      // Récupérer l'email depuis auth.users
-      const { data: authUser } = await supabaseAdmin.auth.admin.getUserById(userId)
-      const profileWithEmail = { ...profile, email: authUser?.user?.email }
+      const profileWithEmail = { ...profile, email: authData?.user?.email || session.customer_email || null }
 
       const acceptedAt = profile?.contract_accepted_at || new Date().toISOString()
 
