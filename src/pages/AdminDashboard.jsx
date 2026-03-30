@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Users, CreditCard, PlayCircle, TrendingUp, LogOut, ArrowUpRight, Search, CheckCircle, XCircle, RefreshCw, Percent, Trash2, Download, Megaphone, BookOpen, BarChart2 } from 'lucide-react';
+import { Users, CreditCard, PlayCircle, TrendingUp, LogOut, ArrowUpRight, Search, CheckCircle, XCircle, RefreshCw, Percent, Trash2, Download, Megaphone, BookOpen, BarChart2, Home } from 'lucide-react';
 import CourseManager from '../components/admin/CourseManager';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -244,6 +244,9 @@ export default function AdminDashboard() {
           ))}
         </nav>
         <div className="p-4 border-t border-slate-800">
+          <Link to="/" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-xl font-medium transition-colors mb-1">
+            <Home className="w-5 h-5" /> Retour à l'accueil
+          </Link>
           <Link to="/dashboard" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-xl font-medium transition-colors mb-2">
             <PlayCircle className="w-5 h-5" /> Voir le cours
           </Link>

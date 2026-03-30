@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { PlayCircle, Clock, CheckCircle, TrendingUp, BookOpen, Award, LogOut, Lock } from 'lucide-react';
+import { PlayCircle, Clock, CheckCircle, TrendingUp, BookOpen, Award, LogOut, Lock, Home } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useProgress } from '../context/ProgressContext';
 import ThemeToggle from '../components/ThemeToggle';
@@ -81,6 +81,12 @@ const DashboardPage = () => {
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             <Award className="w-5 h-5" /> Examen blanc
+          </Link>
+          <Link
+            to="/"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+          >
+            <Home className="w-5 h-5" /> Retour à l'accueil
           </Link>
         </nav>
         <div className="p-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
