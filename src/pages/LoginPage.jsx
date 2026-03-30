@@ -64,7 +64,7 @@ const LoginPage = () => {
   function getFrenchError(msg) {
     if (msg.includes('Invalid login credentials')) return 'Email ou mot de passe incorrect.';
     if (msg.includes('Email not confirmed')) return 'Veuillez confirmer votre email avant de vous connecter.';
-    if (msg.includes('Too many requests')) return 'Trop de tentatives. Veuillez patienter quelques minutes.';
+    if (msg.includes('over_email_send_rate_limit') || msg.includes('Too many requests') || msg.includes('too many requests') || msg.includes('rate limit')) return 'Trop de tentatives. Veuillez patienter quelques minutes avant de réessayer.';
     return 'Une erreur est survenue. Veuillez réessayer.';
   }
 
