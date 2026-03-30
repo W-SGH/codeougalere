@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
@@ -12,6 +12,8 @@ const ResetPasswordPage = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [ready, setReady] = useState(false);
+  // Ref pour savoir si le mot de passe a été changé avant de quitter la page
+  const passwordChangedRef = useRef(false);
 
   // Supabase envoie le token dans le hash de l'URL (#access_token=...&type=recovery)
   // onAuthStateChange intercepte PASSWORD_RECOVERY et établit la session
@@ -27,7 +29,15 @@ const ResetPasswordPage = () => {
         setReady(true);
       }
     });
-    return () => subscription.unsubscribe();
+
+    // Sécurité : si l'utilisateur quitte sans changer son mot de passe,
+    // on le déconnecte pour éviter qu'il reste connecté via le token de reset
+    return () => {
+      subscription.unsubscribe();
+      if (!passwordChangedRef.current) {
+        supabase.auth.signOut();
+      }
+    };
   }, []);
 
   async function handleSubmit(e) {
@@ -52,6 +62,7 @@ const ResetPasswordPage = () => {
       return;
     }
 
+    passwordChangedRef.current = true;
     setSuccess(true);
     setTimeout(() => navigate('/dashboard'), 3000);
   }
