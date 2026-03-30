@@ -63,7 +63,8 @@ export function CoursesProvider({ children }) {
   }
 
   // Les admins voient tous les cours, les élèves seulement les publiés
-  const courses = isAdmin ? allCourses : allCourses.filter(c => c.status === 'published')
+  // Pas de status = published par défaut (cours statiques sans champ status)
+  const courses = isAdmin ? allCourses : allCourses.filter(c => !c.status || c.status === 'published')
 
   return (
     <Ctx.Provider value={{ courses, allCourses, fromDB, coursesLoading, reload: load }}>
