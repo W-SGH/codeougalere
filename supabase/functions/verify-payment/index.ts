@@ -242,10 +242,12 @@ Deno.serve(async (req) => {
 
       const acceptedAt = profile?.contract_accepted_at || new Date().toISOString()
 
-      // Envoyer le contrat par email — fire and forget
-      sendContractEmail(profileWithEmail, acceptedAt, purchase.amount).catch(err =>
-        console.error('Erreur envoi contrat email:', err)
-      )
+      // Envoyer le contrat par email — awaité pour s'assurer que Deno n'arrête pas l'exécution avant l'envoi
+      try {
+        await sendContractEmail(profileWithEmail, acceptedAt, purchase.amount)
+      } catch (emailErr) {
+        console.error('Erreur envoi contrat email:', emailErr)
+      }
     }
 
     return new Response(
