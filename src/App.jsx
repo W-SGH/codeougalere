@@ -28,6 +28,7 @@ const ExamPage = lazy(() => import('./pages/ExamPage'));
 const PolitiqueConfidentialitePage = lazy(() => import('./pages/PolitiqueConfidentialitePage'));
 const CGVPage = lazy(() => import('./pages/CGVPage'));
 const PreRegistrationPage = lazy(() => import('./pages/PreRegistrationPage'));
+const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 function PageLoader() {
@@ -57,6 +58,7 @@ function App() {
               <Route path="/politique-de-confidentialite" element={<PolitiqueConfidentialitePage />} />
               <Route path="/cgv" element={<CGVPage />} />
               <Route path="/preinscription" element={<PreRegistrationPage />} />
+              <Route path="/reset-password" element={<ResetPasswordPage />} />
               <Route
                 path="/dashboard"
                 element={
