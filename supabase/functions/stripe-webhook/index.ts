@@ -17,44 +17,6 @@ function escapeHtml(text: string): string {
     .replace(/'/g, '&#039;')
 }
 
-async function sendPaymentConfirmationEmail(email: string, firstName: string) {
-  const resendKey = Deno.env.get('RESEND_API_KEY')
-  if (!resendKey) return
-
-  await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${resendKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      from: 'Code ou Galère <noreply@codeougalere.fr>',
-      to: email,
-      subject: '✅ Votre accès est activé — Code ou Galère',
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-          <h1 style="color: #FFD700; font-size: 28px; margin-bottom: 8px;">Bienvenue ${escapeHtml(firstName)} ! 🎉</h1>
-          <p style="color: #333; font-size: 16px; line-height: 1.6;">
-            Votre paiement de <strong>49€</strong> a bien été reçu et votre accès est maintenant <strong>activé</strong>.
-          </p>
-          <p style="color: #333; font-size: 16px; line-height: 1.6;">Vous avez désormais accès à :</p>
-          <ul style="color: #333; font-size: 15px; line-height: 2;">
-            <li>✅ 7 thèmes complets du code de la route</li>
-            <li>✅ 14 vidéos HD commentées par un expert</li>
-            <li>✅ 70+ questions d'entraînement avec corrections</li>
-          </ul>
-          <a href="https://codeougalere.fr/dashboard"
-             style="display: inline-block; margin-top: 24px; padding: 14px 32px; background: #FFD700; color: #000; font-weight: bold; text-decoration: none; border-radius: 8px; font-size: 16px;">
-            Accéder à mes cours →
-          </a>
-          <p style="color: #999; font-size: 13px; margin-top: 32px;">
-            Votre reçu Stripe vous a été envoyé séparément. En cas de problème, répondez à cet email.
-          </p>
-        </div>
-      `,
-    }),
-  })
-}
 
 function buildContractHtml(profile: any, email: string, acceptedAt: string, amount: number): string {
   const date = new Date(acceptedAt).toLocaleDateString('fr-FR')
@@ -166,34 +128,41 @@ function buildContractHtml(profile: any, email: string, acceptedAt: string, amou
 </body></html>`
 }
 
-async function sendContractEmail(email: string, profile: any, amount: number) {
+async function sendConfirmationWithContract(email: string, profile: any, amount: number) {
   const resendKey = Deno.env.get('RESEND_API_KEY')
   if (!resendKey || !email) return
 
+  const firstName = escapeHtml(profile?.first_name || '')
   const acceptedAt = profile?.contract_accepted_at || new Date().toISOString()
   const contractHtml = buildContractHtml(profile, email, acceptedAt, amount)
-  const firstName = escapeHtml(profile?.first_name || '')
 
   const emailHtml = `
-    <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#111">
-      <div style="margin-bottom:24px">
-        <span style="font-weight:700;font-size:18px">Code ou Galère</span>
-      </div>
-      <h2 style="font-size:20px;margin:0 0 12px">Votre contrat de formation</h2>
-      ${firstName ? `<p style="margin:0 0 16px;color:#555">Bonjour ${firstName},</p>` : ''}
-      <p style="margin:0 0 16px">Votre contrat de formation est disponible ci-dessous. Conservez cet email comme preuve de votre inscription.</p>
-      <div style="margin:24px 0;padding:16px;background:#f8f8f8;border-left:4px solid #f5c518;border-radius:4px">
-        <p style="margin:0;font-size:13px;color:#555">Accédez à votre espace :<br>
-        <a href="https://codeougalere.fr/dashboard" style="color:#111;font-weight:bold">codeougalere.fr/dashboard →</a></p>
-      </div>
-      <hr style="margin:32px 0;border:none;border-top:1px solid #eee">
-      <div style="font-size:11px;color:#999">
+    <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#111">
+      <h1 style="color:#FFD700;font-size:28px;margin-bottom:8px">Bienvenue ${firstName} ! 🎉</h1>
+      <p style="font-size:16px;line-height:1.6">
+        Votre paiement de <strong>49€</strong> a bien été reçu et votre accès est maintenant <strong>activé</strong>.
+      </p>
+      <p style="font-size:16px;line-height:1.6">Vous avez désormais accès à :</p>
+      <ul style="font-size:15px;line-height:2">
+        <li>✅ 7 thèmes complets du code de la route</li>
+        <li>✅ 14 vidéos HD commentées par un expert</li>
+        <li>✅ 70+ questions d'entraînement avec corrections</li>
+      </ul>
+      <a href="https://codeougalere.fr/dashboard"
+         style="display:inline-block;margin-top:24px;padding:14px 32px;background:#FFD700;color:#000;font-weight:bold;text-decoration:none;border-radius:8px;font-size:16px">
+        Accéder à mes cours →
+      </a>
+      <hr style="margin:40px 0;border:none;border-top:1px solid #eee">
+      <p style="font-size:13px;color:#555;margin-bottom:8px">
+        <strong>Votre contrat de formation</strong> est disponible ci-dessous.
+        Conservez cet email comme preuve de votre inscription (L.221-14 Code de la consommation).
+      </p>
+      <div style="font-size:11px;color:#999;margin-bottom:32px">
         <p style="margin:0 0 4px">BHS Permis — 58 chemin de la justice, 92290 Châtenay-Malabry</p>
         <p style="margin:0">SIRET : 93200579600010 — permisougalere@gmail.com</p>
       </div>
     </div>
-    <hr style="margin:0;border:none;border-top:1px solid #eee">
-    <div style="padding:24px;background:#fafafa">
+    <div style="background:#fafafa;padding:24px;border-top:1px solid #eee">
       <p style="font-size:11px;color:#999;text-align:center;margin:0 0 16px">— Contrat de formation —</p>
       ${contractHtml}
     </div>
@@ -208,7 +177,7 @@ async function sendContractEmail(email: string, profile: any, amount: number) {
     body: JSON.stringify({
       from: 'Code ou Galère <noreply@codeougalere.fr>',
       to: email,
-      subject: 'Votre contrat de formation – Code ou Galère',
+      subject: '✅ Votre accès est activé + votre contrat de formation — Code ou Galère',
       html: emailHtml,
     }),
   })
@@ -269,13 +238,7 @@ Deno.serve(async (req) => {
         .eq('id', userId)
         .single()
 
-      // 4. Email de confirmation de paiement
-      if (email) {
-        await sendPaymentConfirmationEmail(email, profile?.first_name || '')
-        console.log(`📧 Email de confirmation envoyé à ${email}`)
-      }
-
-      // 5. Email du contrat de formation (obligation légale L.221-14 et L.6353-3)
+      // 4. Email unique : confirmation de paiement + contrat de formation
       if (email) {
         const { data: purchase } = await supabaseAdmin
           .from('purchases')
@@ -283,8 +246,8 @@ Deno.serve(async (req) => {
           .eq('stripe_session_id', session.id)
           .single()
 
-        await sendContractEmail(email, profile, purchase?.amount || session.amount_total || 0)
-        console.log(`📄 Contrat de formation envoyé à ${email}`)
+        await sendConfirmationWithContract(email, profile, purchase?.amount || session.amount_total || 0)
+        console.log(`📧 Email de confirmation + contrat envoyé à ${email}`)
       }
     }
   }
