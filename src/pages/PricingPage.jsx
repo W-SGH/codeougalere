@@ -80,7 +80,7 @@ function buildContract(fields) {
 }
 
 const PricingPage = () => {
-  const { user, hasAccess, signUp, signInWithGoogle } = useAuth();
+  const { user, profile, hasAccess, signUp, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const message = location.state?.message;
@@ -112,9 +112,25 @@ const PricingPage = () => {
   const [promoLoading, setPromoLoading] = useState(false);
   const [promoError, setPromoError] = useState('');
 
+  // Profil incomplet = user Google connecté sans avoir rempli les infos obligatoires
+  const profileIncomplete = user && profile !== null && (!profile?.birth_date || !profile?.address || !profile?.contract_accepted_at);
+
   useEffect(() => {
     if (user && hasAccess) navigate('/dashboard', { replace: true });
   }, [user, hasAccess]);
+
+  // Pré-remplir les champs depuis les métadonnées Google quand l'utilisateur arrive
+  useEffect(() => {
+    if (!user) return;
+    const meta = user.user_metadata || {};
+    if (meta.given_name && !firstName) setFirstName(meta.given_name);
+    if (meta.family_name && !lastName) setLastName(meta.family_name);
+    if (meta.full_name && !firstName && !meta.given_name) {
+      const parts = meta.full_name.split(' ');
+      if (parts[0]) setFirstName(parts[0]);
+      if (parts[1]) setLastName(parts.slice(1).join(' '));
+    }
+  }, [user]);
 
   function getFrenchError(msg) {
     if (msg.includes('already registered') || msg.includes('already exists')) return 'Cet email est déjà utilisé. Connectez-vous.';
@@ -127,7 +143,8 @@ const PricingPage = () => {
     setLoading(true);
     setError('');
     try {
-      await signInWithGoogle();
+      // Rediriger vers /tarifs après Google auth pour collecter les infos et le contrat
+      await signInWithGoogle(`${window.location.origin}/tarifs`);
     } catch (err) {
       setError(getFrenchError(err.message));
       setLoading(false);
@@ -164,27 +181,27 @@ const PricingPage = () => {
     e.preventDefault();
     setError('');
 
-    if (user) {
-      // Utilisateur déjà connecté, aller directement au contrat
-      setStep('contract');
-      return;
-    }
-
-    if (!firstName || !lastName || !email || !password || !birthDate || !address || !city || !postalCode || !phone) {
-      setError('Veuillez remplir tous les champs obligatoires.');
-      return;
-    }
-    if (password.length < 6) {
-      setError('Le mot de passe doit contenir au moins 6 caractères.');
-      return;
-    }
-    // Validation âge minimum (15 ans)
-    const birth = new Date(birthDate);
-    const minAge = new Date();
-    minAge.setFullYear(minAge.getFullYear() - 15);
-    if (birth > minAge) {
-      setError('Vous devez avoir au moins 15 ans pour vous inscrire.');
-      return;
+    // Validation des champs : obligatoire pour nouveaux inscrits ET pour users Google (profil incomplet)
+    if (!user || profileIncomplete) {
+      if (!firstName || !lastName || !birthDate || !address || !city || !postalCode || !phone) {
+        setError('Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
+      if (!user && !email) {
+        setError('Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
+      if (!user && (!password || password.length < 6)) {
+        setError('Le mot de passe doit contenir au moins 6 caractères.');
+        return;
+      }
+      const birth = new Date(birthDate);
+      const minAge = new Date();
+      minAge.setFullYear(minAge.getFullYear() - 15);
+      if (birth > minAge) {
+        setError('Vous devez avoir au moins 15 ans pour vous inscrire.');
+        return;
+      }
     }
 
     setStep('contract');
@@ -204,8 +221,18 @@ const PricingPage = () => {
 
     try {
       if (user) {
-        // Mettre à jour le profil existant avec le consentement
-        await supabase.from('profiles').update({ contract_accepted_at: contractAcceptedAt }).eq('id', user.id);
+        // Mettre à jour le profil avec tous les champs + consentement contrat
+        await supabase.from('profiles').update({
+          first_name: firstName || profile?.first_name || null,
+          last_name: lastName || profile?.last_name || null,
+          phone: phone || profile?.phone || null,
+          birth_date: birthDate || null,
+          address: address || null,
+          address_complement: addressComplement || null,
+          city: city || null,
+          postal_code: postalCode || null,
+          contract_accepted_at: contractAcceptedAt,
+        }).eq('id', user.id);
         await redirectToCheckout(user.id, user.email);
         return;
       }
@@ -363,10 +390,16 @@ const PricingPage = () => {
                 <div className="flex items-center gap-3 mb-6">
                   <span className="w-7 h-7 rounded-full bg-primary text-black text-xs font-black flex items-center justify-center">1</span>
                   <div>
-                    <h3 className="text-xl font-bold">{user ? 'Finaliser l\'inscription' : 'Vos informations'}</h3>
+                    <h3 className="text-xl font-bold">{user ? 'Complétez votre inscription' : 'Vos informations'}</h3>
                     <p className="text-slate-500 text-xs mt-0.5">Étape 1/2 — Informations personnelles</p>
                   </div>
                 </div>
+
+                {user && profileIncomplete && (
+                  <div className="flex items-center gap-2 p-3 mb-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl text-blue-700 dark:text-blue-300 text-sm">
+                    <span>Connecté via Google — veuillez compléter vos informations pour continuer.</span>
+                  </div>
+                )}
 
                 {!user && (
                   <>
@@ -398,7 +431,7 @@ const PricingPage = () => {
                 )}
 
                 <form className="space-y-4" onSubmit={handleGoToContract}>
-                  {!user && (
+                  {(!user || profileIncomplete) && (
                     <>
                       {/* Nom / Prénom */}
                       <div className="grid grid-cols-2 gap-3">
@@ -444,27 +477,31 @@ const PricingPage = () => {
                         </div>
                       </div>
 
-                      {/* Email / Mot de passe */}
-                      <div>
-                        <label className={labelClass}>Adresse email <span className="text-red-500">*</span></label>
-                        <input type="email" required value={email} onChange={e => setEmail(e.target.value)} className={inputClass} placeholder="jean.dupont@email.com" />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Mot de passe <span className="text-red-500">*</span></label>
-                        <div className="relative">
-                          <input
-                            type={showPassword ? 'text' : 'password'}
-                            required
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            className={`${inputClass} pr-10`}
-                            placeholder="Minimum 6 caractères"
-                          />
-                          <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600">
-                            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                          </button>
-                        </div>
-                      </div>
+                      {/* Email / Mot de passe — uniquement pour les nouveaux inscrits (pas Google) */}
+                      {!user && (
+                        <>
+                          <div>
+                            <label className={labelClass}>Adresse email <span className="text-red-500">*</span></label>
+                            <input type="email" required value={email} onChange={e => setEmail(e.target.value)} className={inputClass} placeholder="jean.dupont@email.com" />
+                          </div>
+                          <div>
+                            <label className={labelClass}>Mot de passe <span className="text-red-500">*</span></label>
+                            <div className="relative">
+                              <input
+                                type={showPassword ? 'text' : 'password'}
+                                required
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                className={`${inputClass} pr-10`}
+                                placeholder="Minimum 6 caractères"
+                              />
+                              <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600">
+                                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                              </button>
+                            </div>
+                          </div>
+                        </>
+                      )}
                     </>
                   )}
 
