@@ -100,7 +100,21 @@ export function AuthProvider({ children }) {
         .select('*')
         .eq('id', userId)
         .single()
-      if (error) console.error('[Auth] fetchProfile error:', error.message, error.code)
+
+      if (error) {
+        console.error('[Auth] fetchProfile error:', error.message, error.code)
+        // PGRST116 = 406 : aucune ligne trouvée (user Google sans profil créé)
+        // → créer le profil minimal pour débloquer le spinner
+        if (error.code === 'PGRST116') {
+          const { data: created } = await supabase
+            .from('profiles')
+            .upsert({ id: userId, has_access: false }, { onConflict: 'id' })
+            .select()
+            .single()
+          if (created && currentUserIdRef.current === userId) setProfile(created)
+        }
+        return
+      }
       // Ne pas mettre à jour si l'utilisateur s'est déconnecté entre-temps
       if (data && currentUserIdRef.current === userId) setProfile(data)
     } catch (err) {

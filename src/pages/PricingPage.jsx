@@ -113,7 +113,8 @@ const PricingPage = () => {
   const [promoError, setPromoError] = useState('');
 
   // Attendre que le profil soit chargé avant de décider si il est incomplet
-  const profileLoaded = user && profile !== null;
+  // Fallback : si l'auth est terminée (authLoading=false) et profile toujours null → débloquer quand même
+  const profileLoaded = user && (profile !== null || !authLoading);
   // Profil incomplet = user Google connecté sans avoir rempli les infos obligatoires
   const profileIncomplete = profileLoaded && (!profile?.birth_date || !profile?.address || !profile?.contract_accepted_at);
 
