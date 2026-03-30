@@ -117,7 +117,7 @@ export function AuthProvider({ children }) {
     return data
   }
 
-  async function signUp(email, password, firstName, lastName, phone = '') {
+  async function signUp(email, password, firstName, lastName, phone = '', extraFields = {}) {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -132,7 +132,13 @@ export function AuthProvider({ children }) {
         first_name: firstName,
         last_name: lastName,
         phone: phone || null,
-        has_access: false
+        has_access: false,
+        address: extraFields.address || null,
+        address_complement: extraFields.addressComplement || null,
+        city: extraFields.city || null,
+        postal_code: extraFields.postalCode || null,
+        birth_date: extraFields.birthDate || null,
+        contract_accepted_at: extraFields.contractAcceptedAt || null,
       })
     }
     return data

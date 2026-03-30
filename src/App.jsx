@@ -7,6 +7,12 @@ import { CoursesProvider } from './context/CoursesContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import ConsentNotice from './components/ConsentNotice';
 import { Analytics } from '@vercel/analytics/react';
+import { usePageTracking } from './hooks/usePageTracking';
+
+function PageTracker() {
+  usePageTracking();
+  return null;
+}
 
 // Chargement différé de chaque page (code splitting par route)
 const LandingPage = lazy(() => import('./pages/LandingPage'));
@@ -78,6 +84,7 @@ function App() {
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
+          <PageTracker />
           <ConsentNotice />
           <Analytics />
         </Router>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Users, CreditCard, PlayCircle, TrendingUp, LogOut, ArrowUpRight, Search, CheckCircle, XCircle, RefreshCw, Percent, Trash2, Download, Megaphone, BookOpen } from 'lucide-react';
+import { Users, CreditCard, PlayCircle, TrendingUp, LogOut, ArrowUpRight, Search, CheckCircle, XCircle, RefreshCw, Percent, Trash2, Download, Megaphone, BookOpen, BarChart2 } from 'lucide-react';
 import CourseManager from '../components/admin/CourseManager';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -20,6 +20,7 @@ export default function AdminDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [confirm, setConfirm] = useState(null); // { userId, name, action: 'grant'|'revoke' }
   const [promoCodes, setPromoCodes] = useState([]);
+  const [pageViews, setPageViews] = useState([]);
   const [announce, setAnnounce] = useState({ subject: '', message: '' });
   const [announceStatus, setAnnounceStatus] = useState(null); // null | 'sending' | { sent, errors, total }
   const [promoFormOpen, setPromoFormOpen] = useState(false);
@@ -76,6 +77,16 @@ export default function AdminDashboard() {
         const lessonsCompleted = (progressData || []).filter(p => p.completed).length;
         setStats(prev => ({ ...prev, completionRate, lessonsCompleted }));
       }
+      // Visites (30 derniers jours)
+      const since = new Date();
+      since.setDate(since.getDate() - 30);
+      const { data: views } = await supabase
+        .from('page_views')
+        .select('path, visited_at, session_id')
+        .gte('visited_at', since.toISOString())
+        .order('visited_at', { ascending: true });
+      if (views) setPageViews(views);
+
       const { data: promos } = await supabase
         .from('promo_codes')
         .select('*')
@@ -203,6 +214,7 @@ export default function AdminDashboard() {
 
   const navItems = [
     { id: 'overview', label: 'Vue d\'ensemble', icon: TrendingUp },
+    { id: 'analytics', label: 'Visites', icon: BarChart2 },
     { id: 'students', label: 'Élèves', icon: Users },
     { id: 'promos', label: 'Codes promo', icon: Percent },
     { id: 'sales', label: 'Ventes', icon: CreditCard },
@@ -254,7 +266,8 @@ export default function AdminDashboard() {
               {activeTab === 'promos' && 'Codes promo'}
               {activeTab === 'sales' && 'Historique des ventes'}
               {activeTab === 'announce' && 'Envoyer une annonce'}
-              {activeTab === 'courses' && 'Gestion des cours'}
+              {activeTab === 'analytics' && 'Visites du site'}
+            {activeTab === 'courses' && 'Gestion des cours'}
             </h1>
             <p className="text-slate-500">{students.length} utilisateurs · {sales.filter(s => s.status === 'paid').length} ventes confirmées</p>
           </div>
@@ -679,6 +692,120 @@ export default function AdminDashboard() {
             </div>
           </div>
         )}
+        {/* Onglet Visites */}
+        {activeTab === 'analytics' && (() => {
+          const totalViews = pageViews.length;
+          const uniqueSessions = new Set(pageViews.map(v => v.session_id).filter(Boolean)).size;
+
+          // Visites par jour (30 derniers jours)
+          const dayMap = {};
+          for (let i = 29; i >= 0; i--) {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            const key = d.toISOString().slice(0, 10);
+            dayMap[key] = 0;
+          }
+          pageViews.forEach(v => {
+            const key = v.visited_at.slice(0, 10);
+            if (key in dayMap) dayMap[key]++;
+          });
+          const days = Object.entries(dayMap);
+          const maxDay = Math.max(...days.map(([, c]) => c), 1);
+
+          // Top pages
+          const pathMap = {};
+          pageViews.forEach(v => { pathMap[v.path] = (pathMap[v.path] || 0) + 1; });
+          const topPages = Object.entries(pathMap).sort((a, b) => b[1] - a[1]).slice(0, 8);
+
+          const pageLabels = {
+            '/': 'Accueil',
+            '/tarifs': 'Tarifs',
+            '/preinscription': 'Préinscription',
+            '/login': 'Connexion',
+            '/dashboard': 'Dashboard',
+            '/player': 'Cours',
+            '/exam': 'Examen',
+          };
+
+          return (
+            <div className="space-y-6">
+              {/* KPIs */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">Pages vues (30j)</p>
+                  <p className="text-3xl font-black">{loading ? '...' : totalViews.toLocaleString()}</p>
+                </div>
+                <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">Sessions uniques (30j)</p>
+                  <p className="text-3xl font-black">{loading ? '...' : uniqueSessions.toLocaleString()}</p>
+                </div>
+              </div>
+
+              {/* Graphique journalier */}
+              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="font-bold">Visites par jour</h2>
+                  <span className="text-xs text-slate-400 font-medium">30 derniers jours</span>
+                </div>
+                <div className="flex items-end gap-1 h-32">
+                  {days.map(([date, count], i) => (
+                    <div key={i} className="flex-1 flex flex-col items-center gap-1 group relative">
+                      <div
+                        className="w-full bg-primary/80 rounded-t transition-all group-hover:bg-primary"
+                        style={{ height: `${Math.max((count / maxDay) * 100, count > 0 ? 4 : 0)}%` }}
+                      />
+                      {/* Tooltip */}
+                      <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none z-10">
+                        {new Date(date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })} : {count}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between mt-2 text-xs text-slate-400">
+                  <span>{new Date(days[0][0]).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
+                  <span>Aujourd'hui</span>
+                </div>
+              </div>
+
+              {/* Top pages */}
+              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden">
+                <div className="p-5 border-b border-slate-100 dark:border-slate-700">
+                  <h2 className="font-bold">Pages les plus visitées</h2>
+                </div>
+                {topPages.length === 0 ? (
+                  <p className="p-6 text-slate-500 text-sm">Aucune donnée — les visites apparaîtront ici après déploiement.</p>
+                ) : (
+                  <table className="w-full text-left">
+                    <thead>
+                      <tr className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 text-xs uppercase tracking-wider">
+                        <th className="p-4 font-bold">Page</th>
+                        <th className="p-4 font-bold text-right">Vues</th>
+                        <th className="p-4 font-bold w-40">Proportion</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-700/50 text-sm">
+                      {topPages.map(([path, count]) => (
+                        <tr key={path} className="hover:bg-slate-50 dark:hover:bg-slate-700/30">
+                          <td className="p-4 font-medium">
+                            <span className="text-slate-400 mr-1">{path}</span>
+                            {pageLabels[path] && <span className="text-xs text-slate-500">({pageLabels[path]})</span>}
+                          </td>
+                          <td className="p-4 text-right font-bold">{count}</td>
+                          <td className="p-4">
+                            <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1.5">
+                              <div className="bg-primary h-1.5 rounded-full" style={{ width: `${(count / totalViews) * 100}%` }} />
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+            </div>
+          );
+        })()}
+
         {/* Onglet Cours */}
         {activeTab === 'courses' && <CourseManager />}
 

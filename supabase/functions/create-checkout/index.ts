@@ -14,7 +14,7 @@ const corsHeaders = {
 async function checkRateLimit(supabaseAdmin: any, userId: string): Promise<boolean> {
   const key = `checkout:${userId}`
   const windowMs = 60 * 60 * 1000 // 1h
-  const maxRequests = 10
+  const maxRequests = 20
 
   const { data } = await supabaseAdmin
     .from('rate_limits')
@@ -105,7 +105,6 @@ Deno.serve(async (req) => {
       cancel_url: cancelUrl,
       metadata: {
         user_id: userId,
-        supabase_url: Deno.env.get('SUPABASE_URL')!,
       },
     })
 
