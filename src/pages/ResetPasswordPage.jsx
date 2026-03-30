@@ -16,6 +16,12 @@ const ResetPasswordPage = () => {
   // Supabase envoie le token dans le hash de l'URL (#access_token=...&type=recovery)
   // onAuthStateChange intercepte PASSWORD_RECOVERY et établit la session
   useEffect(() => {
+    // Le token est parfois traité avant le montage du composant — vérifier le hash directement
+    if (window.location.hash.includes('type=recovery')) {
+      setReady(true);
+    }
+
+    // Fallback : écouter l'événement si le hash est traité après le montage
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
       if (event === 'PASSWORD_RECOVERY') {
         setReady(true);
