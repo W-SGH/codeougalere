@@ -11,38 +11,11 @@ const ResetPasswordPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const [ready, setReady] = useState(false);
-  // Ref pour savoir si le mot de passe a été changé avant de quitter la page
   const passwordChangedRef = useRef(false);
 
-  // Supabase envoie le token dans le hash de l'URL (#access_token=...&type=recovery)
-  // onAuthStateChange intercepte PASSWORD_RECOVERY et établit la session
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-
-    // Flux PKCE (Supabase v2) : le code est dans les query params (?code=xxx)
-    if (params.has('code')) {
-      supabase.auth.getSession().then(({ data: { session } }) => {
-        if (session) setReady(true);
-      });
-    }
-
-    // Flux implicite (ancien) : type=recovery dans le hash
-    if (window.location.hash.includes('type=recovery')) {
-      setReady(true);
-    }
-
-    // Écouter l'événement PASSWORD_RECOVERY dans les deux cas
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'PASSWORD_RECOVERY') {
-        setReady(true);
-      }
-    });
-
-    // Sécurité : si l'utilisateur quitte sans changer son mot de passe,
-    // on le déconnecte pour éviter qu'il reste connecté via le token de reset
+    // Sécurité : déconnecter si l'utilisateur quitte sans changer son mot de passe
     return () => {
-      subscription.unsubscribe();
       if (!passwordChangedRef.current) {
         supabase.auth.signOut();
       }
@@ -104,12 +77,6 @@ const ResetPasswordPage = () => {
         <h1 className="text-2xl font-black text-white mb-1">Nouveau mot de passe</h1>
         <p className="text-slate-400 text-sm mb-8">Choisissez un mot de passe sécurisé pour votre compte.</p>
 
-        {!ready && (
-          <div className="mb-6 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-xl text-yellow-400 text-sm">
-            Vérification du lien en cours…
-          </div>
-        )}
-
         {error && (
           <div className="flex items-center gap-2 mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm">
             <AlertCircle className="w-4 h-4 shrink-0" />
@@ -126,8 +93,7 @@ const ResetPasswordPage = () => {
                 required
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                disabled={!ready}
-                className="w-full rounded-xl bg-slate-900 border border-slate-600 text-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary pr-10 disabled:opacity-50"
+                className="w-full rounded-xl bg-slate-900 border border-slate-600 text-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary pr-10"
                 placeholder="Minimum 6 caractères"
               />
               <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-200">
@@ -142,14 +108,13 @@ const ResetPasswordPage = () => {
               required
               value={confirm}
               onChange={e => setConfirm(e.target.value)}
-              disabled={!ready}
-              className="w-full rounded-xl bg-slate-900 border border-slate-600 text-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+              className="w-full rounded-xl bg-slate-900 border border-slate-600 text-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Répétez le mot de passe"
             />
           </div>
           <button
             type="submit"
-            disabled={loading || !ready}
+            disabled={loading}
             className="w-full py-4 bg-primary text-black font-bold rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-50 mt-2"
           >
             {loading ? 'Mise à jour…' : 'Enregistrer le mot de passe'}
