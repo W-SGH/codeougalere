@@ -80,7 +80,7 @@ function buildContract(fields) {
 }
 
 const PricingPage = () => {
-  const { user, profile, hasAccess, signUp, signInWithGoogle } = useAuth();
+  const { user, profile, loading: authLoading, hasAccess, signUp, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const message = location.state?.message;
@@ -112,8 +112,10 @@ const PricingPage = () => {
   const [promoLoading, setPromoLoading] = useState(false);
   const [promoError, setPromoError] = useState('');
 
+  // Attendre que le profil soit chargé avant de décider si il est incomplet
+  const profileLoaded = user && profile !== null;
   // Profil incomplet = user Google connecté sans avoir rempli les infos obligatoires
-  const profileIncomplete = user && profile !== null && (!profile?.birth_date || !profile?.address || !profile?.contract_accepted_at);
+  const profileIncomplete = profileLoaded && (!profile?.birth_date || !profile?.address || !profile?.contract_accepted_at);
 
   useEffect(() => {
     if (user && hasAccess) navigate('/dashboard', { replace: true });
@@ -345,8 +347,14 @@ const PricingPage = () => {
           {/* Formulaire */}
           <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700">
 
-            {/* === PHASE PROMO === */}
-            {PROMO_PHASE && !user && !promoDiscount ? (
+            {/* Attendre le chargement du profil pour éviter la race condition Google OAuth */}
+            {user && !profileLoaded ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-4">
+                <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                <p className="text-slate-500 text-sm">Chargement de votre profil...</p>
+              </div>
+            ) : /* === PHASE PROMO === */
+            PROMO_PHASE && !user && !promoDiscount ? (
               <div className="flex flex-col items-center text-center py-4">
                 <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center mb-4">
                   <Lock className="w-7 h-7 text-slate-500" />
