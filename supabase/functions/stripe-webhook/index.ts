@@ -56,7 +56,7 @@ function buildContractHtml(profile: any, email: string, acceptedAt: string, amou
   <tr><td>Auto-école :</td><td>BHS Permis</td></tr>
   <tr><td>Adresse :</td><td>58 chemin de la justice, 92290 Châtenay-Malabry, France</td></tr>
   <tr><td>SIRET :</td><td>93200579600010</td></tr>
-  <tr><td>Représentée par :</td><td>Le responsable de BHS Permis</td></tr>
+  <tr><td>Représentée par :</td><td>Bahouss Abdellah</td></tr>
 </table>
 
 <h2>Et l'élève :</h2>

@@ -17,7 +17,7 @@ Entre les soussignés :
 L'auto-école BHS Permis
 Adresse : 58 chemin de la justice, 92290 Châtenay-Malabry, France
 SIRET : 93200579600010
-Représentée par : Le responsable de BHS Permis
+Représentée par : Bahouss Abdellah
 Ci-après désignée « l'Auto-école »
 
 Et l'élève :
