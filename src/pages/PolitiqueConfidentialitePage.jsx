@@ -22,9 +22,11 @@ export default function PolitiqueConfidentialitePage() {
           <h2 className="text-lg font-bold mb-3">2. Données collectées</h2>
           <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-3">Nous collectons les données suivantes :</p>
           <ul className="text-slate-600 dark:text-slate-300 text-sm space-y-2 list-disc list-inside leading-relaxed">
-            <li><strong>Données d'inscription :</strong> nom, prénom, adresse e-mail, numéro de téléphone (facultatif)</li>
-            <li><strong>Données de connexion :</strong> identifiant, historique des connexions</li>
-            <li><strong>Données de progression :</strong> thèmes consultés, scores aux quiz, avancement dans les cours</li>
+            <li><strong>Données d'identité :</strong> nom, prénom, date de naissance</li>
+            <li><strong>Données de contact :</strong> adresse e-mail, numéro de téléphone, adresse postale complète (rue, complément, ville, code postal)</li>
+            <li><strong>Données de connexion :</strong> identifiant, historique des connexions, mot de passe (chiffré)</li>
+            <li><strong>Données contractuelles :</strong> date d'acceptation du contrat de formation, exemplaire du contrat signé</li>
+            <li><strong>Données de progression :</strong> thèmes consultés, scores aux quiz, temps de visionnage, avancement dans les cours</li>
             <li><strong>Données de paiement :</strong> traitées directement par Stripe — nous ne stockons aucune donnée bancaire</li>
           </ul>
         </section>
