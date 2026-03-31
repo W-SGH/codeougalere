@@ -59,14 +59,26 @@ Deno.serve(async (req) => {
     })
   }
 
-  const { data: recipients } = await supabaseAdmin
+  // Les emails sont dans auth.users, pas dans profiles
+  const { data: accessProfiles } = await supabaseAdmin
     .from('profiles')
-    .select('email, first_name')
+    .select('id, first_name')
     .eq('has_access', true)
-    .not('email', 'is', null)
 
-  if (!recipients?.length) {
-    return new Response(JSON.stringify({ sent: 0 }), {
+  if (!accessProfiles?.length) {
+    return new Response(JSON.stringify({ sent: 0, errors: 0, total: 0 }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
+  }
+
+  const { data: { users } } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 })
+
+  const recipients = accessProfiles
+    .map(p => ({ first_name: p.first_name, email: users.find(u => u.id === p.id)?.email }))
+    .filter(r => !!r.email)
+
+  if (!recipients.length) {
+    return new Response(JSON.stringify({ sent: 0, errors: 0, total: 0 }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     })
   }
