@@ -18,6 +18,7 @@ export default function AdminDashboard() {
   const [sales, setSales] = useState([]);
   const [students, setStudents] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortConfig, setSortConfig] = useState({ key: 'created_at', dir: 'desc' });
   const [confirm, setConfirm] = useState(null); // { userId, name, action: 'grant'|'revoke' }
   const [promoCodes, setPromoCodes] = useState([]);
   const [pageViews, setPageViews] = useState([]);
@@ -201,10 +202,30 @@ export default function AdminDashboard() {
     return `${p?.first_name?.[0] || ''}${p?.last_name?.[0] || ''}`.toUpperCase() || '?';
   }
 
-  const filteredStudents = students.filter(s => {
-    const q = searchQuery.toLowerCase();
-    return `${s.first_name || ''} ${s.last_name || ''} ${s.email || ''}`.toLowerCase().includes(q);
-  });
+  function toggleSort(key) {
+    setSortConfig(prev => prev.key === key ? { key, dir: prev.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: 'asc' });
+  }
+
+  function SortIcon({ col }) {
+    if (sortConfig.key !== col) return <span className="ml-1 text-slate-300">↕</span>;
+    return <span className="ml-1 text-primary">{sortConfig.dir === 'asc' ? '↑' : '↓'}</span>;
+  }
+
+  const filteredStudents = students
+    .filter(s => {
+      const q = searchQuery.toLowerCase();
+      return `${s.first_name || ''} ${s.last_name || ''} ${s.email || ''}`.toLowerCase().includes(q);
+    })
+    .sort((a, b) => {
+      const dir = sortConfig.dir === 'asc' ? 1 : -1;
+      switch (sortConfig.key) {
+        case 'name': return dir * `${a.first_name || ''}${a.last_name || ''}`.localeCompare(`${b.first_name || ''}${b.last_name || ''}`);
+        case 'progress': return dir * ((a.completionPercent || 0) - (b.completionPercent || 0));
+        case 'access': return dir * ((a.has_access ? 1 : 0) - (b.has_access ? 1 : 0));
+        case 'created_at': return dir * (new Date(a.created_at) - new Date(b.created_at));
+        default: return 0;
+      }
+    });
 
   const filteredSales = sales.filter(s => {
     const q = searchQuery.toLowerCase();
@@ -445,11 +466,11 @@ export default function AdminDashboard() {
                 <table className="w-full text-left">
                   <thead>
                     <tr className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 text-xs uppercase tracking-wider">
-                      <th className="p-4 font-bold">Élève</th>
+                      <th className="p-4 font-bold cursor-pointer hover:text-slate-800 dark:hover:text-white select-none" onClick={() => toggleSort('name')}>Élève <SortIcon col="name" /></th>
                       <th className="p-4 font-bold">Téléphone</th>
-                      <th className="p-4 font-bold">Progression</th>
-                      <th className="p-4 font-bold">Accès</th>
-                      <th className="p-4 font-bold">Inscrit le</th>
+                      <th className="p-4 font-bold cursor-pointer hover:text-slate-800 dark:hover:text-white select-none" onClick={() => toggleSort('progress')}>Progression <SortIcon col="progress" /></th>
+                      <th className="p-4 font-bold cursor-pointer hover:text-slate-800 dark:hover:text-white select-none" onClick={() => toggleSort('access')}>Accès <SortIcon col="access" /></th>
+                      <th className="p-4 font-bold cursor-pointer hover:text-slate-800 dark:hover:text-white select-none" onClick={() => toggleSort('created_at')}>Inscrit le <SortIcon col="created_at" /></th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-700/50 text-sm">
