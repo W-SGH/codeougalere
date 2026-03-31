@@ -23,9 +23,9 @@ export default function MentionsLegalesPage() {
         <section className="mb-8">
           <h2 className="text-lg font-bold mb-3">2. Hébergeur</h2>
           <div className="text-slate-600 dark:text-slate-300 text-sm space-y-1 leading-relaxed">
-            <p><strong>Hébergeur :</strong> [NOM HÉBERGEUR À COMPLÉTER]</p>
-            <p><strong>Adresse :</strong> [ADRESSE HÉBERGEUR À COMPLÉTER]</p>
-            <p><strong>Site web :</strong> [URL HÉBERGEUR À COMPLÉTER]</p>
+            <p><strong>Hébergeur :</strong> Vercel Inc.</p>
+            <p><strong>Adresse :</strong> 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</p>
+            <p><strong>Site web :</strong> <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://vercel.com</a></p>
           </div>
         </section>
 
