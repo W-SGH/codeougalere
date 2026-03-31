@@ -447,11 +447,23 @@ export default function AdminDashboard() {
         {/* Onglet Élèves */}
         {activeTab === 'students' && (
           <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden">
-            <div className="p-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
-              <p className="text-sm text-slate-500">{filteredStudents.length} élève{filteredStudents.length > 1 ? 's' : ''}</p>
+            <div className="p-4 border-b border-slate-100 dark:border-slate-700 flex flex-wrap gap-3 justify-between items-center">
+              <div className="flex items-center gap-3 flex-1 min-w-0">
+                <div className="relative flex-1 max-w-xs">
+                  <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="Rechercher par nom ou email…"
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary dark:text-white"
+                  />
+                </div>
+                <p className="text-sm text-slate-400 shrink-0">{filteredStudents.length} élève{filteredStudents.length > 1 ? 's' : ''}</p>
+              </div>
               <button
                 onClick={exportCSV}
-                className="flex items-center gap-2 px-3 py-1.5 text-xs font-bold border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                className="flex items-center gap-2 px-3 py-1.5 text-xs font-bold border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shrink-0"
               >
                 <Download className="w-3.5 h-3.5" />
                 Export CSV
