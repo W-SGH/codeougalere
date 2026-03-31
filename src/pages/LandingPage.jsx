@@ -540,24 +540,22 @@ const LandingPage = () => {
                 Apprendre à conduire n'a jamais été aussi simple. Rejoignez la communauté et passez votre code sereinement.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-8 md:block md:col-span-1">
-              <div>
-                <h4 className="font-bold text-sm mb-4">Navigation</h4>
-                <ul className="text-slate-400 text-xs space-y-2">
-                  <li><a className="hover:text-primary transition-colors" href="#">Accueil</a></li>
-                  <li><a className="hover:text-primary transition-colors" href="#">Cours vidéo</a></li>
-                  <li><a className="hover:text-primary transition-colors" href="#">Examens blancs</a></li>
-                  <li><a className="hover:text-primary transition-colors" href="#">Tarifs</a></li>
-                </ul>
-              </div>
-              <div className="mt-8 md:mt-0">
-                <h4 className="font-bold text-sm mb-4">Légal</h4>
-                <ul className="text-slate-400 text-xs space-y-2">
-                  <li><Link to="/mentions-legales" className="hover:text-primary transition-colors">Mentions légales</Link></li>
-                  <li><Link to="/politique-de-confidentialite" className="hover:text-primary transition-colors">Confidentialité</Link></li>
-                  <li><Link to="/cgv" className="hover:text-primary transition-colors">CGV</Link></li>
-                </ul>
-              </div>
+            <div>
+              <h4 className="font-bold text-sm mb-4">Navigation</h4>
+              <ul className="text-slate-400 text-xs space-y-2">
+                <li><a className="hover:text-primary transition-colors" href="#">Accueil</a></li>
+                <li><a className="hover:text-primary transition-colors" href="#">Cours vidéo</a></li>
+                <li><a className="hover:text-primary transition-colors" href="#">Examens blancs</a></li>
+                <li><a className="hover:text-primary transition-colors" href="#tarifs">Tarifs</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold text-sm mb-4">Légal</h4>
+              <ul className="text-slate-400 text-xs space-y-2">
+                <li><Link to="/mentions-legales" className="hover:text-primary transition-colors">Mentions légales</Link></li>
+                <li><Link to="/politique-de-confidentialite" className="hover:text-primary transition-colors">Confidentialité</Link></li>
+                <li><Link to="/cgv" className="hover:text-primary transition-colors">CGV</Link></li>
+              </ul>
             </div>
             <div>
               <h4 className="font-bold text-sm mb-4">Contact</h4>

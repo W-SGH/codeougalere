@@ -63,6 +63,7 @@ export default function PolitiqueConfidentialitePage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                <tr><td className="py-2 pr-4">Vercel</td><td className="py-2 pr-4">Hébergement du site web (frontend)</td><td className="py-2">USA (clauses contractuelles types)</td></tr>
                 <tr><td className="py-2 pr-4">Supabase</td><td className="py-2 pr-4">Hébergement base de données et authentification</td><td className="py-2">UE (AWS Frankfurt)</td></tr>
                 <tr><td className="py-2 pr-4">Stripe</td><td className="py-2 pr-4">Paiement en ligne</td><td className="py-2">UE/USA (clauses contractuelles types)</td></tr>
                 <tr><td className="py-2 pr-4">Google (OAuth)</td><td className="py-2 pr-4">Connexion via compte Google (optionnel)</td><td className="py-2">USA (clauses contractuelles types)</td></tr>
