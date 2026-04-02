@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Users, CreditCard, PlayCircle, TrendingUp, LogOut, ArrowUpRight, Search, CheckCircle, XCircle, RefreshCw, Percent, Trash2, Download, Megaphone, BookOpen, BarChart2, Home } from 'lucide-react';
+import { Users, CreditCard, PlayCircle, TrendingUp, LogOut, ArrowUpRight, Search, CheckCircle, XCircle, RefreshCw, Percent, Trash2, Download, Megaphone, BookOpen, BarChart2, Home, ExternalLink } from 'lucide-react';
 import CourseManager from '../components/admin/CourseManager';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -26,6 +26,8 @@ export default function AdminDashboard() {
   const [announceStatus, setAnnounceStatus] = useState(null); // null | 'sending' | { sent, errors, total }
   const [promoFormOpen, setPromoFormOpen] = useState(false);
   const [promoForm, setPromoForm] = useState({ code: '', discount_percent: 20, expires_preset: '48h', max_uses: '' });
+  const [ediserModal, setEdiserModal] = useState(null); // null | { data: {...} }
+  const ediserBookmarkletRef = useRef(null);
 
   useEffect(() => { loadData(); }, []);
 
@@ -200,6 +202,37 @@ export default function AdminDashboard() {
 
   function getInitials(p) {
     return `${p?.first_name?.[0] || ''}${p?.last_name?.[0] || ''}`.toUpperCase() || '?';
+  }
+
+  function parseAddress(address) {
+    if (!address) return { numero: '', nom: '' };
+    const match = address.match(/^(\d+\s*(?:bis|ter|quater)?)\s+(.+)$/i);
+    if (match) return { numero: match[1].trim(), nom: match[2].trim() };
+    return { numero: '', nom: address };
+  }
+
+  function openEdiserModal(student) {
+    const { numero, nom: adresseNom } = parseAddress(student.address);
+    const birthDate = student.birth_date ? student.birth_date.split('-').reverse().join('/') : '';
+    setEdiserModal({
+      data: {
+        prenom: student.first_name || '',
+        nom: student.last_name || '',
+        nomNaissance: student.last_name || '',
+        email: student.email || '',
+        telephone: student.phone || '',
+        dateNaissance: birthDate,
+        adresseNumero: numero,
+        adresseNom,
+        ville: student.city || '',
+        codePostal: student.postal_code || '',
+      }
+    });
+  }
+
+  function generateBookmarklet(data) {
+    const js = `(function(){var d=${JSON.stringify(data)};function fill(id,v){var e=document.getElementById(id);if(!e)return;var s=Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value').set;s.call(e,v);e.dispatchEvent(new Event('input',{bubbles:true}));e.dispatchEvent(new Event('change',{bubbles:true}));}fill('enpc_portailbundle_inscriptionelevestructure_eleve_utilisateur_prenom',d.prenom);fill('enpc_portailbundle_inscriptionelevestructure_eleve_utilisateur_nom',d.nom);fill('enpc_portailbundle_inscriptionelevestructure_eleve_nomJeuneFille',d.nomNaissance);fill('enpc_portailbundle_inscriptionelevestructure_eleve_utilisateur_email',d.email);fill('enpc_portailbundle_inscriptionelevestructure_eleve_utilisateur_telephone',d.telephone);fill('enpc_portailbundle_inscriptionelevestructure_eleve_utilisateur_dateNaissance',d.dateNaissance);fill('enpc_portailbundle_inscriptionelevestructure_eleve_utilisateur_adresse_numeroVoie',d.adresseNumero);fill('enpc_portailbundle_inscriptionelevestructure_eleve_utilisateur_adresse_nomVoie',d.adresseNom);fill('enpc_portailbundle_inscriptionelevestructure_eleve_utilisateur_adresse_ville',d.ville);fill('enpc_portailbundle_inscriptionelevestructure_eleve_utilisateur_adresse_codePostal',d.codePostal);alert('\\u2713 Pr\\u00e9-rempli pour '+d.prenom+' '+d.nom);})()`;
+    return 'javascript:' + encodeURIComponent(js);
   }
 
   function toggleSort(key) {
@@ -483,6 +516,7 @@ export default function AdminDashboard() {
                       <th className="p-4 font-bold cursor-pointer hover:text-slate-800 dark:hover:text-white select-none" onClick={() => toggleSort('progress')}>Progression <SortIcon col="progress" /></th>
                       <th className="p-4 font-bold cursor-pointer hover:text-slate-800 dark:hover:text-white select-none" onClick={() => toggleSort('access')}>Accès <SortIcon col="access" /></th>
                       <th className="p-4 font-bold cursor-pointer hover:text-slate-800 dark:hover:text-white select-none" onClick={() => toggleSort('created_at')}>Inscrit le <SortIcon col="created_at" /></th>
+                      <th className="p-4 font-bold">Ediser</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-700/50 text-sm">
@@ -524,6 +558,15 @@ export default function AdminDashboard() {
                           )}
                         </td>
                         <td className="p-4 text-slate-400 text-xs">{formatDate(s.created_at)}</td>
+                        <td className="p-4">
+                          <button
+                            onClick={() => openEdiserModal(s)}
+                            className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary/20 hover:text-primary-dark transition-colors"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            Inscrire
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -899,6 +942,75 @@ export default function AdminDashboard() {
           </div>
         )}
       </main>
+
+      {/* Modal Ediser */}
+      {ediserModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-start justify-center z-50 px-4 py-8 overflow-y-auto">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-lg shadow-2xl border border-slate-200 dark:border-slate-700 my-auto">
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="text-lg font-bold">Inscription Ediser</h3>
+              <button onClick={() => setEdiserModal(null)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-2xl leading-none">×</button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 mb-5">
+              {[
+                { key: 'prenom', label: 'Prénom' },
+                { key: 'nom', label: "Nom d'usage" },
+                { key: 'nomNaissance', label: 'Nom de naissance' },
+                { key: 'email', label: 'Email', full: true },
+                { key: 'telephone', label: 'Téléphone' },
+                { key: 'dateNaissance', label: 'Date de naissance (JJ/MM/AAAA)' },
+                { key: 'adresseNumero', label: 'N° de voie' },
+                { key: 'adresseNom', label: 'Nom de voie', full: true },
+                { key: 'ville', label: 'Ville' },
+                { key: 'codePostal', label: 'Code postal' },
+              ].map(({ key, label, full }) => (
+                <div key={key} className={full ? 'col-span-2' : ''}>
+                  <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">{label}</label>
+                  <input
+                    type="text"
+                    value={ediserModal.data[key]}
+                    onChange={e => setEdiserModal(m => ({ ...m, data: { ...m.data, [key]: e.target.value } }))}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4 mb-4 border border-slate-200 dark:border-slate-700">
+              <p className="text-xs font-bold text-slate-600 dark:text-slate-300 mb-2">Comment utiliser :</p>
+              <ol className="text-xs text-slate-500 dark:text-slate-400 space-y-1 list-decimal list-inside">
+                <li>Glisse le bouton ci-dessous dans ta barre de favoris</li>
+                <li>Ouvre la page Ediser dans un nouvel onglet</li>
+                <li>Clique sur le favori → le formulaire se remplit automatiquement</li>
+                <li>Pour un autre élève : ouvre sa fiche et répète l'étape 1</li>
+                <li>Pour supprimer : clic droit sur le favori → Supprimer</li>
+              </ol>
+            </div>
+
+            <div className="flex gap-3">
+              <a
+                ref={el => {
+                  if (el) el.href = generateBookmarklet(ediserModal.data);
+                }}
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 border-dashed border-primary text-primary font-bold text-sm cursor-grab hover:bg-primary/10 transition-colors select-none"
+                onClick={e => e.preventDefault()}
+              >
+                ⭐ Glisser vers les favoris
+              </a>
+              <a
+                href="https://gps.enpc-ediser.com/apprenant/inscrire"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Ouvrir Ediser
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Popup de confirmation */}
       {confirm && (
