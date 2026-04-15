@@ -119,7 +119,7 @@ const LandingPage = () => {
           <div className="flex flex-col lg:flex-row items-center gap-10">
 
             {/* Texte gauche */}
-            <div className="flex-1 text-center lg:text-left">
+            <div className="flex-1 text-center lg:text-left order-2 lg:order-1">
               <Reveal animation="fadeInUp" delay={0}>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-[10px] font-bold mb-4 border border-slate-200">
                   <span className="material-symbols-outlined text-xs">verified</span>
@@ -145,7 +145,7 @@ const LandingPage = () => {
             </div>
 
             {/* Carte paiement droite */}
-            <Reveal animation="fadeIn" delay={200} className="w-full lg:w-auto lg:min-w-[360px]">
+            <Reveal animation="fadeIn" delay={200} className="w-full lg:w-auto lg:min-w-[360px] order-1 lg:order-2">
               {hasAccess ? (
                 <div className="bg-primary p-8 rounded-2xl flex flex-col shadow-2xl text-black max-w-sm mx-auto">
                   <div className="w-12 h-12 bg-black/10 rounded-xl flex items-center justify-center mb-4">
