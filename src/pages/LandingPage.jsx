@@ -2,14 +2,12 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Reveal from '../components/Reveal';
-import DemoModal from '../components/DemoModal';
 import ThemeToggle from '../components/ThemeToggle';
 
 const LandingPage = () => {
   const { user, hasAccess, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showDemo, setShowDemo] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const testimonialsRef = useRef({ dragging: false, dragStartX: 0 });
 
@@ -135,12 +133,12 @@ const LandingPage = () => {
                 </p>
               </Reveal>
               <Reveal animation="fadeInUp" delay={220}>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                  <button onClick={() => setShowDemo(true)} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-6 py-3.5 rounded-xl text-base font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
-                    <span className="material-symbols-outlined text-lg">play_circle</span>
-                    Voir la démo
-                  </button>
-                </div>
+                <video
+                  src="/presentation.mp4"
+                  controls
+                  playsInline
+                  className="w-full rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700"
+                />
               </Reveal>
             </div>
 
@@ -411,8 +409,6 @@ const LandingPage = () => {
           </div>
         </div>
       </footer>
-
-      {showDemo && <DemoModal onClose={() => setShowDemo(false)} />}
 
       {lightboxIndex !== null && (
         <div
