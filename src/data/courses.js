@@ -13,7 +13,7 @@ export const COURSES = [
         id: "1-1",
         title: "Vidéo : Le conducteur et ses responsabilités",
         type: "video",
-        videoUrl: "https://www.youtube.com/watch?v=NydKYZAkdVs", // Remplacer par votre vraie vidéo
+        videoUrl: "https://www.youtube.com/watch?v=wjnIspzkfvI",
         duration: "14:32",
         description: "Dans ce cours, nous abordons les obligations du conducteur, l'impact de l'alcool, des drogues et de la fatigue sur la conduite. Ces notions sont fondamentales pour réussir l'examen du code de la route.",
         keyPoints: [
