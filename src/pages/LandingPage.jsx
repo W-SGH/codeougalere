@@ -66,7 +66,6 @@ const LandingPage = () => {
               <span className="text-xl font-bold tracking-tight">Code ou galère <span className="text-primary"><span className="material-symbols-outlined">directions_car</span></span></span>
             </div>
             <div className="hidden md:flex items-center gap-8">
-              {!hasAccess && <a className="text-sm font-medium hover:text-primary transition-colors" href="#tarifs">Tarifs</a>}
               <ThemeToggle />
               {user ? (
                 <>
@@ -95,7 +94,6 @@ const LandingPage = () => {
         {/* Menu mobile */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-background-light dark:bg-background-dark border-t border-slate-100 dark:border-slate-800 px-4 py-4 flex flex-col gap-3">
-            {!hasAccess && <a className="text-sm font-medium hover:text-primary transition-colors py-2" href="#tarifs" onClick={() => setMobileMenuOpen(false)}>Tarifs</a>}
             <div className="border-t border-slate-100 dark:border-slate-800 pt-3 flex flex-col gap-2">
               {user ? (
                 <>
