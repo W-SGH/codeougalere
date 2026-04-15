@@ -66,8 +66,6 @@ const LandingPage = () => {
               <span className="text-xl font-bold tracking-tight">Code ou galère <span className="text-primary"><span className="material-symbols-outlined">directions_car</span></span></span>
             </div>
             <div className="hidden md:flex items-center gap-8">
-              <a className="text-sm font-medium hover:text-primary transition-colors" href="#formats">Apprentissage</a>
-              <a className="text-sm font-medium hover:text-primary transition-colors" href="#avantages">Avantages</a>
               {!hasAccess && <a className="text-sm font-medium hover:text-primary transition-colors" href="#tarifs">Tarifs</a>}
               <ThemeToggle />
               {user ? (
@@ -97,8 +95,6 @@ const LandingPage = () => {
         {/* Menu mobile */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-background-light dark:bg-background-dark border-t border-slate-100 dark:border-slate-800 px-4 py-4 flex flex-col gap-3">
-            <a className="text-sm font-medium hover:text-primary transition-colors py-2" href="#formats" onClick={() => setMobileMenuOpen(false)}>Apprentissage</a>
-            <a className="text-sm font-medium hover:text-primary transition-colors py-2" href="#avantages" onClick={() => setMobileMenuOpen(false)}>Avantages</a>
             {!hasAccess && <a className="text-sm font-medium hover:text-primary transition-colors py-2" href="#tarifs" onClick={() => setMobileMenuOpen(false)}>Tarifs</a>}
             <div className="border-t border-slate-100 dark:border-slate-800 pt-3 flex flex-col gap-2">
               {user ? (
@@ -120,9 +116,11 @@ const LandingPage = () => {
         )}
       </nav>
 
-      <header className="relative overflow-hidden pt-8 pb-12 lg:pt-20 lg:pb-32">
+      <header className="relative overflow-hidden pt-8 pb-12 lg:pt-20 lg:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-8">
+          <div className="flex flex-col lg:flex-row items-center gap-10">
+
+            {/* Texte gauche */}
             <div className="flex-1 text-center lg:text-left">
               <Reveal animation="fadeInUp" delay={0}>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-[10px] font-bold mb-4 border border-slate-200">
@@ -134,97 +132,51 @@ const LandingPage = () => {
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-4">Réussissez votre <span className="text-slate-900 dark:text-white border-b-4 border-primary">Code de la Route</span> du premier coup !</h1>
               </Reveal>
               <Reveal animation="fadeInUp" delay={160}>
-                <div className="flex flex-col gap-3 justify-center lg:justify-start mb-6 lg:order-last">
-                  {hasAccess ? (
-                    <Link to="/dashboard" className="animate-glow bg-primary text-black px-8 py-3.5 rounded-xl text-lg font-bold shadow-lg hover:bg-primary-dark transition-all flex items-center justify-center gap-2">
-                      Accéder à mes cours
-                      <span className="material-symbols-outlined">arrow_forward</span>
-                    </Link>
-                  ) : (
-                    <>
-                      <Link to="/tarifs" className="animate-glow bg-primary text-black px-8 py-3.5 rounded-xl text-lg font-bold shadow-lg hover:bg-primary-dark transition-all flex items-center justify-center gap-2">
-                        Commencer maintenant
-                        <span className="material-symbols-outlined">arrow_forward</span>
-                      </Link>
-                      <Link to="/preinscription" className="text-sm font-bold text-primary hover:text-primary-dark transition-colors flex items-center justify-center gap-1">
-                        ⚡ Offre de lancement — 50 places à −30%
-                        <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                      </Link>
-                    </>
-                  )}
-                  <button onClick={() => setShowDemo(true)} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-8 py-3.5 rounded-xl text-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2 md:hidden">
+                <p className="text-base text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto lg:mx-0">
+                  La meilleure préparation avec des cours en vidéo commentés, des questions d'entraînement par thème, et des examens blancs pour vous assurer de réussir du premier coup.
+                </p>
+              </Reveal>
+              <Reveal animation="fadeInUp" delay={220}>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                  <button onClick={() => setShowDemo(true)} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-6 py-3.5 rounded-xl text-base font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
                     <span className="material-symbols-outlined text-lg">play_circle</span>
                     Voir la démo
                   </button>
                 </div>
               </Reveal>
-              <Reveal animation="fadeInUp" delay={220}>
-                <p className="text-base text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto lg:mx-0">
-                  La meilleure préparation avec des cours en vidéo commentés, des questions d'entraînement par thème, et des examens blancs pour vous assurer de réussir le Code de la Route du premier coup.
-                </p>
-              </Reveal>
-              <div className="hidden md:flex flex-row gap-4 justify-start">
-                <button onClick={() => setShowDemo(true)} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-8 py-4 rounded-xl text-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
-                  <span className="material-symbols-outlined text-lg">play_circle</span>
-                  Voir la démo
-                </button>
-              </div>
             </div>
 
-            {/* Bloc design hero */}
-            <Reveal animation="fadeIn" delay={250} className="flex-1 w-full hidden lg:flex items-center justify-center">
-              <div className="relative w-full max-w-md h-96">
-
-                {/* Carte principale — cours en cours */}
-                <div className="animate-float absolute top-0 left-4 right-4 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-5 border border-slate-100 dark:border-slate-700">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-black text-xl">play_circle</span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[10px] font-bold text-primary uppercase tracking-wider">Thème 3 — En cours</p>
-                      <p className="text-sm font-black truncate">La circulation routière</p>
-                    </div>
-                    <span className="text-xs font-bold text-slate-400 shrink-0">18:20</span>
+            {/* Carte paiement droite */}
+            <Reveal animation="fadeIn" delay={200} className="w-full lg:w-auto lg:min-w-[360px]">
+              {hasAccess ? (
+                <div className="bg-primary p-8 rounded-2xl flex flex-col shadow-2xl text-black max-w-sm mx-auto">
+                  <div className="w-12 h-12 bg-black/10 rounded-xl flex items-center justify-center mb-4">
+                    <span className="material-symbols-outlined text-black text-2xl">school</span>
                   </div>
-                  <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2 mb-1">
-                    <div className="bg-primary h-2 rounded-full" style={{ width: '62%' }}></div>
-                  </div>
-                  <div className="flex justify-between text-[10px] text-slate-400 font-medium">
-                    <span>62% complété</span>
-                    <span>11:20 restantes</span>
-                  </div>
+                  <h3 className="text-xl font-black mb-2">Tu as déjà accès !</h3>
+                  <p className="text-sm text-black/70 mb-6">Continue tes révisions depuis ton espace personnel.</p>
+                  <Link to="/dashboard" className="w-full py-4 rounded-xl bg-black text-white text-center text-lg font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-black/20 block">
+                    Accéder à mes cours
+                  </Link>
                 </div>
-
-                {/* Carte quiz flottante */}
-                <div className="absolute bottom-12 left-0 bg-slate-900 rounded-2xl shadow-xl p-4 w-56 border border-slate-700" style={{ animation: 'float 6s ease-in-out 1s infinite' }}>
-                  <p className="text-[10px] font-bold text-primary uppercase tracking-wider mb-2">Question 3/5</p>
-                  <p className="text-xs font-bold text-white mb-3">Taux légal d'alcoolémie pour un conducteur confirmé ?</p>
-                  <div className="space-y-1.5">
-                    {['0,2 g/L', '0,5 g/L', '0,8 g/L'].map((opt, i) => (
-                      <div key={i} className={`text-xs px-3 py-1.5 rounded-lg font-medium ${i === 1 ? 'bg-primary text-black' : 'bg-slate-800 text-slate-400'}`}>{opt}</div>
-                    ))}
+              ) : (
+                <div className="bg-primary p-8 rounded-2xl flex flex-col shadow-2xl text-black max-w-sm mx-auto">
+                  <div className="bg-black/10 text-[10px] font-bold uppercase py-1 px-3 rounded-full self-start mb-4">Accès Illimité</div>
+                  <h3 className="text-xl font-bold mb-2">Pack Vidéo Intégral</h3>
+                  <div className="mb-6 flex items-baseline gap-1">
+                    <span className="text-4xl font-black">49€</span>
+                    <span className="text-xs font-bold text-black/70">/accès à vie</span>
                   </div>
+                  <ul className="space-y-3 mb-8 flex-1 text-sm font-medium">
+                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> 50+ heures de cours vidéo HD</li>
+                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Explications complètes</li>
+                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Cas pratiques & pièges</li>
+                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Support pédagogique</li>
+                  </ul>
+                  <Link to="/tarifs" className="w-full py-4 rounded-xl bg-black text-white text-center text-lg font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-black/20 block">Commencer la formation</Link>
+                  <Link to="/preinscription" className="w-full mt-3 py-3 rounded-xl border-2 border-black/20 text-black text-center text-sm font-bold hover:border-black hover:bg-black/5 transition-colors block">⚡ Offre de lancement −30% →</Link>
                 </div>
-
-                {/* Badge score */}
-                <div className="absolute bottom-8 right-0 bg-white dark:bg-slate-800 rounded-2xl shadow-xl px-4 py-3 border border-slate-100 dark:border-slate-700 flex items-center gap-3" style={{ animation: 'float 7s ease-in-out 0.5s infinite' }}>
-                  <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-green-600 text-xl">emoji_events</span>
-                  </div>
-                  <div>
-                    <p className="text-xs font-black">Score moyen</p>
-                    <p className="text-lg font-black text-green-600">4,8 / 5</p>
-                  </div>
-                </div>
-
-                {/* Badge élèves */}
-                <div className="absolute top-4 -right-2 bg-primary rounded-xl shadow-lg px-3 py-2 flex items-center gap-2" style={{ animation: 'float 5.5s ease-in-out 0.8s infinite' }}>
-                  <span className="material-symbols-outlined text-black text-base">groups</span>
-                  <p className="text-xs font-black text-black">+200 élèves</p>
-                </div>
-
-              </div>
+              )}
             </Reveal>
 
           </div>
@@ -401,35 +353,6 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-
-      {!hasAccess && <section className="py-16 bg-dark-accent text-white" id="tarifs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold mb-3">Accédez au cours complet</h2>
-            <p className="text-sm text-slate-400">La meilleure préparation en vidéo.</p>
-          </div>
-          <div className="max-w-lg mx-auto w-full">
-            <Reveal animation="scaleIn">
-            <div className="bg-primary p-8 rounded-2xl flex flex-col shadow-2xl text-black transform hover:-translate-y-1 transition-transform duration-300">
-              <div className="bg-black/10 text-[10px] font-bold uppercase py-1 px-3 rounded-full self-start mb-4">Accès Illimité</div>
-              <h3 className="text-xl font-bold mb-2">Pack Vidéo Intégral</h3>
-              <div className="mb-6 flex items-baseline gap-1">
-                <span className="text-4xl font-black">49€</span>
-                <span className="text-xs font-bold text-black/70">/accès à vie</span>
-              </div>
-              <ul className="space-y-3 mb-8 flex-1 text-sm font-medium">
-                <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> 50+ heures de cours vidéo HD</li>
-                <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Explications complètes</li>
-                <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Cas pratiques & pièges</li>
-                <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Support pédagogique</li>
-              </ul>
-              <Link to="/tarifs" className="w-full py-4 rounded-xl bg-black text-white text-center text-lg font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-black/20 block">Commencer la formation</Link>
-              <Link to="/preinscription" className="w-full mt-3 py-3 rounded-xl border-2 border-white/30 text-white text-center text-sm font-bold hover:border-primary hover:text-primary transition-colors block">⚡ Offre de lancement −30% →</Link>
-            </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>}
 
       <footer className="bg-dark-accent border-t border-white/10 pt-12 pb-8 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
