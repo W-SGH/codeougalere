@@ -137,7 +137,7 @@ const LandingPage = () => {
                   src="/presentation.mp4"
                   controls
                   playsInline
-                  className="w-full rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700"
+                  className="w-full max-w-sm mx-auto lg:mx-0 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700"
                 />
               </Reveal>
             </div>
