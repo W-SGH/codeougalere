@@ -172,7 +172,7 @@ const LandingPage = () => {
                     <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Explications complètes</li>
                     <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Cas pratiques & pièges</li>
                     <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Support pédagogique</li>
-                    <li className="flex items-center gap-3 pt-1 border-t border-black/10">
+                    <li className="flex items-center gap-3">
                       <span className="material-symbols-outlined text-base">check</span>
                       <span>Accès inclus</span>
                       <img src="/logo-prepacode.webp" alt="Prépa Code" className="h-5 object-contain" />
