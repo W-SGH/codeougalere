@@ -77,12 +77,6 @@ const DashboardPage = () => {
             <TrendingUp className="w-5 h-5" /> Statistiques
           </button>
           <Link
-            to="/exam"
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-          >
-            <Award className="w-5 h-5" /> Examen blanc
-          </Link>
-          <Link
             to="/"
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
           >
@@ -367,13 +361,6 @@ const DashboardPage = () => {
           <TrendingUp className="w-5 h-5" />
           Statistiques
         </button>
-        <Link
-          to="/exam"
-          className="flex-1 flex flex-col items-center justify-center gap-1 py-3 text-[10px] font-bold text-slate-400"
-        >
-          <Award className="w-5 h-5" />
-          Examen
-        </Link>
         <button
           onClick={handleLogout}
           className="flex-1 flex flex-col items-center justify-center gap-1 py-3 text-[10px] font-bold text-slate-400"

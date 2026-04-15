@@ -22,7 +22,7 @@ export default function CGVPage() {
         <section className="mb-8">
           <h2 className="text-lg font-bold mb-3">2. Objet</h2>
           <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-            Les présentes CGV régissent les ventes de contenus numériques (vidéos pédagogiques, quiz, examens blancs) proposés sur le site permisougalere.fr à destination de tout utilisateur souhaitant se préparer à l'examen du Code de la Route.
+            Les présentes CGV régissent les ventes de contenus numériques (vidéos pédagogiques, quiz) proposés sur le site permisougalere.fr à destination de tout utilisateur souhaitant se préparer à l'examen du Code de la Route.
           </p>
         </section>
 

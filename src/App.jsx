@@ -24,7 +24,6 @@ const SuccessPage = lazy(() => import('./pages/SuccessPage'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const MentionsLegalesPage = lazy(() => import('./pages/MentionsLegalesPage'));
-const ExamPage = lazy(() => import('./pages/ExamPage'));
 const PolitiqueConfidentialitePage = lazy(() => import('./pages/PolitiqueConfidentialitePage'));
 const CGVPage = lazy(() => import('./pages/CGVPage'));
 const PreRegistrationPage = lazy(() => import('./pages/PreRegistrationPage'));
@@ -53,7 +52,6 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/success" element={<SuccessPage />} />
               <Route path="/onboarding" element={<OnboardingPage />} />
-              <Route path="/exam" element={<ProtectedRoute requireAccess><ExamPage /></ProtectedRoute>} />
               <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
               <Route path="/politique-de-confidentialite" element={<PolitiqueConfidentialitePage />} />
               <Route path="/cgv" element={<CGVPage />} />

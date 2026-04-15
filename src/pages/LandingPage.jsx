@@ -129,11 +129,11 @@ const LandingPage = () => {
                 </div>
               </Reveal>
               <Reveal animation="fadeInUp" delay={80}>
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-4">Réussissez votre <span className="text-slate-900 dark:text-white border-b-4 border-primary">Code de la Route</span> du premier coup !</h1>
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-4">Code <span className="text-slate-900 dark:text-white border-b-4 border-primary">Express</span></h1>
               </Reveal>
               <Reveal animation="fadeInUp" delay={160}>
                 <p className="text-base text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto lg:mx-0">
-                  La meilleure préparation avec des cours en vidéo commentés, des questions d'entraînement par thème, et des examens blancs pour vous assurer de réussir du premier coup.
+                  La meilleure préparation avec des cours en vidéo commentés et des questions d'entraînement par thème pour vous assurer de réussir du premier coup.
                 </p>
               </Reveal>
               <Reveal animation="fadeInUp" delay={220}>
@@ -172,6 +172,11 @@ const LandingPage = () => {
                     <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Explications complètes</li>
                     <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Cas pratiques & pièges</li>
                     <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Support pédagogique</li>
+                    <li className="flex items-center gap-3 pt-1 border-t border-black/10">
+                      <span className="material-symbols-outlined text-base">check</span>
+                      <span>Accès inclus</span>
+                      <img src="/logo-prepacode.webp" alt="Prépa Code" className="h-5 object-contain" />
+                    </li>
                   </ul>
                   <Link to="/tarifs" className="w-full py-4 rounded-xl bg-black text-white text-center text-lg font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-black/20 block">Commencer la formation</Link>
                   <Link to="/preinscription" className="w-full mt-3 py-3 rounded-xl border-2 border-black/20 text-black text-center text-sm font-bold hover:border-black hover:bg-black/5 transition-colors block">⚡ Offre de lancement −30% →</Link>
@@ -319,7 +324,7 @@ const LandingPage = () => {
             {[
               {
                 q: "Est-ce que la formation est vraiment efficace ?",
-                a: "Oui. Nos élèves obtiennent leur code du premier coup grâce à une méthode en vidéo commentée thème par thème, des questions d'entraînement après chaque leçon, et des examens blancs en conditions réelles."
+                a: "Oui. Nos élèves obtiennent leur code du premier coup grâce à une méthode en vidéo commentée thème par thème et des questions d'entraînement après chaque leçon."
               },
               {
                 q: "L'accès est-il vraiment à vie ?",
@@ -371,8 +376,7 @@ const LandingPage = () => {
               <ul className="text-slate-400 text-xs space-y-2">
                 <li><a className="hover:text-primary transition-colors" href="#">Accueil</a></li>
                 <li><a className="hover:text-primary transition-colors" href="#">Cours vidéo</a></li>
-                <li><a className="hover:text-primary transition-colors" href="#">Examens blancs</a></li>
-                <li><a className="hover:text-primary transition-colors" href="#tarifs">Tarifs</a></li>
+<li><a className="hover:text-primary transition-colors" href="#tarifs">Tarifs</a></li>
               </ul>
             </div>
             <div>
