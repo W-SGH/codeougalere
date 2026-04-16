@@ -17,6 +17,11 @@ dist-ssr
 .env.local
 .env.production
 
+# Scripts YouTube (ne pas commiter)
+fetch-yt-urls.mjs
+yt-session/
+yt-videos.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
