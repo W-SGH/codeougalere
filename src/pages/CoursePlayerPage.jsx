@@ -202,7 +202,10 @@ const CoursePlayerPage = () => {
         {lesson.type === 'video' ? (
           <>
             {/* Lecteur vidéo */}
-            <div className="w-full bg-slate-900 aspect-video relative">
+            <div
+              className="w-full bg-slate-900 aspect-video relative select-none"
+              onContextMenu={e => e.preventDefault()}
+            >
               <ReactPlayer
                 ref={playerRef}
                 url={lesson.videoUrl}
@@ -228,8 +231,25 @@ const CoursePlayerPage = () => {
                 }}
                 controls={true}
                 config={{
-                  youtube: { playerVars: { showinfo: 1 } }
+                  youtube: {
+                    playerVars: {
+                      rel: 0,
+                      modestbranding: 1,
+                      iv_load_policy: 3,
+                      disablekb: 0,
+                    }
+                  }
                 }}
+              />
+              {/* Overlay : bloque le titre/logo YouTube (zone vidéo, hors barre de contrôles) */}
+              <div
+                className="absolute inset-x-0 top-0 bottom-[48px] z-10 cursor-default"
+                onClick={() => setPlaying(p => !p)}
+              />
+              {/* Bloque le bouton "YouTube" dans la barre de contrôles (coin bas droit) */}
+              <div
+                className="absolute bottom-0 right-0 w-[90px] h-[48px] z-10 cursor-default"
+                onClick={e => e.stopPropagation()}
               />
             </div>
 
