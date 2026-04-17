@@ -111,7 +111,8 @@ const CoursePlayerPage = () => {
   const { markLessonCompleted, updateWatchProgress, isCompleted, progress: lessonProgress } = useProgress();
 
   const { courses, getLesson, getNextLesson } = useCourses();
-  const courseId = Number(searchParams.get('c')) || 1;
+  const cParam = searchParams.get('c');
+  const courseId = cParam !== null ? Number(cParam) : 1;
   const lessonId = searchParams.get('l') || '1-1';
 
   const lessonData = getLesson(courseId, lessonId);
