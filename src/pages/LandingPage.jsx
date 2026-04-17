@@ -164,7 +164,7 @@ const LandingPage = () => {
                     <span className="text-xs font-bold text-black/70">/accès à vie</span>
                   </div>
                   <ul className="space-y-3 mb-8 flex-1 text-sm font-medium">
-                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> 112 leçons vidéo · 8 thèmes officiels</li>
+                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> 112 leçons vidéo · +2h30 de contenu</li>
                     <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Quiz d'entraînement après chaque thème</li>
                     <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Signalisation, priorités, alcool, dépassement…</li>
                     <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Accès à vie · mobile, tablette, ordi</li>
@@ -200,7 +200,7 @@ const LandingPage = () => {
                 Programme complet
               </div>
               <h2 className="text-2xl md:text-3xl font-black mb-2">8 thèmes · 112 leçons · 7 quiz</h2>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Tout le programme officiel du code de la route, structuré et commenté vidéo par vidéo.</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Tout le programme officiel du code de la route — plus de 2h30 de vidéo commentée.</p>
             </div>
           </Reveal>
 
