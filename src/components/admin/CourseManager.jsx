@@ -161,11 +161,19 @@ export default function CourseManager() {
         for (let li = 0; li < course.lessons.length; li++) {
           const lesson = course.lessons[li]
           await supabase.from('lessons').upsert({ id: lesson.id, course_id: course.id, title: lesson.title, type: lesson.type, position: li, video_url: lesson.videoUrl || '', duration: lesson.duration || '', description: lesson.description || '', key_points: lesson.keyPoints || [] })
-          if (lesson.type === 'quiz' && lesson.questions) {
-            for (let qi = 0; qi < lesson.questions.length; qi++) {
-              const q = lesson.questions[qi]
-              await supabase.from('quiz_questions').upsert({ lesson_id: lesson.id, position: qi, text: q.text, options: q.options, correct: q.correct, explanation: q.explanation || '' }, { onConflict: 'lesson_id,position' })
-            }
+          if (lesson.type === 'quiz' && lesson.questions?.length) {
+            // Supprimer les anciennes questions puis réinsérer (évite les conflits de contrainte)
+            await supabase.from('quiz_questions').delete().eq('lesson_id', lesson.id)
+            await supabase.from('quiz_questions').insert(
+              lesson.questions.map((q, qi) => ({
+                lesson_id: lesson.id,
+                position: qi,
+                text: q.text,
+                options: q.options,
+                correct: q.correct,
+                explanation: q.explanation || '',
+              }))
+            )
           }
         }
       }
