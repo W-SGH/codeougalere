@@ -1,490 +1,228 @@
-// Contenu du cours de code de la route
-// Remplacez les videoUrl par vos vraies URLs de vidéos (YouTube, Vimeo, ou auto-hébergé)
+// Contenu du cours Code de la Route Express
+// 116 vidéos organisées en 8 thèmes selon le contenu réel des vidéos
 
 export const COURSES = [
+  // ─── INTRODUCTION ────────────────────────────────────────────────────────────
   {
-    id: 1,
-    theme: "Thème 1",
-    title: "Le conducteur",
-    description: "Alcool, drogues, médicaments, fatigue et les sens du conducteur.",
+    id: 0,
+    theme: "Introduction",
+    title: "Bienvenue dans la formation",
+    description: "Présentation de la méthode et du déroulement de la formation Code Express.",
     thumbnail: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=225&fit=crop",
     lessons: [
       {
-        id: "1-1",
-        title: "Vidéo : Le conducteur et ses responsabilités",
+        id: "0-1",
+        title: "Présentation de la formation",
         type: "video",
         videoUrl: "https://www.youtube.com/watch?v=wjnIspzkfvI",
-        duration: "14:32",
-        description: "Dans ce cours, nous abordons les obligations du conducteur, l'impact de l'alcool, des drogues et de la fatigue sur la conduite. Ces notions sont fondamentales pour réussir l'examen du code de la route.",
+        duration: "2:41",
+        description: "Bienvenue dans Code de la Route Express. Découvrez la méthode, le programme et comment tirer le meilleur de cette formation.",
         keyPoints: [
-          "Le taux légal d'alcool est de 0,5 g/L de sang (0,2 g/L pour les jeunes conducteurs).",
-          "La fatigue divise par deux les réflexes du conducteur.",
-          "Certains médicaments (triangle rouge) sont incompatibles avec la conduite.",
-          "L'utilisation du téléphone portable au volant est interdite, même au feu rouge.",
+          "La formation est conçue pour passer le code sans galérer pendant des mois.",
+          "Méthode : cours magistral en vidéo, prises de notes, séries corrigées.",
+          "Il faudra travailler sérieusement — la réussite vient du travail.",
         ]
       },
-      {
-        id: "1-2",
-        title: "Questions d'entraînement : Le conducteur",
-        type: "quiz",
-        duration: "5 questions",
-        questions: [
-          {
-            id: "q1",
-            text: "Quel est le taux d'alcoolémie maximum autorisé pour un conducteur titulaire du permis depuis plus de 3 ans ?",
-            options: ["0,2 g/L de sang", "0,5 g/L de sang", "0,8 g/L de sang", "1,0 g/L de sang"],
-            correct: 1,
-            explanation: "Le taux légal est de 0,5 g/L de sang (soit 0,25 mg/L d'air expiré) pour les conducteurs confirmés. Pour les jeunes conducteurs (moins de 3 ans de permis), le taux est de 0,2 g/L."
-          },
-          {
-            id: "q2",
-            text: "Vous êtes fatigué sur l'autoroute. Que devez-vous faire en priorité ?",
-            options: ["Ouvrir la fenêtre et continuer", "Boire un café et reprendre la route", "Vous arrêter à la prochaine aire de repos et dormir", "Augmenter la vitesse pour arriver plus vite"],
-            correct: 2,
-            explanation: "Seul le sommeil peut combattre la fatigue. L'ouverture de la fenêtre et le café n'ont qu'un effet temporaire et trompeur."
-          },
-          {
-            id: "q3",
-            text: "Un médicament portant un triangle rouge sur sa boîte indique qu'il :",
-            options: ["Peut être pris sans danger avant de conduire", "Est dangereux pour la conduite, la conduite est déconseillée", "Doit être conservé au froid", "Est remboursé par la sécurité sociale"],
-            correct: 1,
-            explanation: "Le triangle rouge (pictogramme niveau 2) signifie que le médicament peut altérer les capacités de conduite. Il est dangereux de conduire sous ce traitement."
-          },
-          {
-            id: "q4",
-            text: "L'utilisation du téléphone tenu en main au volant est interdite :",
-            options: ["Uniquement sur autoroute", "Uniquement lors de la conduite à plus de 50 km/h", "À tout moment, y compris à l'arrêt au feu rouge", "Sauf en cas d'urgence"],
-            correct: 2,
-            explanation: "L'utilisation du téléphone tenu en main est interdite dès que le moteur est en marche, même à l'arrêt au feu rouge. Le non-respect est puni d'une amende de 135€ et d'un retrait de 3 points."
-          },
-          {
-            id: "q5",
-            text: "Le cannabis consommé la veille peut-il affecter la conduite le lendemain ?",
-            options: ["Non, l'effet disparaît en quelques heures", "Oui, les effets peuvent persister plusieurs heures voire jours", "Seulement si consommé en grande quantité", "Non, seul l'alcool est dangereux pour la conduite"],
-            correct: 1,
-            explanation: "Le THC (principe actif du cannabis) peut rester actif dans l'organisme et affecter les réflexes pendant plusieurs heures. La conduite sous l'emprise de stupéfiants est un délit."
-          }
-        ]
-      }
     ]
   },
+
+  // ─── THÈME 1 — LA SIGNALISATION ──────────────────────────────────────────────
+  {
+    id: 1,
+    theme: "Thème 1",
+    title: "La signalisation",
+    description: "Panneaux, marquages au sol, balises et cartouches : tout ce qu'il faut savoir sur la signalisation routière.",
+    thumbnail: "https://images.unsplash.com/photo-1569429593410-b498b3fb3387?w=400&h=225&fit=crop",
+    lessons: [
+      { id: "1-1",  title: "Les panneaux — formes, couleurs et distances", type: "video", videoUrl: "https://www.youtube.com/watch?v=Y3LamqTmIqY",   duration: "", description: "Introduction aux panneaux de signalisation : formes géométriques, couleurs et distances d'implantation selon le type de panneau.", keyPoints: ["Rond rouge = interdiction", "Triangle rouge = danger", "Rond bleu = obligation", "Carré bleu = indication"] },
+      { id: "1-2",  title: "Les panneaux de danger",                        type: "video", videoUrl: "https://www.youtube.com/watch?v=HjqV_fxSE-A",   duration: "", description: "Les panneaux triangulaires de danger (n°1 à n°16) : reconnaissance et signification.", keyPoints: ["Triangle rouge et blanc = danger", "Implantés à 150 m hors agglomération, 50 m en ville"] },
+      { id: "1-3",  title: "Les panneaux d'interdiction",                   type: "video", videoUrl: "https://www.youtube.com/watch?v=rP4xDjyvtv8",   duration: "", description: "Les panneaux ronds à bordure rouge : tout ce qui est interdit sur la route.", keyPoints: ["Rond rouge = interdiction", "La fin d'interdiction est signalée par un panneau barré"] },
+      { id: "1-4",  title: "Les panneaux d'obligation",                     type: "video", videoUrl: "https://www.youtube.com/watch?v=qYh1ah0gDqM",   duration: "", description: "Les panneaux ronds bleus : les obligations imposées aux conducteurs.", keyPoints: ["Rond bleu = obligation", "Exemples : sens obligatoire, voie réservée aux bus"] },
+      { id: "1-5",  title: "Les panneaux d'indication",                     type: "video", videoUrl: "https://www.youtube.com/watch?v=FuJVBNT7R_M",   duration: "", description: "Les panneaux carrés bleus et blancs indiquant des services ou des informations.", keyPoints: ["Carré bleu = indication", "Pictogrammes de services (hôpital, parking, station...)"] },
+      { id: "1-6",  title: "Les panneaux de travaux",                       type: "video", videoUrl: "https://www.youtube.com/watch?v=cTDRh88JfGE",   duration: "", description: "Les panneaux jaunes de signalisation temporaire en zone de chantier.", keyPoints: ["Panneaux jaunes = temporaires", "Remplacent les panneaux permanents en zone de travaux"] },
+      { id: "1-7",  title: "Les panonceaux",                                type: "video", videoUrl: "https://www.youtube.com/watch?v=CSkEOT9Tnuk",   duration: "", description: "Les petits panneaux rectangulaires placés sous les panneaux principaux pour apporter des précisions.", keyPoints: ["Placés sous le panneau principal", "Précisent une distance, une catégorie ou une heure"] },
+      { id: "1-8",  title: "Les balises de signalisation",                  type: "video", videoUrl: "https://www.youtube.com/watch?v=3d-YVgQWNmQ",   duration: "", description: "Les balises aux intersections et approches de passages à niveau : la règle des traits.", keyPoints: ["3 traits = 150 m, 2 traits = 100 m, 1 trait = 50 m du passage à niveau"] },
+      { id: "1-9",  title: "Les cartouches routières",                      type: "video", videoUrl: "https://www.youtube.com/watch?v=lztvifjlezc",   duration: "", description: "Identification des types de route grâce aux cartouches : nationale, européenne, départementale, autoroute.", keyPoints: ["Rouge = nationale", "Vert = européenne", "Jaune = départementale", "Bleu = autoroute"] },
+      { id: "1-10", title: "Les marquages au sol",                          type: "video", videoUrl: "https://www.youtube.com/watch?v=7RCdoD-1-fg",   duration: "", description: "Ligne continue, discontinue, de dissuasion et bande cyclable : signification et règles.", keyPoints: ["Ligne continue = infranchissable", "Ligne discontinue = franchissable avec prudence"] },
+      { id: "1-11", title: "La ligne mixte",                                type: "video", videoUrl: "https://www.youtube.com/watch?v=N7v7VAwvq18",   duration: "", description: "La ligne mixte (continue + discontinue côte à côte) et ses règles de franchissement selon votre côté.", keyPoints: ["Du côté de la ligne continue : ne pas franchir", "Du côté de la ligne discontinue : franchissement autorisé"] },
+      { id: "1-12", title: "Voies de stockage et sas vélo",                 type: "video", videoUrl: "https://www.youtube.com/watch?v=OVQbT4fa4OQ",   duration: "", description: "Les voies de stockage aux intersections et le sas vélo réservé aux cyclistes.", keyPoints: ["Sas vélo = zone réservée aux cyclistes devant les feux", "Ne pas empiéter sur le sas avec un véhicule motorisé"] },
+      { id: "1-13", title: "Arrêt de bus et zigzags jaunes",                type: "video", videoUrl: "https://www.youtube.com/watch?v=9IVpsFfynGQ",   duration: "", description: "Les zigzags jaunes devant les arrêts de bus : interdiction d'arrêt et de stationnement, mais passage autorisé.", keyPoints: ["Zigzags jaunes = interdiction d'arrêt et stationnement", "Le passage et la circulation restent autorisés"] },
+      { id: "1-14", title: "La voie de bus",                                type: "video", videoUrl: "https://www.youtube.com/watch?v=NT2pJIije-A",   duration: "", description: "Différence entre arrêt de bus et voie de bus réservée aux transports en commun.", keyPoints: ["Voie de bus = réservée aux bus, taxis, vélos selon signalisation", "Ne pas circuler sur une voie de bus sans autorisation"] },
+      { id: "1-15", title: "Les marquages jaunes temporaires",              type: "video", videoUrl: "https://www.youtube.com/watch?v=Km-juMt77rQ",   duration: "", description: "La signalisation temporaire au sol en zone de chantier, limitée à 30 km/h.", keyPoints: ["Marquages jaunes = temporaires, prioritaires sur les blancs", "Vitesse limitée à 30 km/h en zone de chantier"] },
+      { id: "1-16", title: "Le marquage bleu au sol",                       type: "video", videoUrl: "https://www.youtube.com/watch?v=zNESmbEnTQw",   duration: "", description: "Le marquage bleu indique une zone de stationnement gratuit avec disque.", keyPoints: ["Marquage bleu = stationnement gratuit limité avec disque", "Le disque doit être affiché sur le pare-brise"] },
+    ]
+  },
+
+  // ─── THÈME 2 — INTERSECTIONS, PRIORITÉS ET FEUX ──────────────────────────────
   {
     id: 2,
     theme: "Thème 2",
-    title: "La maîtrise du véhicule",
-    description: "Freinage, stabilité, chargement, équipements de sécurité.",
+    title: "Intersections, priorités et feux",
+    description: "Maîtrisez les règles de priorité aux intersections, les giratoires et la signalisation lumineuse.",
     thumbnail: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=225&fit=crop",
     lessons: [
-      {
-        id: "2-1",
-        title: "Vidéo : Physique du freinage et stabilité",
-        type: "video",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Remplacer
-        duration: "16:45",
-        description: "Comprenez les forces qui s'exercent sur votre véhicule : la distance de freinage, l'effet de l'aquaplanage et la gestion du chargement.",
-        keyPoints: [
-          "La distance de freinage est proportionnelle au carré de la vitesse.",
-          "Par temps de pluie, la distance de freinage est multipliée par 2.",
-          "L'aquaplanage survient quand un film d'eau s'interpose entre le pneu et la route.",
-          "Un chargement mal arrimé peut provoquer une perte de contrôle.",
-        ]
-      },
-      {
-        id: "2-2",
-        title: "Questions d'entraînement : La maîtrise du véhicule",
-        type: "quiz",
-        duration: "5 questions",
-        questions: [
-          {
-            id: "q1",
-            text: "À 90 km/h sur route mouillée, la distance de freinage par rapport à la route sèche est :",
-            options: ["Identique", "Multipliée par 1,5", "Multipliée par 2", "Multipliée par 3"],
-            correct: 2,
-            explanation: "Sur route mouillée, la distance de freinage est environ doublée car l'adhérence est réduite. Sur neige ou verglas, elle peut être multipliée par 4 à 8."
-          },
-          {
-            id: "q2",
-            text: "L'aquaplanage est un phénomène qui :",
-            options: ["Se produit uniquement à grande vitesse", "Provoque la perte d'adhérence des pneus sur une flaque d'eau", "Est évité par les pneus neufs seulement si la vitesse est élevée", "N'arrive qu'aux véhicules lourds"],
-            correct: 1,
-            explanation: "L'aquaplanage se produit quand un film d'eau s'interpose entre le pneu et la chaussée, provoquant une perte totale d'adhérence et de directivité. Pour l'éviter : réduire la vitesse, avoir des pneus en bon état."
-          },
-          {
-            id: "q3",
-            text: "La pression des pneus doit être vérifiée :",
-            options: ["Une fois par an", "Tous les 6 mois", "Au moins une fois par mois, pneus froids", "Seulement avant un long trajet"],
-            correct: 2,
-            explanation: "La pression des pneus doit être vérifiée mensuellement, pneus froids (avant de rouler ou après moins de 2 km). Une pression insuffisante augmente la consommation et réduit l'adhérence."
-          },
-          {
-            id: "q4",
-            text: "En cas de crevaison soudaine à haute vitesse, vous devez :",
-            options: ["Freiner brusquement", "Accélérer pour stabiliser le véhicule", "Tenir fermement le volant, lâcher l'accélérateur progressivement et freiner doucement", "Braquer dans le sens opposé"],
-            correct: 2,
-            explanation: "En cas de crevaison : saisir fermement le volant, relâcher l'accélérateur en douceur, freiner progressivement, et vous arrêter sur le côté droit de la chaussée."
-          },
-          {
-            id: "q5",
-            text: "Un véhicule est en surcharge quand :",
-            options: ["Il transporte plus de 4 passagers", "Son poids total dépasse le PTAC indiqué sur la carte grise", "Les pneus sont sous-gonflés", "La consommation d'essence augmente"],
-            correct: 1,
-            explanation: "Le PTAC (Poids Total Autorisé en Charge) est la masse maximale que peut supporter le véhicule. Le dépasser est dangereux (freinage allongé, usure prématurée) et constitue une infraction."
-          }
-        ]
-      }
+      { id: "2-1", title: "La priorité à droite",                  type: "video", videoUrl: "https://www.youtube.com/watch?v=KsGTaDN1fF8",   duration: "", description: "La règle fondamentale de priorité à droite en l'absence de signalisation.", keyPoints: ["Tout véhicule venant de la droite est prioritaire", "S'applique uniquement en l'absence de tout panneau"] },
+      { id: "2-2", title: "Le panneau priorité à droite",          type: "video", videoUrl: "https://www.youtube.com/watch?v=ndH_AsYu0Zg",   duration: "", description: "Le panneau danger 'priorité à droite' (croix noire dans triangle) et ses distances d'implantation.", keyPoints: ["Annonce un carrefour avec priorité à droite", "Implanté à 150 m hors agglomération"] },
+      { id: "2-3", title: "Le sens giratoire",                     type: "video", videoUrl: "https://www.youtube.com/watch?v=Xb8Okghs4ro",   duration: "", description: "Fonctionnement du rond-point, priorité aux véhicules circulant dans le giratoire, positionnement selon la sortie.", keyPoints: ["Les véhicules dans le giratoire sont prioritaires", "Se positionner à droite pour les premières sorties"] },
+      { id: "2-4", title: "Les feux tricolores",                   type: "video", videoUrl: "https://www.youtube.com/watch?v=vP-gtOxXbUk",   duration: "", description: "Signification du vert, orange et rouge, règles à respecter à chaque feu.", keyPoints: ["Vert = passer si la voie est libre", "Orange fixe = s'arrêter si possible", "Rouge = arrêt obligatoire"] },
+      { id: "2-5", title: "Le feu orange clignotant (panne)",      type: "video", videoUrl: "https://www.youtube.com/watch?v=QCIlMp9Vmds",   duration: "", description: "Quand le feu est en panne (orange clignotant au milieu), la règle de priorité à droite s'applique.", keyPoints: ["Feu en panne = appliquer la priorité à droite", "Ralentir et laisser passer les véhicules venant de droite"] },
+      { id: "2-6", title: "Le feu éteint",                         type: "video", videoUrl: "https://www.youtube.com/watch?v=Fz1spkFG1hU",   duration: "", description: "Feu complètement éteint : appliquer la signalisation présente ou la priorité à droite.", keyPoints: ["Feu éteint = appliquer le panneau de signalisation présent", "Sans panneau = priorité à droite"] },
+      { id: "2-7", title: "Le feu de travaux (clignotant bas)",    type: "video", videoUrl: "https://www.youtube.com/watch?v=qIg0TegySQ0",   duration: "", description: "Le feu orange clignotant en bas (feu de travaux) équivaut à un feu vert : passer avec prudence.", keyPoints: ["Feu orange clignotant bas = comme un feu vert", "Passer avec prudence en zone de travaux"] },
+      { id: "2-8", title: "Récapitulatif des feux tricolores",     type: "video", videoUrl: "https://www.youtube.com/watch?v=AVhcGV0Xsgg",   duration: "", description: "Synthèse de tous les cas de feux : vert, orange fixe, orange clignotant, rouge, feu éteint, feu en panne.", keyPoints: ["Maîtriser tous les états possibles d'un feu", "Savoir appliquer la bonne règle dans chaque situation"] },
     ]
   },
+
+  // ─── THÈME 3 — VITESSE ET STATIONNEMENT ──────────────────────────────────────
   {
     id: 3,
     theme: "Thème 3",
-    title: "La circulation routière",
-    description: "Règles de priorité, signalisation, intersections, giratoires.",
-    thumbnail: "https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?w=400&h=225&fit=crop",
+    title: "Vitesse et stationnement",
+    description: "Limitations de vitesse, zones spéciales et toutes les règles d'arrêt et de stationnement.",
+    thumbnail: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=400&h=225&fit=crop",
     lessons: [
-      {
-        id: "3-1",
-        title: "Vidéo : Priorités, intersections et giratoires",
-        type: "video",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Remplacer
-        duration: "18:20",
-        description: "Maîtrisez les règles de priorité à droite, les différents types d'intersections et le fonctionnement des ronds-points.",
-        keyPoints: [
-          "La priorité à droite s'applique en l'absence de signalisation spécifique.",
-          "Dans un giratoire, les véhicules engagés sont prioritaires sur ceux qui entrent.",
-          "Le panneau Stop impose un arrêt total, même si la voie est libre.",
-          "Le feu orange clignotant indique une priorité à droite.",
-        ]
-      },
-      {
-        id: "3-2",
-        title: "Questions d'entraînement : Circulation routière",
-        type: "quiz",
-        duration: "5 questions",
-        questions: [
-          {
-            id: "q1",
-            text: "Dans un carrefour sans signalisation, qui est prioritaire ?",
-            options: ["Celui qui arrive le premier", "Le véhicule venant de droite", "Le véhicule venant de gauche", "Le véhicule le plus rapide"],
-            correct: 1,
-            explanation: "En l'absence de signalisation, la règle de la priorité à droite s'applique : tout véhicule venant de votre droite est prioritaire."
-          },
-          {
-            id: "q2",
-            text: "Dans un giratoire (rond-point), qui est prioritaire ?",
-            options: ["Les véhicules qui entrent dans le giratoire", "Les véhicules déjà engagés dans le giratoire", "Les poids lourds", "Selon le sens de circulation"],
-            correct: 1,
-            explanation: "Dans un giratoire moderne (signalé par 'Vous n'avez pas la priorité'), les véhicules déjà engagés dans l'anneau sont prioritaires sur ceux qui entrent."
-          },
-          {
-            id: "q3",
-            text: "À un panneau STOP, vous devez :",
-            options: ["Ralentir et passer si la voie est libre", "Marquer l'arrêt total, même si vous voyez que la voie est libre", "Klaxonner et passer", "Vous arrêter uniquement si un véhicule arrive"],
-            correct: 1,
-            explanation: "Le panneau STOP impose un arrêt total et absolu, même si la voie est libre. L'arrêt doit être effectué avant la ligne d'arrêt."
-          },
-          {
-            id: "q4",
-            text: "Le clignotant signale à l'avance :",
-            options: ["Qu'on change de direction", "Qu'on accélère", "Qu'on freine", "Qu'on s'arrête"],
-            correct: 0,
-            explanation: "Le clignotant est un avertisseur de changement de direction. Il doit être actionné AVANT la manœuvre pour prévenir les autres usagers."
-          },
-          {
-            id: "q5",
-            text: "Un feu tricolore passe à l'orange. Vous pouvez passer si :",
-            options: ["Vous pouvez vous arrêter sans danger", "Vous êtes trop engagé pour vous arrêter sans danger", "Personne ne vient en face", "Vous roulez à moins de 50 km/h"],
-            correct: 1,
-            explanation: "Le feu orange signifie 'arrêtez-vous' SAUF si vous êtes trop engagé pour pouvoir freiner en toute sécurité. Ce n'est pas une autorisation de passer !"
-          }
-        ]
-      }
+      { id: "3-1",  title: "Les limitations de vitesse",                        type: "video", videoUrl: "https://www.youtube.com/watch?v=AYVPAlbP1kk",   duration: "", description: "Vitesses maximales selon le type de route, la météo et la période probatoire du jeune conducteur.", keyPoints: ["130 km/h autoroute (110 sous la pluie)", "80 km/h route sans terre-plein central", "50 km/h en agglomération"] },
+      { id: "3-2",  title: "Zone 30 et zone de rencontre",                      type: "video", videoUrl: "https://www.youtube.com/watch?v=pcCjk1xRacQ",   duration: "", description: "Différences entre zone 30 (50→30), zone de rencontre (20 km/h, piétons prioritaires) et signalisation.", keyPoints: ["Zone 30 = 30 km/h max", "Zone de rencontre = 20 km/h, piétons prioritaires"] },
+      { id: "3-3",  title: "Arrêt et stationnement — définitions",              type: "video", videoUrl: "https://www.youtube.com/watch?v=HDWMHssqVow",   duration: "", description: "Distinction entre l'arrêt (temporaire, conducteur présent) et le stationnement (plus long, conducteur absent).", keyPoints: ["Arrêt = courte immobilisation, conducteur présent", "Stationnement = immobilisation prolongée"] },
+      { id: "3-4",  title: "Stationnement double sens vs sens unique",           type: "video", videoUrl: "https://www.youtube.com/watch?v=4uxnyxz27-o",   duration: "", description: "En double sens, se garer uniquement à droite. En sens unique, les deux côtés sont autorisés sauf signalisation.", keyPoints: ["Double sens = stationnement uniquement à droite", "Sens unique = stationnement des deux côtés autorisé"] },
+      { id: "3-5",  title: "Interdit de stationner (une barre)",                type: "video", videoUrl: "https://www.youtube.com/watch?v=5U1IpWxo4z8",   duration: "", description: "Le panneau 'interdit de stationner' (une barre oblique) : l'arrêt reste autorisé.", keyPoints: ["Une barre = interdit de stationner uniquement", "L'arrêt bref reste autorisé"] },
+      { id: "3-6",  title: "Interdit d'arrêt et de stationnement (deux barres)", type: "video", videoUrl: "https://www.youtube.com/watch?v=lUPTx4YdH9U",   duration: "", description: "Le panneau à deux barres : ni arrêt ni stationnement n'est autorisé.", keyPoints: ["Deux barres = ni arrêt ni stationnement", "Toute immobilisation est interdite"] },
+      { id: "3-7",  title: "Stationnement alterné semi-mensuel (1er au 15)",    type: "video", videoUrl: "https://www.youtube.com/watch?v=OaZwzcp45iM",   duration: "", description: "Du 1er au 15 du mois, stationnement interdit du côté indiqué par le panneau.", keyPoints: ["Du 1 au 15 = interdit côté indiqué par le panneau", "Changer de côté avant minuit le 15"] },
+      { id: "3-8",  title: "Stationnement alterné semi-mensuel (16 au 31)",     type: "video", videoUrl: "https://www.youtube.com/watch?v=vA_3XNV8k6M",   duration: "", description: "Du 16 au 31 du mois, le côté d'interdiction s'inverse.", keyPoints: ["Du 16 au 31 = côté d'interdiction inversé", "Changer de côté avant minuit le 1er du mois suivant"] },
+      { id: "3-9",  title: "Stationnement payant",                              type: "video", videoUrl: "https://www.youtube.com/watch?v=5Mtg9LlBkak",   duration: "", description: "Les zones de stationnement à paiement obligatoire : horodateurs et tickets.", keyPoints: ["Payer à l'horodateur et afficher le ticket", "Durée limitée selon la zone"] },
+      { id: "3-10", title: "Stationnement avec disque",                         type: "video", videoUrl: "https://www.youtube.com/watch?v=1meLcIb98xk",   duration: "", description: "Obligation d'utiliser un disque de stationnement horodateur dans les zones bleues.", keyPoints: ["Disque obligatoire dans les zones bleues", "Afficher l'heure d'arrivée sur le pare-brise"] },
+      { id: "3-11", title: "Stationnement alterné pair/impair",                 type: "video", videoUrl: "https://www.youtube.com/watch?v=MRU5OUPGpUs",   duration: "", description: "Panneau d'autorisation selon la date (pair/impair) et côté de la rue (numéros pairs ou impairs).", keyPoints: ["Côté pair = jours pairs", "Côté impair = jours impairs"] },
+      { id: "3-12", title: "Stationnement alterné — application pratique",      type: "video", videoUrl: "https://www.youtube.com/watch?v=WEOPBXMfr_M",   duration: "", description: "Application pratique : du 1 au 15 côté impair, du 16 au 31 côté pair.", keyPoints: ["Exercice d'application avec exemples concrets"] },
+      { id: "3-13", title: "Stationnement alterné — exercices",                 type: "video", videoUrl: "https://www.youtube.com/watch?v=o7C_x_nuIOA",   duration: "", description: "Exercices d'application avec différentes dates (7 avril, 16 mars, 8 juin).", keyPoints: ["S'entraîner à identifier le bon côté selon la date"] },
+      { id: "3-14", title: "Le stationnement abusif",                           type: "video", videoUrl: "https://www.youtube.com/watch?v=VEKHjlEqpN0",   duration: "", description: "Interdiction de laisser son véhicule au même endroit plus de 7 jours consécutifs.", keyPoints: ["Stationnement abusif = + de 7 jours au même endroit", "Amende de 35 €"] },
+      { id: "3-15", title: "Arrêt et stationnement dangereux ou gênant",        type: "video", videoUrl: "https://www.youtube.com/watch?v=reIXiRn_lcI",   duration: "", description: "Les infractions d'arrêt et stationnement dangereux ou gênants et les montants des amendes.", keyPoints: ["Stationnement gênant : amende 135 €", "Stationnement dangereux : amende 135 € + mise en fourrière"] },
     ]
   },
+
+  // ─── THÈME 4 — CROISEMENT ET DÉPASSEMENT ────────────────────────────────────
   {
     id: 4,
     theme: "Thème 4",
-    title: "La route",
-    description: "Types de routes, autoroutes, voies rapides, marquages au sol.",
-    thumbnail: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=225&fit=crop",
+    title: "Croisement et dépassement",
+    description: "Règles de croisement entre véhicules et conditions légales pour effectuer un dépassement en sécurité.",
+    thumbnail: "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=400&h=225&fit=crop",
     lessons: [
-      {
-        id: "4-1",
-        title: "Vidéo : Autoroutes, routes nationales et voies rapides",
-        type: "video",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Remplacer
-        duration: "13:55",
-        description: "Les règles spécifiques à chaque type de voie : vitesses maximales, interdictions, comportements en cas d'urgence.",
-        keyPoints: [
-          "Sur autoroute : 130 km/h (110 km/h par pluie, 50 km/h en cas de brouillard).",
-          "La bande d'arrêt d'urgence est réservée aux véhicules immobilisés.",
-          "Le dépassement par la droite est interdit sauf en cas d'embouteillage.",
-          "L'arrêt et le stationnement sont interdits sur l'autoroute.",
-        ]
-      },
-      {
-        id: "4-2",
-        title: "Questions d'entraînement : La route",
-        type: "quiz",
-        duration: "5 questions",
-        questions: [
-          {
-            id: "q1",
-            text: "Sur autoroute, la vitesse maximale par temps sec est de :",
-            options: ["110 km/h", "120 km/h", "130 km/h", "150 km/h"],
-            correct: 2,
-            explanation: "La vitesse maximale sur autoroute est de 130 km/h par temps sec, 110 km/h par temps de pluie et 50 km/h en cas de brouillard dense (visibilité < 50 m)."
-          },
-          {
-            id: "q2",
-            text: "La bande d'arrêt d'urgence (BAU) est réservée :",
-            options: ["Aux dépassements en cas d'embouteillage", "Aux véhicules en panne ou en cas d'urgence uniquement", "Aux motocyclistes", "Aux véhicules roulant à moins de 80 km/h"],
-            correct: 1,
-            explanation: "La BAU est réservée exclusivement aux véhicules immobilisés en cas de panne ou d'urgence. Circuler sur la BAU est une infraction grave (amende + retrait de points)."
-          },
-          {
-            id: "q3",
-            text: "En cas de panne sur autoroute, après avoir activé les feux de détresse, vous devez :",
-            options: ["Rester dans votre véhicule et attendre", "Sortir du véhicule côté conducteur et marcher derrière le rail de sécurité", "Sortir du véhicule par la gauche", "Pousser votre véhicule hors de la BAU"],
-            correct: 1,
-            explanation: "En cas de panne : activer les feux de détresse, sortir côté passager (ou par derrière), placer le triangle de signalisation, et se mettre derrière le rail de sécurité. Ne jamais rester dans le véhicule arrêté sur la BAU."
-          },
-          {
-            id: "q4",
-            text: "Sur une route à double sens de circulation avec une ligne continue au centre, vous pouvez :",
-            options: ["La franchir pour dépasser si la visibilité est bonne", "Ne jamais la franchir ni la chevaucher", "La franchir uniquement pour tourner à gauche", "La franchir si votre voie est libre"],
-            correct: 1,
-            explanation: "La ligne continue ne doit jamais être franchie ni chevauchée. Elle indique une zone dangereuse où le dépassement est formellement interdit."
-          },
-          {
-            id: "q5",
-            text: "La distance de sécurité minimale recommandée sur autoroute à 130 km/h est :",
-            options: ["50 mètres (1 seconde)", "108 mètres (3 secondes)", "2 secondes minimum (soit environ 72 mètres)", "4 secondes minimum"],
-            correct: 2,
-            explanation: "La règle des 2 secondes minimum est recommandée. La loi impose de maintenir une distance de sécurité représentée par la distance parcourue en 2 secondes, soit environ 72 mètres à 130 km/h."
-          }
-        ]
-      }
+      { id: "4-1",  title: "Croisement — définitions et règles de base",        type: "video", videoUrl: "https://www.youtube.com/watch?v=rddFtc8KMAA",   duration: "", description: "Définitions du croisement et règle de base : serrer à droite pour faciliter le passage.", keyPoints: ["Serrer à droite lors d'un croisement", "Ralentir si nécessaire"] },
+      { id: "4-2",  title: "Croisement avec obstacle sur la chaussée",          type: "video", videoUrl: "https://www.youtube.com/watch?v=_u-9azCk0xc",   duration: "", description: "Quand un véhicule a un obstacle sur sa voie : le véhicule gêné cède le passage.", keyPoints: ["Le véhicule gêné par un obstacle laisse passer", "Ne pas forcer le passage si la voie est insuffisante"] },
+      { id: "4-3",  title: "Croisement impossible — panneaux bleu et blanc",    type: "video", videoUrl: "https://www.youtube.com/watch?v=IzYlsMS7m58",   duration: "", description: "Panneaux de croisement impossible : bleu (priorité à toi) et blanc/rouge (priorité à l'autre).", keyPoints: ["Panneau bleu = tu es prioritaire", "Panneau blanc/rouge = l'autre est prioritaire"] },
+      { id: "4-4",  title: "Croisement en côte",                                type: "video", videoUrl: "https://www.youtube.com/watch?v=TxeIELKiV4I",   duration: "", description: "En côte, la priorité revient toujours au véhicule qui monte.", keyPoints: ["Véhicule qui monte = prioritaire en côte", "Le véhicule qui descend recule si nécessaire"] },
+      { id: "4-5",  title: "Croisement avec remorque",                          type: "video", videoUrl: "https://www.youtube.com/watch?v=PhKdxCaOW6k",   duration: "", description: "Croisement impossible avec remorque : c'est le véhicule le plus court qui facilite le passage.", keyPoints: ["Véhicule le plus court = facilite le passage", "La longueur totale (véhicule + remorque) est prise en compte"] },
+      { id: "4-6",  title: "Croisement poids lourd / petite voiture",           type: "video", videoUrl: "https://www.youtube.com/watch?v=RZisBcp5KH8",   duration: "", description: "Lors d'un croisement difficile, c'est toujours le plus petit véhicule qui s'écarte.", keyPoints: ["Le plus petit s'écarte toujours pour faciliter le passage du plus grand"] },
+      { id: "4-7",  title: "Croisement avec un bus ou transport en commun",     type: "video", videoUrl: "https://www.youtube.com/watch?v=AdGbua9uZ6U",   duration: "", description: "Priorité toujours accordée au transport de passagers (bus, car) lors d'un croisement difficile.", keyPoints: ["Bus et transports en commun sont prioritaires en cas de croisement difficile"] },
+      { id: "4-8",  title: "Dépassement — règles générales",                    type: "video", videoUrl: "https://www.youtube.com/watch?v=FdwjmlVJ0Jc",   duration: "", description: "Le dépassement s'effectue obligatoirement par la gauche, sauf si le véhicule devant tourne à gauche.", keyPoints: ["Dépassement obligatoirement par la gauche", "Exception : si le véhicule devant signale un virage à gauche"] },
+      { id: "4-9",  title: "Ligne continue et interdiction de dépasser",        type: "video", videoUrl: "https://www.youtube.com/watch?v=Z5fNEv1qiQw",   duration: "", description: "La ligne continue au sol interdit le dépassement, sauf exception pour les cyclistes.", keyPoints: ["Ligne continue = interdiction de franchir et de dépasser", "Exception possible pour cyclistes à très basse vitesse"] },
+      { id: "4-10", title: "Le panneau d'interdiction de dépasser",             type: "video", videoUrl: "https://www.youtube.com/watch?v=kYxGzGUkE3A",   duration: "", description: "Rappel : le panneau d'interdiction de dépasser est un rond rouge — forme et règles associées.", keyPoints: ["Rond rouge = interdiction", "La fin de l'interdiction est signalée par un panneau de levée"] },
+      { id: "4-11", title: "La flèche de rabattement",                          type: "video", videoUrl: "https://www.youtube.com/watch?v=h730gqkt_bo",   duration: "", description: "La flèche de rabattement annonce une ligne continue ou une réduction de voies : déconseille un dépassement.", keyPoints: ["Flèche de rabattement = ne pas commencer un dépassement", "Annonce souvent une ligne continue ou réduction de voies"] },
+      { id: "4-12", title: "Dépassement sur intersection (cyclistes)",          type: "video", videoUrl: "https://www.youtube.com/watch?v=TKGpabHfUwk",   duration: "", description: "Le dépassement sur intersection est autorisé pour les cyclistes si sécurisé, déconseillé mais non interdit pour les autres.", keyPoints: ["Dépassement sur intersection = déconseillé mais non interdit (sauf panneau)", "Cyclistes : autorisé si sécurisé"] },
+      { id: "4-13", title: "Dépassement et priorité ponctuelle",                type: "video", videoUrl: "https://www.youtube.com/watch?v=eaBCiS99Wgw",   duration: "", description: "Dépassement autorisé si panneau 'priorité ponctuelle' présent, interdit avec 'priorité à droite'.", keyPoints: ["Panneau priorité ponctuelle = dépassement autorisé", "Panneau priorité à droite = dépassement interdit"] },
+      { id: "4-14", title: "Dépassement interdit au passage à niveau",          type: "video", videoUrl: "https://www.youtube.com/watch?v=kS_X87v0iqQ",   duration: "", description: "Le dépassement est strictement interdit dans la zone du passage à niveau.", keyPoints: ["Zone passage à niveau = dépassement strictement interdit"] },
+      { id: "4-15", title: "Conditions générales pour dépasser",                type: "video", videoUrl: "https://www.youtube.com/watch?v=zK7VxcImD4g",   duration: "", description: "Avant de dépasser : signalisation non interdite, pas de ligne continue, vérification de l'allure du véhicule.", keyPoints: ["Vérifier : pas de panneau d'interdiction, pas de ligne continue, visibilité suffisante"] },
+      { id: "4-16", title: "Exercice pratique de dépassement",                  type: "video", videoUrl: "https://www.youtube.com/watch?v=F4pDYK5SfXA",   duration: "", description: "Analyser la signalisation (sens unique, limitation 110 km/h) pour décider si un dépassement est possible.", keyPoints: ["Analyser chaque élément de signalisation avant de dépasser"] },
+      { id: "4-17", title: "QCM sur le dépassement",                            type: "video", videoUrl: "https://www.youtube.com/watch?v=LPkB762Pcy4",   duration: "", description: "Que faire si on a commencé un dépassement mal engagé : accélérer, poursuivre ou se replacer ?", keyPoints: ["Si dépassement mal engagé = se replacer à droite dès que possible", "Ne jamais freiner brusquement en plein dépassement"] },
+      { id: "4-18", title: "Dépassement et limitations de vitesse",             type: "video", videoUrl: "https://www.youtube.com/watch?v=0sdDNmKL_P0",   duration: "", description: "Fin de limitation à 70, règles des routes de campagne (80 km/h sans terre-plein central).", keyPoints: ["Fin de limitation = repasser à la vitesse légale de la route", "80 km/h sur route sans séparateur central"] },
+      { id: "4-19", title: "Distance latérale de sécurité",                     type: "video", videoUrl: "https://www.youtube.com/watch?v=KbIKL5gdUoM",   duration: "", description: "Lors d'un dépassement d'un cycliste : 1 m minimum en ville, 1,50 m hors agglomération.", keyPoints: ["1 m minimum en agglomération pour dépasser un cycliste", "1,50 m minimum hors agglomération"] },
+      { id: "4-20", title: "Préparation au dépassement",                        type: "video", videoUrl: "https://www.youtube.com/watch?v=gXv6L3CGxaI",   duration: "", description: "Les étapes à respecter avant d'initier un dépassement en toute sécurité.", keyPoints: ["Observer, signaler, accélérer, se rabattre"] },
+      { id: "4-21", title: "Décider d'un dépassement — synthèse",               type: "video", videoUrl: "https://www.youtube.com/watch?v=12VdRF-tKag",   duration: "", description: "Ne pas gêner les véhicules en face, s'assurer que personne derrière ne dépasse : renoncer si une condition manque.", keyPoints: ["Renoncer au dépassement si la moindre condition de sécurité n'est pas remplie"] },
     ]
   },
+
+  // ─── THÈME 5 — LE CONDUCTEUR ─────────────────────────────────────────────────
   {
     id: 5,
     theme: "Thème 5",
-    title: "Les autres usagers",
-    description: "Piétons, cyclistes, motards, camions. Cohabiter en sécurité.",
-    thumbnail: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=400&h=225&fit=crop",
+    title: "Le conducteur",
+    description: "Vision, réaction, alcool, drogues et médicaments : les facteurs humains qui influencent la conduite.",
+    thumbnail: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&h=225&fit=crop",
     lessons: [
-      {
-        id: "5-1",
-        title: "Vidéo : Partager la route en sécurité",
-        type: "video",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Remplacer
-        duration: "12:10",
-        description: "Comment anticiper et adapter sa conduite en présence des usagers vulnérables : piétons, cyclistes, deux-roues motorisés.",
-        keyPoints: [
-          "Les piétons ont toujours la priorité sur les passages piétons.",
-          "Les cyclistes peuvent circuler sur les voies de bus et dépasser par la droite.",
-          "Il faut laisser 1 mètre de distance en dépassant un cycliste en agglomération (1,5 m hors agglo).",
-          "Les angles morts des poids lourds représentent un danger réel.",
-        ]
-      },
-      {
-        id: "5-2",
-        title: "Questions d'entraînement : Les autres usagers",
-        type: "quiz",
-        duration: "5 questions",
-        questions: [
-          {
-            id: "q1",
-            text: "À un passage piéton, un piéton s'apprête à traverser. Vous devez :",
-            options: ["Accélérer pour passer avant lui", "Klaxonner pour le prévenir", "Céder le passage et vous arrêter si nécessaire", "Ralentir mais continuer si vous arrivez en premier"],
-            correct: 2,
-            explanation: "Les piétons sont prioritaires sur les passages piétons dès qu'ils manifestent l'intention de traverser (ils s'approchent du bord). Vous devez obligatoirement céder le passage."
-          },
-          {
-            id: "q2",
-            text: "Quelle distance latérale minimale devez-vous maintenir en dépassant un cycliste hors agglomération ?",
-            options: ["0,5 mètre", "1 mètre", "1,5 mètre", "2 mètres"],
-            correct: 2,
-            explanation: "Hors agglomération, la distance latérale minimale lors du dépassement d'un cycliste est de 1,5 mètre. En agglomération, elle est de 1 mètre."
-          },
-          {
-            id: "q3",
-            text: "Un motocycliste circulant entre les files de véhicules à l'arrêt est :",
-            options: ["En infraction, ce n'est pas autorisé", "Autorisé uniquement sur voie rapide", "En expérimentation légale dans certaines zones", "Toujours autorisé sur autoroute"],
-            correct: 2,
-            explanation: "La remontée de file par les deux-roues est expérimentée dans certains départements depuis 2016. Elle est autorisée dans les zones expérimentales balisées, sur autoroutes et voies rapides à plus de 3 voies, à moins de 50 km/h."
-          },
-          {
-            id: "q4",
-            text: "En approchant un bus scolaire arrêté avec ses feux de détresse allumés, vous devez :",
-            options: ["Accélérer pour passer rapidement", "Ralentir très fortement et être prêt à s'arrêter", "Doubler rapidement", "Klaxonner pour prévenir les enfants"],
-            correct: 1,
-            explanation: "En présence d'un bus scolaire arrêté avec feux de détresse, il faut impérativement ralentir fortement et être prêt à s'arrêter. Des enfants peuvent traverser la route de manière imprévisible."
-          },
-          {
-            id: "q5",
-            text: "Les angles morts d'un poids lourd sont principalement situés :",
-            options: ["Uniquement derrière le camion", "À l'avant, sur les côtés droite et gauche, et directement derrière", "Seulement sur le côté gauche", "Il n'y a pas d'angles morts avec les rétroviseurs modernes"],
-            correct: 1,
-            explanation: "Les angles morts d'un poids lourd sont très importants : à l'avant immédiat, sur les deux côtés (surtout le droit), et directement derrière. Ne jamais rester dans ces zones !"
-          }
-        ]
-      }
+      { id: "5-1",  title: "Le champ visuel du conducteur",             type: "video", videoUrl: "https://www.youtube.com/watch?v=lXKpprfb2Ns",   duration: "", description: "Le champ visuel se rétrécit avec la vitesse : comprendre l'effet tunnel.", keyPoints: ["À haute vitesse, le champ visuel se rétrécit", "Adapter sa vitesse pour maintenir une vision large"] },
+      { id: "5-2",  title: "Le temps de réaction",                      type: "video", videoUrl: "https://www.youtube.com/watch?v=aGQt4NFcPIs",   duration: "", description: "Définition, durée (~1 seconde) et impact du temps de réaction sur la distance parcourue.", keyPoints: ["Temps de réaction = environ 1 seconde", "À 90 km/h, on parcourt 25 m pendant ce temps"] },
+      { id: "5-3",  title: "La distance de freinage",                   type: "video", videoUrl: "https://www.youtube.com/watch?v=i4fsU6KsUJk",   duration: "", description: "La distance de freinage et les facteurs qui l'influencent (état de la route, pneus, vitesse).", keyPoints: ["Distance de freinage augmente avec le carré de la vitesse", "Pneus usés et route mouillée augmentent la distance"] },
+      { id: "5-4",  title: "La distance d'arrêt",                       type: "video", videoUrl: "https://www.youtube.com/watch?v=X2JmoIAWp5E",   duration: "", description: "Distance d'arrêt = temps de réaction + distance de freinage. Comprendre le lien entre les deux.", keyPoints: ["Distance d'arrêt = réaction + freinage", "Se calcule en fonction de la vitesse"] },
+      { id: "5-5",  title: "Calcul de la distance d'arrêt",             type: "video", videoUrl: "https://www.youtube.com/watch?v=Lr7j-3IIosM",   duration: "", description: "Méthode de calcul de la distance d'arrêt et de la distance de sécurité à maintenir.", keyPoints: ["Formule : (V/10)² pour la distance de freinage", "Distance de sécurité = distance d'arrêt minimum"] },
+      { id: "5-6",  title: "Exercices pratiques — distances",           type: "video", videoUrl: "https://www.youtube.com/watch?v=qn6QcRHmV2I",   duration: "", description: "Exercices de calcul appliqués sur les distances d'arrêt et de sécurité à différentes vitesses.", keyPoints: ["S'entraîner à calculer rapidement selon la vitesse"] },
+      { id: "5-7",  title: "L'acuité visuelle pour conduire",           type: "video", videoUrl: "https://www.youtube.com/watch?v=a6FeObYWkFY",   duration: "", description: "Les minimums légaux d'acuité visuelle requis pour obtenir et conserver le permis de conduire.", keyPoints: ["Acuité visuelle minimale requise pour chaque œil", "Correction possible avec lunettes ou lentilles"] },
+      { id: "5-8",  title: "La vitesse, première cause de mortalité",   type: "video", videoUrl: "https://www.youtube.com/watch?v=7Uuk0Qk92VU",   duration: "", description: "La vitesse excessive est la première cause de mortalité sur les routes : chiffres et facteurs d'accident.", keyPoints: ["La vitesse excessive est la 1ère cause d'accidents mortels", "Un excès de 10 km/h double le risque d'accident grave"] },
+      { id: "5-9",  title: "L'alcool au volant — contrôles et seuils",  type: "video", videoUrl: "https://www.youtube.com/watch?v=mmpwSDoX424",   duration: "", description: "Les deux modes de contrôle de l'alcoolémie et les seuils légaux selon le type de conducteur.", keyPoints: ["0,5 g/L de sang pour les conducteurs confirmés", "0,2 g/L pour les jeunes conducteurs (moins de 3 ans de permis)"] },
+      { id: "5-10", title: "Sanctions pour alcool au volant",           type: "video", videoUrl: "https://www.youtube.com/watch?v=d4gn7eCKuCA",   duration: "", description: "Tableau des sanctions (contraventions vs délits) selon le taux d'alcoolémie et le type de permis.", keyPoints: ["Entre 0,5 et 0,8 g/L = contravention (amende + points)", "Au-delà de 0,8 g/L = délit (peine de prison possible)"] },
+      { id: "5-11", title: "1 verre = 10g d'alcool pur",               type: "video", videoUrl: "https://www.youtube.com/watch?v=5ywGCxt_-Wk",   duration: "", description: "Équivalence entre un verre standard et la quantité d'alcool pur, avec exercices de calcul.", keyPoints: ["1 verre standard = 10 g d'alcool pur", "Éliminé à raison d'environ 0,1 g/L par heure"] },
+      { id: "5-12", title: "Risques de l'alcool sur la conduite",       type: "video", videoUrl: "https://www.youtube.com/watch?v=0ZCryJ-9zyg",   duration: "", description: "Impact de l'alcool sur le temps de réaction, la vision et le comportement au volant.", keyPoints: ["L'alcool augmente le temps de réaction", "Réduit le champ visuel et fausse l'appréciation des distances"] },
+      { id: "5-13", title: "Facteurs influençant le taux d'alcoolémie", type: "video", videoUrl: "https://www.youtube.com/watch?v=NIBg0MOBT-A",   duration: "", description: "Les facteurs qui font varier le taux d'alcoolémie : sexe, corpulence, prise alimentaire, fatigue.", keyPoints: ["Les femmes atteignent un taux plus élevé à consommation égale", "Manger avant de boire ralentit l'absorption"] },
+      { id: "5-14", title: "Vitesse d'absorption de l'alcool",          type: "video", videoUrl: "https://www.youtube.com/watch?v=y-Oy4aP3qss",   duration: "", description: "L'alcool est absorbé plus rapidement à jeun qu'après un repas : impact sur l'alcoolémie.", keyPoints: ["À jeun, le pic d'alcoolémie est atteint plus vite", "Après un repas, l'absorption est ralentie"] },
+      { id: "5-15", title: "Médicaments et conduite",                   type: "video", videoUrl: "https://www.youtube.com/watch?v=i-l59NoFn4Q",   duration: "", description: "Les pictogrammes médicaments (niveaux 1, 2, 3) et leur impact sur la capacité à conduire.", keyPoints: ["Niveau 1 = soyez prudent", "Niveau 2 = soyez très prudent, conduire déconseillé", "Niveau 3 = ne pas conduire"] },
     ]
   },
+
+  // ─── THÈME 6 — CONDITIONS DE CONDUITE ET ENVIRONNEMENT ──────────────────────
   {
     id: 6,
     theme: "Thème 6",
-    title: "L'environnement",
-    description: "Éco-conduite, pollution, nuisances sonores, stationnement.",
-    thumbnail: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=225&fit=crop",
+    title: "Conditions de conduite et environnement",
+    description: "Feux du véhicule, météo difficile, situations spéciales et écoconduite.",
+    thumbnail: "https://images.unsplash.com/photo-1465447142348-e9952c393450?w=400&h=225&fit=crop",
     lessons: [
-      {
-        id: "6-1",
-        title: "Vidéo : Éco-conduite et impact environnemental",
-        type: "video",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Remplacer
-        duration: "11:30",
-        description: "Adoptez une conduite responsable pour réduire votre consommation et votre impact sur l'environnement.",
-        keyPoints: [
-          "L'anticipation est la base de l'éco-conduite : éviter les accélérations et freinages brusques.",
-          "Le moteur à froid consomme jusqu'à 30% de carburant supplémentaire.",
-          "Les zones à faibles émissions (ZFE) limitent la circulation des véhicules polluants.",
-          "Klaxonner est interdit en agglomération sauf en cas de danger immédiat.",
-        ]
-      },
-      {
-        id: "6-2",
-        title: "Questions d'entraînement : L'environnement",
-        type: "quiz",
-        duration: "5 questions",
-        questions: [
-          {
-            id: "q1",
-            text: "La première action de l'éco-conduite est :",
-            options: ["Rouler vite puis freiner fort", "Anticiper pour rouler à allure régulière", "Garder le moteur chaud en permanence", "Utiliser le frein moteur le moins possible"],
-            correct: 1,
-            explanation: "L'anticipation est le premier principe de l'éco-conduite. En anticipant, on évite les accélérations et freinages inutiles, ce qui réduit la consommation de carburant."
-          },
-          {
-            id: "q2",
-            text: "En agglomération, l'usage du klaxon est :",
-            options: ["Autorisé à tout moment pour prévenir", "Interdit sauf danger immédiat", "Autorisé uniquement la nuit", "Obligatoire avant un carrefour"],
-            correct: 1,
-            explanation: "En agglomération, l'usage du klaxon est interdit sauf en cas de danger immédiat. Hors agglomération, il peut être utilisé pour prévenir d'un dépassement."
-          },
-          {
-            id: "q3",
-            text: "Arrêter son moteur lors d'un arrêt de plus de 30 secondes permet de :",
-            options: ["Abîmer le démarreur", "Réduire la consommation et la pollution", "Surchauffer le moteur", "Vider la batterie"],
-            correct: 1,
-            explanation: "Couper le moteur dès qu'on s'arrête plus de 30 secondes réduit la consommation et les émissions polluantes. Les moteurs modernes résistent parfaitement aux démarrages fréquents."
-          },
-          {
-            id: "q4",
-            text: "Le stationnement est interdit :",
-            options: ["Uniquement sur les trottoirs", "Devant une entrée carrossable, sur un passage piéton, dans les 5 mètres avant un feu", "Seulement là où il y a un panneau d'interdiction", "Uniquement sur voie rapide"],
-            correct: 1,
-            explanation: "Le stationnement est interdit dans de nombreux cas réglementés : devant les entrées carrossables, sur les passages piétons, dans les 5 mètres avant un feu tricolore, etc., même sans panneau d'interdiction."
-          },
-          {
-            id: "q5",
-            text: "Une zone à faibles émissions (ZFE) :",
-            options: ["Interdit toute circulation automobile", "Limite la circulation aux véhicules les moins polluants selon leur vignette Crit'Air", "N'existe qu'en Île-de-France", "Concerne uniquement les poids lourds"],
-            correct: 1,
-            explanation: "Les ZFE limitent ou interdisent la circulation des véhicules les plus polluants selon leur vignette Crit'Air (de 1 à 5, plus électriques). Plusieurs grandes agglomérations françaises en sont dotées."
-          }
-        ]
-      }
+      { id: "6-1",  title: "Les feux du véhicule",                        type: "video", videoUrl: "https://www.youtube.com/watch?v=Zt2qFLjVHNM",   duration: "", description: "Feux de route, de croisement, de position, antibrouillard : conditions d'utilisation de chaque feu.", keyPoints: ["Feux de croisement = feux de base en circulation", "Feux de route = hors agglomération si personne devant"] },
+      { id: "6-2",  title: "Feux selon les conditions météo",             type: "video", videoUrl: "https://www.youtube.com/watch?v=FvhuGr2TCPI",   duration: "", description: "Récapitulatif des feux à utiliser selon les conditions : pluie, brouillard, nuit.", keyPoints: ["Pluie forte = feux de croisement obligatoires", "Brouillard = antibrouillard avant et/ou arrière"] },
+      { id: "6-3",  title: "Conduite par temps de brouillard",            type: "video", videoUrl: "https://www.youtube.com/watch?v=Ve1ovXgZRwY",   duration: "", description: "Règle de la visibilité à 50 m : utiliser les feux antibrouillard et adapter sa vitesse.", keyPoints: ["Visibilité < 50 m = feux antibrouillard obligatoires", "Adapter la vitesse pour s'arrêter dans la distance visible"] },
+      { id: "6-4",  title: "Conduite par vent fort",                      type: "video", videoUrl: "https://www.youtube.com/watch?v=hifOLLyq6dU",   duration: "", description: "Comportement à adopter et précautions par conditions de vent fort sur la route.", keyPoints: ["Tenir fermement le volant", "Réduire la vitesse, particulièrement sur pont et tunnels"] },
+      { id: "6-5",  title: "Conduite par temps de neige",                 type: "video", videoUrl: "https://www.youtube.com/watch?v=9iyeDXqqLYY",   duration: "", description: "Les feux à utiliser par neige (croisement + antibrouillard avant) et les précautions de conduite.", keyPoints: ["Neige = feux de croisement + antibrouillard avant", "Augmenter fortement les distances de sécurité"] },
+      { id: "6-6",  title: "Les passages à niveau",                       type: "video", videoUrl: "https://www.youtube.com/watch?v=MbuazUPzXMY",   duration: "", description: "Exercice sur les panneaux de passages à niveau avec et sans barrières.", keyPoints: ["Ne jamais s'engager si les barrières descendent", "Dépassement strictement interdit en zone de passage à niveau"] },
+      { id: "6-7",  title: "Comportement aux passages à niveau",          type: "video", videoUrl: "https://www.youtube.com/watch?v=bQ1wbORkECQ",   duration: "", description: "Conduite à tenir à l'approche et lors du franchissement d'un passage à niveau.", keyPoints: ["Ralentir, s'assurer qu'aucun train n'approche", "Ne jamais s'arrêter sur les rails"] },
+      { id: "6-8",  title: "Les tunnels",                                 type: "video", videoUrl: "https://www.youtube.com/watch?v=_iytA1Z-I_U",   duration: "", description: "Panneaux d'indication des tunnels, comportements à adopter : feux, vitesse, sécurité.", keyPoints: ["Allumer les feux de croisement en entrant dans un tunnel", "Maintenir une distance de sécurité plus importante"] },
+      { id: "6-9",  title: "Les zones de rencontre",                      type: "video", videoUrl: "https://www.youtube.com/watch?v=i9bZwmVKF3g",   duration: "", description: "Règles de priorité et vitesse limitée à 20 km/h dans les zones de rencontre.", keyPoints: ["Zone de rencontre = 20 km/h maximum", "Piétons prioritaires sur les véhicules"] },
+      { id: "6-10", title: "Les véhicules prioritaires",                  type: "video", videoUrl: "https://www.youtube.com/watch?v=-xjjGic3HMw",   duration: "", description: "Police, pompiers, SAMU : obligation de leur céder le passage immédiatement.", keyPoints: ["Police, pompiers, SAMU = prioritaires absolus", "S'écarter immédiatement à droite et s'arrêter si nécessaire"] },
+      { id: "6-11", title: "Véhicules à facilité de passage",             type: "video", videoUrl: "https://www.youtube.com/watch?v=SjC50a-H9S8",   duration: "", description: "Ambulances privées, EDF/GDF et autres véhicules bénéficiant d'une facilité de passage.", keyPoints: ["Facilité de passage ≠ priorité absolue", "Leur céder le passage dès que possible"] },
+      { id: "6-12", title: "L'écoconduite",                               type: "video", videoUrl: "https://www.youtube.com/watch?v=JzUImuQrIQQ",   duration: "", description: "Conduire de façon écologique et économique : alléger le véhicule, couper le moteur, anticiper.", keyPoints: ["Alléger le véhicule réduit la consommation", "Anticiper les freinages évite les accélérations inutiles"] },
+      { id: "6-13", title: "Suite de l'écoconduite",                      type: "video", videoUrl: "https://www.youtube.com/watch?v=V_uH7Dpw27Y",   duration: "", description: "Privilégier les alternatives à la voiture, adopter une conduite préventive et responsable.", keyPoints: ["Covoiturage, transports en commun : réduire les émissions", "Conduire en douceur = moins de CO₂ et d'usure"] },
+      { id: "6-14", title: "Étiquette énergie des véhicules",             type: "video", videoUrl: "https://www.youtube.com/watch?v=XTVU93cX5DM",   duration: "", description: "L'étiquette énergie des véhicules neufs : consommation, émissions de CO₂ et classification.", keyPoints: ["Étiquette de A à G selon les émissions de CO₂", "Obligatoire pour tout véhicule neuf en vente"] },
     ]
   },
+
+  // ─── THÈME 7 — RÉGLEMENTATION ET VÉHICULE ───────────────────────────────────
   {
     id: 7,
     theme: "Thème 7",
-    title: "Les accidents de la route",
-    description: "Premiers secours, responsabilités, assurance, constat amiable.",
-    thumbnail: "https://images.unsplash.com/photo-1590102584921-2f7d65e8a157?w=400&h=225&fit=crop",
+    title: "Réglementation et véhicule",
+    description: "Documents obligatoires, équipements, permis, sécurité des passagers et mécanique de base.",
+    thumbnail: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=225&fit=crop",
     lessons: [
-      {
-        id: "7-1",
-        title: "Vidéo : Gestes qui sauvent et responsabilités",
-        type: "video",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Remplacer
-        duration: "15:00",
-        description: "Comment réagir sur les lieux d'un accident ? Premiers secours, alerter les secours, responsabilités civiles et pénales.",
-        keyPoints: [
-          "En cas d'accident : protéger, alerter, secourir (PAS).",
-          "Ne jamais déplacer un blessé sauf danger immédiat.",
-          "Le numéro d'urgence européen est le 112.",
-          "Ne pas fuir un accident est une obligation légale.",
-        ]
-      },
-      {
-        id: "7-2",
-        title: "Questions d'entraînement : Les accidents",
-        type: "quiz",
-        duration: "5 questions",
-        questions: [
-          {
-            id: "q1",
-            text: "Vous êtes témoin d'un accident. La première action à effectuer est :",
-            options: ["Appeler les secours immédiatement", "Protéger les lieux pour éviter un suraccident", "Porter secours aux blessés", "Prendre des photos"],
-            correct: 1,
-            explanation: "La règle PAS : Protéger d'abord (baliser, feux de détresse), puis Alerter (appeler le 15, 17, 18 ou 112), puis Secourir. Sans protection, les secouristes eux-mêmes risquent d'être victimes."
-          },
-          {
-            id: "q2",
-            text: "Un blessé est inconscient mais respire. Vous devez :",
-            options: ["Le laisser dans sa position", "Le mettre en position latérale de sécurité (PLS)", "Commencer un massage cardiaque", "Lui donner à boire"],
-            correct: 1,
-            explanation: "Un blessé inconscient qui respire doit être mis en Position Latérale de Sécurité (PLS) pour éviter l'asphyxie en cas de vomissement, sauf suspicion de traumatisme cervical."
-          },
-          {
-            id: "q3",
-            text: "Le numéro européen d'urgence joignable depuis n'importe quel téléphone, même sans crédit, est :",
-            options: ["15 (SAMU)", "17 (Police)", "18 (Pompiers)", "112"],
-            correct: 3,
-            explanation: "Le 112 est le numéro d'urgence européen, accessible depuis n'importe quel téléphone mobile même sans carte SIM ni crédit. Il centralise tous les services d'urgence."
-          },
-          {
-            id: "q4",
-            text: "Fuir après avoir causé un accident est :",
-            options: ["Une infraction mineure", "Un délit de fuite puni d'une peine de prison et d'un retrait de points", "Autorisé si personne n'est blessé", "Seulement punissable si vous êtes identifié"],
-            correct: 1,
-            explanation: "Le délit de fuite est une infraction grave punissable de 3 ans d'emprisonnement, 75 000€ d'amende, et un retrait de 6 points sur le permis, même si vous n'êtes pas responsable de l'accident."
-          },
-          {
-            id: "q5",
-            text: "En cas d'accident sans blessé, vous devez :",
-            options: ["Repartir si les dégâts sont minimes", "Remplir un constat amiable avec l'autre conducteur", "Appeler la police systématiquement", "Payer le dédommagement en espèces sur place"],
-            correct: 1,
-            explanation: "En cas d'accident matériel sans blessé, les conducteurs impliqués doivent remplir un constat amiable. Ce document est essentiel pour le traitement par les assurances."
-          }
-        ]
-      }
+      { id: "7-1",  title: "Documents obligatoires pour conduire",        type: "video", videoUrl: "https://www.youtube.com/watch?v=KIRQn6meSnQ",   duration: "", description: "Les documents obligatoires à avoir avec soi en Europe : permis, carte grise, assurance.", keyPoints: ["Permis de conduire", "Carte grise (certificat d'immatriculation)", "Attestation d'assurance"] },
+      { id: "7-2",  title: "Équipements obligatoires du véhicule",        type: "video", videoUrl: "https://www.youtube.com/watch?v=xE4yJfWVOZ0",   duration: "", description: "Triangle de présignalisation et gilet jaune réfléchissant : utilisation en cas de panne ou d'accident.", keyPoints: ["Gilet jaune = à mettre AVANT de sortir du véhicule", "Triangle = placer à 30 m minimum du véhicule en panne"] },
+      { id: "7-3",  title: "Le constat amiable",                          type: "video", videoUrl: "https://www.youtube.com/watch?v=Eg4xySA6XyI",   duration: "", description: "Comment remplir correctement un constat amiable après un accrochage ou un accident.", keyPoints: ["Remplir le constat calmement et complètement", "Ne pas signer si le contenu est contesté"] },
+      { id: "7-4",  title: "Les assurances auto",                         type: "video", videoUrl: "https://www.youtube.com/watch?v=KZJA30PUoLY",   duration: "", description: "Formules d'assurance : tout risque vs responsabilité civile (tiers). Obligation légale.", keyPoints: ["Responsabilité civile = minimum légal obligatoire", "Tout risque = couvre aussi les dommages à votre propre véhicule"] },
+      { id: "7-5",  title: "Chargement et dépassement du véhicule",       type: "video", videoUrl: "https://www.youtube.com/watch?v=neTdn77uqNE",   duration: "", description: "Règles de chargement : dépassement à l'avant/arrière limité à 3 m, signalisation lumineuse obligatoire.", keyPoints: ["Dépassement max 3 m à l'avant et à l'arrière", "Signalisation lumineuse rouge obligatoire si dépassement > 1 m"] },
+      { id: "7-6",  title: "Permis B et capacité de transport",           type: "video", videoUrl: "https://www.youtube.com/watch?v=bEvFIArQVhY",   duration: "", description: "Le permis B autorise le transport de 9 personnes maximum (conducteur inclus).", keyPoints: ["Permis B = 9 personnes max conducteur inclus", "Nombre de passagers = nombre de ceintures de sécurité disponibles"] },
+      { id: "7-7",  title: "Permis à points et conduite accompagnée",     type: "video", videoUrl: "https://www.youtube.com/watch?v=Z_CeSUpAn18",   duration: "", description: "La conduite accompagnée (AAC, dès 15 ans), ses avantages et la récupération de points.", keyPoints: ["AAC dès 15 ans avec accompagnateur agréé", "Permis obtenu plus tôt, capital initial de 6 points"] },
+      { id: "7-8",  title: "PAS — Protéger, Alerter, Secourir",           type: "video", videoUrl: "https://www.youtube.com/watch?v=3nS5IuAVYnY",   duration: "", description: "Les trois étapes à respecter en cas d'accident : Protéger la zone, Alerter les secours, Secourir les victimes.", keyPoints: ["Protéger = baliser la zone (triangle + gilet)", "Alerter = 15 (SAMU), 17 (Police), 18 (Pompiers) ou 112", "Secourir = premiers gestes sans déplacer les blessés"] },
+      { id: "7-9",  title: "Prendre et quitter son véhicule",             type: "video", videoUrl: "https://www.youtube.com/watch?v=pTzdcE5x8DY",   duration: "", description: "Les précautions à prendre en montant et en descendant du véhicule pour sa sécurité et celle des autres.", keyPoints: ["Vérifier l'angle mort avant d'ouvrir la portière", "Se garer du côté du trottoir si possible"] },
+      { id: "7-10", title: "Installation au poste de conduite",           type: "video", videoUrl: "https://www.youtube.com/watch?v=k2zBNj7K42o",   duration: "", description: "Ordre à respecter : régler le siège, ajuster les rétroviseurs, attacher la ceinture.", keyPoints: ["1. Régler le siège", "2. Ajuster les rétroviseurs", "3. Attacher la ceinture de sécurité"] },
+      { id: "7-11", title: "La ceinture de sécurité",                     type: "video", videoUrl: "https://www.youtube.com/watch?v=59ACT_fJrNc",   duration: "", description: "Obligation de port de la ceinture, sanctions, règle 1 ceinture = 1 personne = 1 place.", keyPoints: ["Ceinture obligatoire pour tous les passagers", "Amende 135 € et retrait de 3 points", "1 ceinture = 1 personne"] },
+      { id: "7-12", title: "Transport d'enfants et de bébés",             type: "video", videoUrl: "https://www.youtube.com/watch?v=avgldLb5bbM",   duration: "", description: "Siège enfant orienté vers l'arrière, désactivation de l'airbag passager obligatoire.", keyPoints: ["Siège dos à la route = désactiver l'airbag côté passager", "Siège adapté à l'âge et au poids de l'enfant obligatoire"] },
+      { id: "7-13", title: "Mécanique et équipement — introduction",      type: "video", videoUrl: "https://www.youtube.com/watch?v=nRWIC2CWZKM",   duration: "", description: "Introduction générale à la mécanique du véhicule : les éléments essentiels à connaître.", keyPoints: ["Connaître les vérifications de base du véhicule", "Entretien régulier = sécurité et économies"] },
+      { id: "7-14", title: "Vérification des liquides",                   type: "video", videoUrl: "https://www.youtube.com/watch?v=XJDYtlpmK48",   duration: "", description: "Comment vérifier les liquides sous le capot : moteur froid, terrain plat, liquide de refroidissement et huile moteur.", keyPoints: ["Toujours vérifier moteur froid et véhicule à plat", "Huile moteur entre les jauges min et max"] },
+      { id: "7-15", title: "Batterie, liquide de frein et témoins",       type: "video", videoUrl: "https://www.youtube.com/watch?v=IpEgGn6RLiI",   duration: "", description: "La batterie, le liquide de frein et les témoins lumineux du tableau de bord.", keyPoints: ["Témoin rouge = arrêt immédiat nécessaire", "Liquide de frein entre les niveaux min et max"] },
+      { id: "7-16", title: "Les pneumatiques",                            type: "video", videoUrl: "https://www.youtube.com/watch?v=BW56-EVubeI",   duration: "", description: "Pression des pneus (1 fois/mois à froid) et profondeur minimum des rainures (1,6 mm).", keyPoints: ["Vérifier la pression à froid, 1 fois par mois", "Profondeur des rainures minimum légal : 1,6 mm"] },
     ]
-  }
+  },
+
+  // ─── THÈME 8 — ENTRAÎNEMENT — SÉRIES DE QUESTIONS ───────────────────────────
+  {
+    id: 8,
+    theme: "Thème 8",
+    title: "Entraînement — Séries de questions",
+    description: "Séries de questions type examen pour tester vos connaissances et identifier les pièges.",
+    thumbnail: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=225&fit=crop",
+    lessons: [
+      { id: "8-1", title: "Série — Législation et priorités",         type: "video", videoUrl: "https://www.youtube.com/watch?v=Kg1iLDulPX8",   duration: "", description: "Série de questions d'entraînement sur la législation et les règles de priorité.", keyPoints: ["Réviser les priorités à droite, giratoires, feux", "Identifier les pièges classiques du code"] },
+      { id: "8-2", title: "Série — Emplacements véhicules",           type: "video", videoUrl: "https://www.youtube.com/watch?v=zF74tHq6HMM",   duration: "", description: "Série sur les emplacements réservés (autopartage, véhicules électriques) et leur réglementation.", keyPoints: ["Emplacements autopartage et électriques : règles spécifiques"] },
+      { id: "8-3", title: "Série — Signalisation",                    type: "video", videoUrl: "https://www.youtube.com/watch?v=xniyWXZg9E4",   duration: "", description: "Série sur les panneaux et marquages complémentaires souvent piégeux à l'examen.", keyPoints: ["Panneaux moins courants mais présents à l'examen"] },
+      { id: "8-4", title: "Série — Sécurité autoroutière",            type: "video", videoUrl: "https://www.youtube.com/watch?v=QMhJ5DplBfM",   duration: "", description: "Questions sur la sécurité autoroutière : accidents, personnel d'intervention, feux de détresse.", keyPoints: ["En cas d'accident sur autoroute : feux de détresse, gilet, triangle", "Ne jamais marcher sur la bande d'arrêt d'urgence"] },
+      { id: "8-5", title: "Série de 20 questions — analyse complète", type: "video", videoUrl: "https://www.youtube.com/watch?v=raeEKYbgVu4",   duration: "", description: "Série complète de 20 questions avec analyse des situations et identification des pièges.", keyPoints: ["Lire attentivement chaque question", "Analyser tous les éléments de la scène"] },
+      { id: "8-6", title: "Série — Zones de danger",                  type: "video", videoUrl: "https://www.youtube.com/watch?v=GKeBRr9dBUY",   duration: "", description: "Analyse de zones de danger avec scooters, camions et situations complexes.", keyPoints: ["Anticiper les comportements des autres usagers", "Identifier les angles morts des poids lourds"] },
+      { id: "8-7", title: "Série — Analyse de situations",            type: "video", videoUrl: "https://www.youtube.com/watch?v=YJG98QGs374",   duration: "", description: "Dernière série de questions axée sur l'analyse de situations réelles type examen.", keyPoints: ["S'entraîner dans les conditions réelles de l'examen", "40 questions en 35 minutes"] },
+    ]
+  },
 ]
-
-// Obtenir toutes les leçons à plat
-export function getAllLessons() {
-  return COURSES.flatMap(course =>
-    course.lessons.map(lesson => ({ ...lesson, courseId: course.id, courseTitle: course.title }))
-  )
-}
-
-// Obtenir une leçon par courseId et lessonId
-export function getLesson(courseId, lessonId) {
-  const course = COURSES.find(c => c.id === Number(courseId))
-  if (!course) return null
-  const lesson = course.lessons.find(l => l.id === lessonId)
-  if (!lesson) return null
-  return { lesson, course }
-}
-
-// Obtenir la leçon suivante
-export function getNextLesson(courseId, lessonId) {
-  const allLessons = getAllLessons()
-  const currentIndex = allLessons.findIndex(l => l.courseId === Number(courseId) && l.id === lessonId)
-  return allLessons[currentIndex + 1] || null
-}
