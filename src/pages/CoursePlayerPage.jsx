@@ -241,14 +241,14 @@ const CoursePlayerPage = () => {
                   }
                 }}
               />
-              {/* Overlay : bloque le titre/logo YouTube (zone vidéo, hors barre de contrôles) */}
+              {/* Bloque le titre cliquable (haut du player, visible en pause) */}
               <div
-                className="absolute inset-x-0 top-0 bottom-[48px] z-10 cursor-default"
-                onClick={() => setPlaying(p => !p)}
+                className="absolute top-0 inset-x-0 h-14 z-10 cursor-default"
+                onClick={e => e.stopPropagation()}
               />
-              {/* Bloque le bouton "YouTube" dans la barre de contrôles (coin bas droit) */}
+              {/* Bloque le logo "YouTube" (coin bas droit de la barre de contrôles) */}
               <div
-                className="absolute bottom-0 right-0 w-[90px] h-[48px] z-10 cursor-default"
+                className="absolute bottom-0 right-0 w-24 h-10 z-10 cursor-default"
                 onClick={e => e.stopPropagation()}
               />
             </div>
