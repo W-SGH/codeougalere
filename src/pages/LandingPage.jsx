@@ -129,7 +129,7 @@ const LandingPage = () => {
               </Reveal>
               <Reveal animation="fadeInUp" delay={160}>
                 <p className="text-base text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto lg:mx-0">
-                  La meilleure préparation avec des cours en vidéo commentés et des questions d'entraînement par thème pour vous assurer de réussir du premier coup.
+                  112 leçons vidéo commentées, organisées en 8 thèmes officiels du code — signalisation, priorités, vitesse, dépassement, alcool et plus — avec un quiz d'entraînement à la fin de chaque thème.
                 </p>
               </Reveal>
               <Reveal animation="fadeInUp" delay={220}>
@@ -164,10 +164,10 @@ const LandingPage = () => {
                     <span className="text-xs font-bold text-black/70">/accès à vie</span>
                   </div>
                   <ul className="space-y-3 mb-8 flex-1 text-sm font-medium">
-                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> 50+ heures de cours vidéo HD</li>
-                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Explications complètes</li>
-                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Cas pratiques & pièges</li>
-                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Support pédagogique</li>
+                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> 112 leçons vidéo · 8 thèmes officiels</li>
+                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Quiz d'entraînement après chaque thème</li>
+                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Signalisation, priorités, alcool, dépassement…</li>
+                    <li className="flex items-center gap-3"><span className="material-symbols-outlined text-base">check</span> Accès à vie · mobile, tablette, ordi</li>
                     <li className="flex items-center gap-3">
                       <span className="material-symbols-outlined text-base">check</span>
                       <span>Accès inclus</span>
@@ -189,6 +189,60 @@ const LandingPage = () => {
           </div>
         </div>
       </header>
+
+      {/* Programme */}
+      <section className="py-16 bg-white dark:bg-background-dark">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal animation="fadeInUp">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold mb-4 border border-primary/20">
+                <span className="material-symbols-outlined text-xs">menu_book</span>
+                Programme complet
+              </div>
+              <h2 className="text-2xl md:text-3xl font-black mb-2">8 thèmes · 112 leçons · 7 quiz</h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Tout le programme officiel du code de la route, structuré et commenté vidéo par vidéo.</p>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { num: 0, label: "Introduction",                      icon: "play_circle",  lessons: 1,  quiz: false, topics: ["Présentation de la méthode", "Déroulement de la formation"] },
+              { num: 1, label: "La signalisation",                  icon: "signpost",     lessons: 16, quiz: true,  topics: ["Panneaux danger, interdiction, obligation", "Marquages au sol, ligne continue et mixte", "Cartouches, balises, panonceaux"] },
+              { num: 2, label: "Intersections & priorités",         icon: "fork_right",   lessons: 8,  quiz: true,  topics: ["Priorité à droite & giratoires", "Feux tricolores : tous les cas", "Feu en panne, feu de travaux"] },
+              { num: 3, label: "Vitesse & stationnement",           icon: "speed",        lessons: 15, quiz: true,  topics: ["Limitations selon le type de route", "Zone 30, zone de rencontre", "Stationnement alterné semi-mensuel"] },
+              { num: 4, label: "Croisement & dépassement",          icon: "swap_horiz",   lessons: 21, quiz: true,  topics: ["Règles de croisement en côte", "Interdictions et conditions de dépassement", "Distance latérale cyclistes (1 m / 1,5 m)"] },
+              { num: 5, label: "Le conducteur",                     icon: "person",       lessons: 15, quiz: true,  topics: ["Taux d'alcool légaux & sanctions", "Distance d'arrêt & temps de réaction", "Médicaments, vision, fatigue"] },
+              { num: 6, label: "Conditions de conduite",            icon: "cloud",        lessons: 14, quiz: true,  topics: ["Feux selon la météo (brouillard, neige)", "Passages à niveau & tunnels", "Véhicules prioritaires & écoconduite"] },
+              { num: 7, label: "Réglementation & véhicule",         icon: "description",  lessons: 16, quiz: true,  topics: ["Documents obligatoires & assurance", "Ceinture, siège enfant, PAS", "Pneus, batterie, liquides"] },
+              { num: 8, label: "Entraînement — séries de questions",icon: "quiz",         lessons: 7,  quiz: false, topics: ["Séries type examen commentées", "Analyse de situations complexes", "Repérage des pièges classiques"] },
+            ].map((t, i) => (
+              <Reveal key={i} animation="fadeInUp" delay={i * 40}>
+                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-100 dark:border-slate-700 h-full">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-primary text-lg">{t.icon}</span>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">
+                        {t.num === 0 ? 'Intro' : `Thème ${t.num}`}
+                      </span>
+                    </div>
+                    {t.quiz && <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded-full">+ quiz</span>}
+                  </div>
+                  <h3 className="font-black text-sm mb-1">{t.label}</h3>
+                  <p className="text-xs text-slate-400 mb-3">{t.lessons} leçon{t.lessons > 1 ? 's' : ''}</p>
+                  <ul className="space-y-1.5">
+                    {t.topics.map((topic, j) => (
+                      <li key={j} className="text-xs text-slate-600 dark:text-slate-400 flex items-start gap-1.5">
+                        <span className="text-primary leading-4 shrink-0">›</span>
+                        {topic}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Avis Google */}
       <section className="py-12 bg-slate-50 dark:bg-slate-900/50">
@@ -326,7 +380,7 @@ const LandingPage = () => {
             {[
               {
                 q: "Est-ce que la formation est vraiment efficace ?",
-                a: "Oui. Nos élèves obtiennent leur code du premier coup grâce à une méthode en vidéo commentée thème par thème et des questions d'entraînement après chaque leçon."
+                a: "Oui. La formation couvre l'intégralité du programme officiel : 8 thèmes, 112 leçons vidéo commentées (signalisation, priorités, vitesse, dépassement, alcool, conditions météo, réglementation…) et un quiz d'entraînement à la fin de chaque thème pour valider vos acquis avant l'examen."
               },
               {
                 q: "L'accès est-il vraiment à vie ?",
