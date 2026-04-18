@@ -9,6 +9,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [showVideo, setShowVideo] = useState(false);
   const testimonialsRef = useRef({ dragging: false, dragStartX: 0 });
 
   const testimonialImgs = [
@@ -125,7 +126,10 @@ const LandingPage = () => {
                 </div>
               </Reveal>
               <Reveal animation="fadeInUp" delay={80}>
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-4">Code <span className="text-slate-900 dark:text-white border-b-4 border-primary">Express</span></h1>
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-4">
+                  Réussis ton code{' '}
+                  <span className="bg-yellow-300 text-slate-900 px-2 rounded-md">rapidement</span>
+                </h1>
               </Reveal>
               <Reveal animation="fadeInUp" delay={160}>
                 <p className="text-base text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto lg:mx-0">
@@ -133,12 +137,15 @@ const LandingPage = () => {
                 </p>
               </Reveal>
               <Reveal animation="fadeInUp" delay={220}>
-                <video
-                  src="/presentation.mp4"
-                  controls
-                  playsInline
-                  className="w-full max-w-sm mx-auto rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700"
-                />
+                <button
+                  onClick={() => setShowVideo(true)}
+                  className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm shadow-lg hover:scale-105 transition-all"
+                >
+                  <span className="w-9 h-9 bg-primary rounded-full flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-black text-lg">play_arrow</span>
+                  </span>
+                  Voir la présentation — 2 min
+                </button>
               </Reveal>
             </div>
 
@@ -189,6 +196,65 @@ const LandingPage = () => {
           </div>
         </div>
       </header>
+
+      {/* Comment ça marche */}
+      <section className="py-16 bg-slate-50 dark:bg-slate-900/50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal animation="fadeInUp">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-bold mb-4">
+                <span className="material-symbols-outlined text-xs">route</span>
+                Comment ça marche
+              </div>
+              <h2 className="text-2xl md:text-3xl font-black">4 étapes pour décrocher ton code</h2>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                num: '1',
+                icon: 'play_circle',
+                color: 'bg-blue-500',
+                title: 'Regarde les vidéos',
+                desc: 'Suis les cours thème par thème, à ton rythme, depuis n\'importe quel appareil.',
+              },
+              {
+                num: '2',
+                icon: 'edit_note',
+                color: 'bg-yellow-400',
+                title: 'Entraîne-toi',
+                desc: 'Réponds aux quiz après chaque thème pour ancrer tes connaissances.',
+              },
+              {
+                num: '3',
+                icon: 'trending_up',
+                color: 'bg-green-500',
+                title: 'Progresse',
+                desc: 'Suis ton avancement, repère tes points faibles et reviens sur les leçons clés.',
+              },
+              {
+                num: '4',
+                icon: 'emoji_events',
+                color: 'bg-primary',
+                title: 'Passe ton code',
+                desc: 'Présente-toi à l\'examen avec confiance — la méthode a fait ses preuves.',
+              },
+            ].map((step, i) => (
+              <Reveal key={i} animation="fadeInUp" delay={i * 80}>
+                <div className="relative bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-100 dark:border-slate-700 shadow-sm h-full">
+                  <div className={`w-11 h-11 ${step.color} rounded-xl flex items-center justify-center mb-4`}>
+                    <span className="material-symbols-outlined text-white text-xl">{step.icon}</span>
+                  </div>
+                  <div className="absolute top-4 right-5 text-5xl font-black text-slate-100 dark:text-slate-700 select-none leading-none">{step.num}</div>
+                  <h3 className="font-black text-base mb-2">{step.title}</h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{step.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Programme */}
       <section className="py-16 bg-white dark:bg-background-dark">
@@ -463,6 +529,33 @@ const LandingPage = () => {
           </div>
         </div>
       </footer>
+
+      {/* Modale vidéo de présentation */}
+      {showVideo && (
+        <div
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowVideo(false)}
+        >
+          <div
+            className="relative w-full max-w-2xl bg-black rounded-2xl overflow-hidden shadow-2xl"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+              onClick={() => setShowVideo(false)}
+            >
+              <span className="material-symbols-outlined text-lg">close</span>
+            </button>
+            <video
+              src="/presentation.mp4"
+              controls
+              autoPlay
+              playsInline
+              className="w-full"
+            />
+          </div>
+        </div>
+      )}
 
       {lightboxIndex !== null && (
         <div
