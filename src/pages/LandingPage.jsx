@@ -198,91 +198,36 @@ const LandingPage = () => {
       </header>
 
       {/* Comment ça marche */}
-      <section className="py-20 bg-slate-900 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-white dark:bg-background-dark border-y border-slate-100 dark:border-slate-800">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal animation="fadeInUp">
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/60 text-[10px] font-bold mb-4 border border-white/10">
-                <span className="material-symbols-outlined text-xs">route</span>
-                Comment ça marche
-              </div>
-              <h2 className="text-2xl md:text-4xl font-black text-white">4 étapes pour décrocher ton code</h2>
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-black mb-2">Comment ça marche ?</h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Simple, efficace, prouvé.</p>
             </div>
           </Reveal>
 
-          {/* Steps */}
-          <div className="relative">
-            {/* Ligne de connexion desktop */}
-            <div className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-blue-500 via-yellow-400 via-green-500 to-primary opacity-30" />
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                {
-                  num: '01',
-                  icon: 'play_circle',
-                  gradient: 'from-blue-500 to-blue-600',
-                  glow: 'shadow-blue-500/30',
-                  title: 'Regarde les vidéos',
-                  desc: 'Suis les cours thème par thème, à ton rythme, depuis n\'importe quel appareil.',
-                },
-                {
-                  num: '02',
-                  icon: 'edit_note',
-                  gradient: 'from-yellow-400 to-orange-400',
-                  glow: 'shadow-yellow-400/30',
-                  title: 'Entraîne-toi',
-                  desc: 'Réponds aux quiz après chaque thème pour ancrer tes connaissances.',
-                },
-                {
-                  num: '03',
-                  icon: 'trending_up',
-                  gradient: 'from-green-500 to-emerald-500',
-                  glow: 'shadow-green-500/30',
-                  title: 'Progresse',
-                  desc: 'Suis ton avancement, repère tes points faibles et reviens sur les leçons clés.',
-                },
-                {
-                  num: '04',
-                  icon: 'emoji_events',
-                  gradient: 'from-primary to-yellow-400',
-                  glow: 'shadow-primary/30',
-                  title: 'Passe ton code',
-                  desc: 'Présente-toi à l\'examen avec confiance — la méthode a fait ses preuves.',
-                },
-              ].map((step, i) => (
-                <Reveal key={i} animation="fadeInUp" delay={i * 100}>
-                  <div className="flex flex-col items-center text-center lg:items-center group">
-                    {/* Numéro + icône */}
-                    <div className="relative mb-6">
-                      {/* Numéro en fond */}
-                      <div className="absolute -top-3 -right-3 text-6xl font-black text-white/5 select-none leading-none">{step.num}</div>
-                      {/* Cercle icône */}
-                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${step.gradient} shadow-xl ${step.glow} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                        <span className="material-symbols-outlined text-white text-3xl">{step.icon}</span>
-                      </div>
-                      {/* Badge numéro */}
-                      <div className="absolute -bottom-2 -right-2 w-7 h-7 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center">
-                        <span className="text-xs font-black text-white">{i + 1}</span>
-                      </div>
-                    </div>
-
-                    <h3 className="font-black text-white text-base mb-2">{step.title}</h3>
-                    <p className="text-sm text-slate-400 leading-relaxed max-w-[200px]">{step.desc}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800">
+            {[
+              { num: '1', icon: 'play_circle',   title: 'Regarde les vidéos',  desc: 'Suis les cours thème par thème, à ton rythme.' },
+              { num: '2', icon: 'edit_note',      title: 'Entraîne-toi',       desc: 'Réponds aux quiz après chaque thème.' },
+              { num: '3', icon: 'trending_up',    title: 'Progresse',          desc: 'Suis ton avancement et identifie tes points faibles.' },
+              { num: '4', icon: 'emoji_events',   title: 'Passe ton code',     desc: 'Présente-toi à l\'examen en toute confiance.' },
+            ].map((step, i) => (
+              <Reveal key={i} animation="fadeInUp" delay={i * 80}>
+                <div className="bg-white dark:bg-slate-900 p-7 flex flex-col gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-4xl font-black text-primary leading-none">{step.num}</span>
+                    <span className="material-symbols-outlined text-slate-400 dark:text-slate-500 text-2xl">{step.icon}</span>
                   </div>
-                </Reveal>
-              ))}
-            </div>
+                  <div>
+                    <h3 className="font-black text-sm mb-1">{step.title}</h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{step.desc}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
           </div>
-
-          {/* CTA bas */}
-          <Reveal animation="fadeInUp" delay={400}>
-            <div className="text-center mt-14">
-              <Link to="/tarifs" className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-black font-black rounded-2xl shadow-lg shadow-primary/20 hover:scale-105 transition-all text-sm">
-                Commencer maintenant
-                <span className="material-symbols-outlined text-base">arrow_forward</span>
-              </Link>
-            </div>
-          </Reveal>
         </div>
       </section>
 
