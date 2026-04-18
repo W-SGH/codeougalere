@@ -207,7 +207,7 @@ const LandingPage = () => {
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-100 dark:bg-slate-700 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700">
             {[
               { num: '1', icon: 'play_circle',   title: 'Regarde les vidéos',  desc: 'Suis les cours thème par thème, à ton rythme.' },
               { num: '2', icon: 'edit_note',      title: 'Entraîne-toi',       desc: 'Réponds aux quiz après chaque thème.' },
@@ -215,7 +215,7 @@ const LandingPage = () => {
               { num: '4', icon: 'emoji_events',   title: 'Passe ton code',     desc: 'Présente-toi à l\'examen en toute confiance.' },
             ].map((step, i) => (
               <Reveal key={i} animation="fadeInUp" delay={i * 80}>
-                <div className="bg-white dark:bg-slate-900 p-7 flex flex-col gap-4">
+                <div className="bg-white dark:bg-slate-800 p-7 flex flex-col gap-4">
                   <div className="flex items-center gap-3">
                     <span className="text-4xl font-black text-primary leading-none">{step.num}</span>
                     <span className="material-symbols-outlined text-slate-400 dark:text-slate-500 text-2xl">{step.icon}</span>
